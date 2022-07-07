@@ -1,4 +1,4 @@
-// Remember to add comments to your code
+// Remember to addPCB comments to your code
 
 #include <iostream>
 #include <cstdlib>

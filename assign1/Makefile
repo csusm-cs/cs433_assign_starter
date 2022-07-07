@@ -3,17 +3,20 @@
 # 
 ###################################
 CC = g++			# use g++ for compiling c++ code or gcc for c code
-CFLAGS = -g -Wall -std=c++11		# compilation flags: -g for debugging. Change to -O or -O2 for optimized code.
+CFLAGS = -g -Wall -std=c++11		# compilation flags: -g for debugging. Change to -O3 for optimized code.
 LIB = -lm			# linked libraries	
 LDFLAGS = -L.			# link flags
-PROG = prog1			# target executable (output)
-SRCS = main.cpp ReadyQueue.cpp        # .c or .cpp source files.
+PROG = test1 test2			# target executables (output)
+SRCS = test1.cpp test2.cpp pcbtable.cpp readyqueue.cpp        # .c or .cpp source files.
 OBJ = $(SRCS:.cpp=.o) 	# object files for the target. Add more to this and next lines if there are more than one source files.
 
-all : $(PROG) depend
+all : $(PROG)
 
-$(PROG): $(OBJ) 
-	$(CC) -o $(PROG) $(OBJ) $(LDFLAGS) $(LIB)
+test1:  test1.o pcbtable.o readyqueue.o
+	$(CC) -o test1 test1.o pcbtable.o readyqueue.o $(LDFLAGS) $(LIB)
+
+test2:  test2.o pcbtable.o readyqueue.o
+	$(CC) -o test2 test2.o pcbtable.o readyqueue.o $(LDFLAGS) $(LIB)
 
 .cpp.o:
 	$(CC) -c $(CFLAGS) $< -o $@
