@@ -9,6 +9,7 @@ LDFLAGS = -L.			# link flags
 PROG = prog5			# target executable (output)
 SRCS = main.cpp pagetable.cpp replacement.cpp fifo_replacement.cpp  random_replacement.cpp lru_replacement.cpp     # .c or .cpp source files.
 OBJ = $(SRCS:.cpp=.o) 	# object files for the target. 
+DEPS = $(SRCS:.cpp=.d)
 
 all : $(PROG)
 
@@ -18,16 +19,8 @@ $(PROG): $(OBJ)
 .cpp.o:
 	$(CC) -c $(CFLAGS) $< -o $@
 
-depend: .depend
-
-.depend: $(SRCS)
-	rm -f ./.depend
-	$(CC) $(CFLAGS) -MM $^ > ./.depend;
-
-include .depend
-
 # cleanup
 clean:
-	/bin/rm -f *.o $(PROG) .depend
+	rm -f *.o $(PROG) 
 
 # DO NOT DELETE

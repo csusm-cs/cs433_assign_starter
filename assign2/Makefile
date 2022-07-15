@@ -9,8 +9,9 @@ LDFLAGS = -L.			# link flags
 PROG = prog2			# target executable (output)
 SRCS = prog.cpp         # .c or .cpp source files.
 OBJ = $(SRCS:.cpp=.o) 	# object files for the target. Add more to this and next lines if there are more than one source files.
+DEPS = $(SRCS:.cpp=.d)
 
-all : $(PROG) depend
+all : $(PROG) 
 
 $(PROG): $(OBJ) 
 	$(CC) -o $(PROG) $(OBJ) $(LDFLAGS) $(LIB)
@@ -18,16 +19,8 @@ $(PROG): $(OBJ)
 .cpp.o:
 	$(CC) -c $(CFLAGS) $< -o $@
 	
-depend: .depend
-
-.depend: $(SRCS)
-	rm -f ./.depend
-	$(CC) $(CFLAGS) -MM $^ > ./.depend;
-
-include .depend
-
 # cleanup
 clean:
-	/bin/rm -f *.o $(PROG) .depend
+	rm -f *.o $(PROG) 
 
 # DO NOT DELETE

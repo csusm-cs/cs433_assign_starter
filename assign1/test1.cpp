@@ -49,10 +49,10 @@ int main(int argc, char* argv[]) {
     std::cout << "remove the process with the highest priority from q1 and display q1." << std::endl;
     p = q1.removePCB();
     q1.displayAll();
-    std::cout << "Insert processes 43, 17, 32, 12 and 19  to q1and display q1." << std::endl;
-    q1.addPCB(table.getPCB(43));
+    std::cout << "Insert processes 47, 17, 39, 12 and 19  to q1and display q1." << std::endl;
+    q1.addPCB(table.getPCB(47));
     q1.addPCB(table.getPCB(17));
-    q1.addPCB(table.getPCB(32));
+    q1.addPCB(table.getPCB(39));
     q1.addPCB(table.getPCB(12));
     q1.addPCB(table.getPCB(19));
     q1.displayAll();

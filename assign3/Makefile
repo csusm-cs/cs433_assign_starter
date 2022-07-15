@@ -10,8 +10,9 @@ PROG = sjf fcfs rr priority		# target executables (output)
 SRCS = scheduler_fcfs.cpp scheduler_rr.cpp scheduler_sjf.cpp scheduler_priority.cpp scheduler_priority_rr.cpp \
 	driver_fcfs.cpp driver_rr.cpp driver_sjf.cpp driver_priority.cpp driver_priority_rr.cpp # .c or .cpp source files.
 OBJ = $(SRCS:.cpp=.o) 	# object files for the target. Add more to this and next lines if there are more than one source files.
+DEPS = $(SRCS:.cpp=.d)
 
-all : $(PROG) depend
+all : $(PROG) 
 
 fcfs: scheduler_fcfs.o driver_fcfs.o
 	$(CC) -o fcfs scheduler_fcfs.o driver_fcfs.o $(LDFLAGS) $(LIB)
@@ -31,16 +32,8 @@ priority_rr: scheduler_priority_rr.o driver_priority_rr.o
 .cpp.o:
 	$(CC) -c $(CFLAGS) $< -o $@
 	
-depend: .depend
-
-.depend: $(SRCS)
-	rm -f ./.depend
-	$(CC) $(CFLAGS) -MM $^ > ./.depend;
-
-include .depend
-
 # cleanup
 clean:
-	/bin/rm -f *.o $(PROG) .depend
+	rm -f *.o $(PROG) 
 
 # DO NOT DELETE
