@@ -5,5 +5,10 @@ After completing "TODO"s, remove them from your code. Do not change the interfac
 in the test programs. 
 
 There are two test programs to test the correctness and performance of your implementation. A makefile
-is provided for building the executables `test1` and `test2`. Then run each test and confirm the outputs match with the "test1_out.txt" and "test2_out.txt" 
-files. 
+is provided for building the executables `test1` and `test2`. To build the executables `test1` and `test2`, type `make` at the command line. Then run each test and confirm the outputs match with the "test1_out.txt" and "test2_out.txt" files. 
+```
+$ make
+$ ./test1
+$ ./test2
+```
+Your code should work correctly for all tests and be robust for potential error conditions, and free of dangerous code constructs and memory leaks. We will use tools like [cppcheck](https://cppcheck.sourceforge.io/) and [valgrind](https://valgrind.org/) to to grade your code and catch memory leaks.
