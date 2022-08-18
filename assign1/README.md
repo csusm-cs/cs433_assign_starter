@@ -11,4 +11,4 @@ $ make
 $ ./test1
 $ ./test2
 ```
-Your code should work correctly for all tests and be robust for potential error conditions, and free of dangerous code constructs and memory leaks. We will use tools like [cppcheck](https://cppcheck.sourceforge.io/) and [valgrind](https://valgrind.org/) to to grade your code and catch memory leaks.
+Your code should follow the design guileline, work correctly for all tests and be robust for potential error conditions, and free of dangerous code constructs and memory leaks. 
