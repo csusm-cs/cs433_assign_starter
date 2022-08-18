@@ -21,12 +21,15 @@ int main(int argc, char *argv[]) {
     std::cout << "************Performing Test 2********************" << std::endl;
     std::cout << "=================================" << std::endl;
 
+    // random seed. 
     srand(1);
     int size = 200;
 
-    ReadyQueue q2;
-    PCBTable table(size);
+    ReadyQueue q2;    // Ready Queue
+    PCBTable table(size);  // PCBTable of given size
 
+    // Create initial 200 PCBs with random priorities, add them to the PCB table
+    // Randomly choose to add half of the processes into the ready queue
     for (int i = 0; i < size; i++) {
         int priority = rand() % 50 + 1;
         PCB *pcbPtr = new PCB(i + 1, priority);
@@ -49,8 +52,8 @@ int main(int argc, char *argv[]) {
             idx = rand() % size;
             if (table.getPCB(idx)->getState() !=
                 ProcState::READY) { // if the PCB is not in READY state, add it into ReadyQueue
-                int priority = rand() % 50 + 1;
-                table.getPCB(idx)->setPriority(priority);
+                int priority = rand() % 50 + 1;  
+                table.getPCB(idx)->setPriority(priority);  // change its priority to a random value
                 q2.addPCB(table.getPCB(idx));
             }
         }

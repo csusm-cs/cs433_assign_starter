@@ -1,0 +1,130 @@
+CS 433 Programming assignment 1
+Course: CS433 (Operating Systems)
+Description : Program to implement a priority ready queue of processes
+************Performing Test 1********************
+=================================
+Add process 15, 6, 23, 39 and 8 to q1. Display the content of q1
+Display Processes in ReadyQueue:
+	ID: 39, Priority: 39, State: READY
+	ID: 23, Priority: 23, State: READY
+	ID: 15, Priority: 15, State: READY
+	ID: 6, Priority: 6, State: READY
+	ID: 8, Priority: 8, State: READY
+remove the process with the highest priority from q1 and display q1.
+Display Processes in ReadyQueue:
+	ID: 23, Priority: 23, State: READY
+	ID: 8, Priority: 8, State: READY
+	ID: 15, Priority: 15, State: READY
+	ID: 6, Priority: 6, State: READY
+add processes 47, 1, 37 and 5 into q1 and display q1
+Display Processes in ReadyQueue:
+	ID: 47, Priority: 47, State: READY
+	ID: 23, Priority: 23, State: READY
+	ID: 37, Priority: 37, State: READY
+	ID: 6, Priority: 6, State: READY
+	ID: 8, Priority: 8, State: READY
+	ID: 1, Priority: 1, State: READY
+	ID: 15, Priority: 15, State: READY
+	ID: 5, Priority: 5, State: READY
+remove the process with the highest priority from q1 and display q1.
+Display Processes in ReadyQueue:
+	ID: 37, Priority: 37, State: READY
+	ID: 23, Priority: 23, State: READY
+	ID: 15, Priority: 15, State: READY
+	ID: 6, Priority: 6, State: READY
+	ID: 8, Priority: 8, State: READY
+	ID: 1, Priority: 1, State: READY
+	ID: 5, Priority: 5, State: READY
+Insert processes 47, 17, 39, 12 and 19  to q1and display q1.
+Display Processes in ReadyQueue:
+	ID: 47, Priority: 47, State: READY
+	ID: 39, Priority: 39, State: READY
+	ID: 19, Priority: 19, State: READY
+	ID: 23, Priority: 23, State: READY
+	ID: 37, Priority: 37, State: READY
+	ID: 15, Priority: 15, State: READY
+	ID: 5, Priority: 5, State: READY
+	ID: 6, Priority: 6, State: READY
+	ID: 17, Priority: 17, State: READY
+	ID: 8, Priority: 8, State: READY
+	ID: 12, Priority: 12, State: READY
+	ID: 1, Priority: 1, State: READY
+One by one remove the process with the highest priority from the queue q1
+Display Processes in ReadyQueue:
+	ID: 39, Priority: 39, State: READY
+	ID: 37, Priority: 37, State: READY
+	ID: 19, Priority: 19, State: READY
+	ID: 23, Priority: 23, State: READY
+	ID: 12, Priority: 12, State: READY
+	ID: 15, Priority: 15, State: READY
+	ID: 5, Priority: 5, State: READY
+	ID: 6, Priority: 6, State: READY
+	ID: 17, Priority: 17, State: READY
+	ID: 8, Priority: 8, State: READY
+	ID: 1, Priority: 1, State: READY
+Display Processes in ReadyQueue:
+	ID: 37, Priority: 37, State: READY
+	ID: 23, Priority: 23, State: READY
+	ID: 19, Priority: 19, State: READY
+	ID: 17, Priority: 17, State: READY
+	ID: 12, Priority: 12, State: READY
+	ID: 15, Priority: 15, State: READY
+	ID: 5, Priority: 5, State: READY
+	ID: 6, Priority: 6, State: READY
+	ID: 1, Priority: 1, State: READY
+	ID: 8, Priority: 8, State: READY
+Display Processes in ReadyQueue:
+	ID: 23, Priority: 23, State: READY
+	ID: 17, Priority: 17, State: READY
+	ID: 19, Priority: 19, State: READY
+	ID: 8, Priority: 8, State: READY
+	ID: 12, Priority: 12, State: READY
+	ID: 15, Priority: 15, State: READY
+	ID: 5, Priority: 5, State: READY
+	ID: 6, Priority: 6, State: READY
+	ID: 1, Priority: 1, State: READY
+Display Processes in ReadyQueue:
+	ID: 19, Priority: 19, State: READY
+	ID: 17, Priority: 17, State: READY
+	ID: 15, Priority: 15, State: READY
+	ID: 8, Priority: 8, State: READY
+	ID: 12, Priority: 12, State: READY
+	ID: 1, Priority: 1, State: READY
+	ID: 5, Priority: 5, State: READY
+	ID: 6, Priority: 6, State: READY
+Display Processes in ReadyQueue:
+	ID: 17, Priority: 17, State: READY
+	ID: 12, Priority: 12, State: READY
+	ID: 15, Priority: 15, State: READY
+	ID: 8, Priority: 8, State: READY
+	ID: 6, Priority: 6, State: READY
+	ID: 1, Priority: 1, State: READY
+	ID: 5, Priority: 5, State: READY
+Display Processes in ReadyQueue:
+	ID: 15, Priority: 15, State: READY
+	ID: 12, Priority: 12, State: READY
+	ID: 5, Priority: 5, State: READY
+	ID: 8, Priority: 8, State: READY
+	ID: 6, Priority: 6, State: READY
+	ID: 1, Priority: 1, State: READY
+Display Processes in ReadyQueue:
+	ID: 12, Priority: 12, State: READY
+	ID: 8, Priority: 8, State: READY
+	ID: 5, Priority: 5, State: READY
+	ID: 1, Priority: 1, State: READY
+	ID: 6, Priority: 6, State: READY
+Display Processes in ReadyQueue:
+	ID: 8, Priority: 8, State: READY
+	ID: 6, Priority: 6, State: READY
+	ID: 5, Priority: 5, State: READY
+	ID: 1, Priority: 1, State: READY
+Display Processes in ReadyQueue:
+	ID: 6, Priority: 6, State: READY
+	ID: 1, Priority: 1, State: READY
+	ID: 5, Priority: 5, State: READY
+Display Processes in ReadyQueue:
+	ID: 5, Priority: 5, State: READY
+	ID: 1, Priority: 1, State: READY
+Display Processes in ReadyQueue:
+	ID: 1, Priority: 1, State: READY
+Display Processes in ReadyQueue:
