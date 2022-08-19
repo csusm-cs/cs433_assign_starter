@@ -14,5 +14,7 @@
 
 RandomReplacement::RandomReplacement(int num_pages, int num_frames)
 : Replacement(num_pages, num_frames) {
-
+    // TODO: Complete this constructor
 }
+
+// TODO: Add your implementations for desctructor, load_page, replace_page here

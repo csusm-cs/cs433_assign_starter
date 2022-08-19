@@ -34,17 +34,6 @@ public:
     virtual ~LRUReplacement();
 
     /**
-     * @brief Simulate a single page access.
-     * @details If the page is valid, it calls the touch_page function. 
-     *          If the page is not valid but free frames are available, it calls the load_page function.
-     *          If the page is not valid and there is no free frame, it calls the replace_page function.
-     * @param page_num The logical page number.
-     * @param is_write whether this access a memory write
-     * @return whether it's a page fault: true if it's a page fault
-     */
-    virtual bool access_page(int page_num, bool is_write = false);
-
-    /**
      * @brief Accesss a page alreay in physical memory
      * It may be overridden in a subclass 
      * @param page_num The logical page number.

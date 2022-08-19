@@ -14,5 +14,7 @@
 LRUReplacement::LRUReplacement(int num_pages, int num_frames)
 : Replacement(num_pages, num_frames)
 {
-    // TODO: Add additional implementation code
+    // TODO: Complete this constructor
 }
+
+// TODO: Add your implementations for desctructor, touch_page, load_page, replace_page here

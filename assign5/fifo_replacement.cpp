@@ -16,3 +16,5 @@ FIFOReplacement::FIFOReplacement(int num_pages, int num_frames)
 {
     // TODO: Add additional implementation code
 }
+
+// TODO: Add your implementations for desctructor, load_page, replace_page here

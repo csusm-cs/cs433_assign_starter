@@ -11,4 +11,5 @@
 
 #include "scheduler_priority.h"
 
-// TODO: add implementation of SchedulerPriority member functions here
+// TODO: add implementation of SchedulerFCFS constructor, destrcutor and 
+// member functions init, print_results, and simulate here
