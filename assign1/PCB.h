@@ -82,7 +82,7 @@ public:
      * @param state
      */
     void setState(ProcState state) {
-        // TODO: addPCB your code here
+        // TODO: add your code here
     }
 
     /**
@@ -90,7 +90,7 @@ public:
      * @param priority
      */
     void setPriority(unsigned int priority) {
-        // TODO: addPCB your code here
+        // TODO: add your code here
     }
 
     /**
