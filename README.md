@@ -45,7 +45,7 @@ You must provide sufficient comments in your code so that others can understand 
 You should also write a report for each programming assignment and submit it in PDF format. If applicable, your report should include any results for the assignment, the features implemented or missing from the submission, and describe the design decisions and implementation choices you made for the project and lessons learned from this assignment. You should give references to the code you used from online/book resources and explain your contributions. You may also discuss extra things you have done in the project, future improvements to your program, and any comments about the project that you want to communicate to the instructor. Your reports are usually expected to be 2 to 4 pages and contain sufficient details.
 
 ## Academic Honesty
-Guidelines for what is allowed and what is not!
+Students must follow the Campus Academic Integrity and Student Conduct Policies. The following are what is allowed and not allowed for completing the assignments. 
 ### Allowed:
 - Talking about general strategy including general class design and general algorithms. Though it's definitely better if you try to come up with these on your own first.
 - Using general C++ code you find online for common operations like:
