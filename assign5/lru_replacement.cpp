@@ -18,3 +18,24 @@ LRUReplacement::LRUReplacement(int num_pages, int num_frames)
 }
 
 // TODO: Add your implementations for desctructor, touch_page, load_page, replace_page here
+LRUReplacement::~LRUReplacement()
+{
+    // TODO: Add necessary code here
+}
+
+// Accesss a page alreay in physical memory
+void LRUReplacement::touch_page(int page_num)
+{
+    // TODO: Update your data structure LRU replacement
+}
+
+// Access an invalid page, but free frames are available
+void LRUReplacement::load_page(int page_num) {
+    // TODO: Update your data structure LRU replacement and pagetable
+}
+
+// Access an invalid page and no free frames are available
+int LRUReplacement::replace_page(int page_num) {
+    // TODO: Update your data structure LRU replacement and pagetable
+    return 0;
+}

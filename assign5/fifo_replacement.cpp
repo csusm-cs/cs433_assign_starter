@@ -18,3 +18,17 @@ FIFOReplacement::FIFOReplacement(int num_pages, int num_frames)
 }
 
 // TODO: Add your implementations for desctructor, load_page, replace_page here
+FIFOReplacement::~FIFOReplacement() {
+    // TODO: Add necessary code here
+}
+
+// Access an invalid page, but free frames are available
+void FIFOReplacement::load_page(int page_num) {
+    // TODO: Update your data structure LRU replacement and pagetable
+}
+
+// Access an invalid page and no free frames are available
+int FIFOReplacement::replace_page(int page_num) {
+    // TODO: Update your data structure LRU replacement and pagetable
+    return 0;
+}

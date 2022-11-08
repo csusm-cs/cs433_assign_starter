@@ -57,7 +57,7 @@ public:
 
     /**
      * @brief Access an invalid page, but free frames are available.
-     * Assign the page to an available  frame, not replacement needed
+     * Assign the page to an available frame, not replacement needed
      * It may be overridden in a subclass 
      * @param page_num The logical page number.
      */

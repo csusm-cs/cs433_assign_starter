@@ -8,7 +8,7 @@
 
 #include "fifo_replacement.h"
 #include "lru_replacement.h"
-#include "random_replacement.h"
+#include "lifo_replacement.h"
 
 // Check if an integer is power of 2
 bool isPowerOfTwo(unsigned int x) {
@@ -100,8 +100,8 @@ int main(int argc, char *argv[]) {
     // TODO: Add your code to calculate number of page faults using FIFO replacement algorithm
     // TODO: print the statistics and run-time
 
-    std::cout << "****************Simulate Random replacement****************************" << std::endl;
-    // TODO: Add your code to calculate number of page faults using Random replacement algorithm
+    std::cout << "****************Simulate LIFO replacement****************************" << std::endl;
+    // TODO: Add your code to calculate number of page faults using LIFO replacement algorithm
     // TODO: print the statistics and run-time
 
     std::cout << "****************Simulate LRU replacement****************************" << std::endl;
