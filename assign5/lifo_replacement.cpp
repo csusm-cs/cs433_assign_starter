@@ -24,11 +24,11 @@ LIFOReplacement::~LIFOReplacement() {
 
 // Access an invalid page, but free frames are available
 void LIFOReplacement::load_page(int page_num) {
-    // TODO: Update your data structure LRU replacement and pagetable
+    // TODO: Add necessary code here
 }
 
 // Access an invalid page and no free frames are available
 int LIFOReplacement::replace_page(int page_num) {
-    // TODO: Update your data structure LRU replacement and pagetable
+    // TODO: Add necessary code here
     return 0;
 }
