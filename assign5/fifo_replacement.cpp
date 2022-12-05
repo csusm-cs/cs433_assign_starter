@@ -24,11 +24,11 @@ FIFOReplacement::~FIFOReplacement() {
 
 // Access an invalid page, but free frames are available
 void FIFOReplacement::load_page(int page_num) {
-    // TODO: Update your data structure LRU replacement and pagetable
+    // TODO: Update your data structure FIFO replacement and pagetable
 }
 
 // Access an invalid page and no free frames are available
 int FIFOReplacement::replace_page(int page_num) {
-    // TODO: Update your data structure LRU replacement and pagetable
+    // TODO: Update your data structure FIFO replacement and pagetable
     return 0;
 }
