@@ -63,6 +63,7 @@ int main(int argc, char* argv[]) {
         p = q1.removePCB();
         q1.displayAll();
     }
+    return 0;
 }
 
 

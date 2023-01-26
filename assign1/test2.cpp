@@ -63,4 +63,5 @@ int main(int argc, char *argv[]) {
     std::cout << "Time taken: " << runtime.count() << " seconds" << std::endl;
     cout << "ReadyQueue size = " << q2.size() << endl;
     q2.displayAll();
+    return 0;
 }

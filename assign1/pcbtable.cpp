@@ -34,6 +34,7 @@ PCBTable::~PCBTable() {
  */
 PCB* PCBTable::getPCB(unsigned int idx) {
     // TODO: add your code here
+    return NULL;
 }
 
 /**
