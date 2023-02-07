@@ -31,7 +31,7 @@ public:
     /**
      * @brief Destructor
      */
-    ~ReadyQueue() {}
+    ~ReadyQueue();
 
 	// You may add additional member functions, but don't change the definitions of the following four member functions.
 

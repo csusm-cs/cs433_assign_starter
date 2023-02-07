@@ -15,6 +15,13 @@ using namespace std;
  }
 
 /**
+ *@brief Destructor
+*/
+ReadyQueue::~ReadyQueue() {
+    //TODO: add your code to release dynamically allocate memory
+}
+
+/**
  * @brief Add a PCB representing a process into the ready queue.
  *
  * @param pcbPtr: the pointer to the PCB to be added
