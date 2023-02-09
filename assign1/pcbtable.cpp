@@ -24,6 +24,7 @@ PCBTable::PCBTable(int size) {
  */
 PCBTable::~PCBTable() {
    // TODO: add your code here
+   // Delete all the PCBs in the table
 }
 
 /**
@@ -38,10 +39,11 @@ PCB* PCBTable::getPCB(unsigned int idx) {
 }
 
 /**
- * @brief Add a PCB to the PCBTable.
+ * @brief Add a PCB pointer to the PCBTable at index idx.
  *
  * @param pcb: the PCB to add
  */
 void PCBTable::addPCB(PCB *pcb, unsigned int idx) {
     // TODO: add your code here
+    // Add a PCB pointer to the PCBTable at index idx.
 }

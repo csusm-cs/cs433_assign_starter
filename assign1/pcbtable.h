@@ -18,7 +18,8 @@
 class PCBTable {
 private:
     // TODO: add your private member variables here
-    // choose a data structure for the PCBTable. You can use an array of PCB pointers, e.g. vector<PCB *>. 
+    // choose a data structure for the PCBTable. 
+    // You can use an array of PCB pointers, e.g. vector<PCB *>. 
 
 public:
     /**
@@ -53,9 +54,9 @@ public:
     }
 
     /**
-     * @brief Add a PCB to the PCBTable at index idx.
+     * @brief Add a PCB pointer to the PCBTable at index idx.
      *
-     * @param pcb: the PCB to add
+     * @param pcb: the PCB pointer to add
      * @param idx: the index to add the PCB at
      */
     void addPCB(PCB *pcb, unsigned int idx);

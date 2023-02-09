@@ -50,81 +50,15 @@ Display Processes in ReadyQueue:
 	ID: 12, Priority: 12, State: READY
 	ID: 1, Priority: 1, State: READY
 One by one remove the process with the highest priority from the queue q1
-Display Processes in ReadyQueue:
-	ID: 39, Priority: 39, State: READY
-	ID: 37, Priority: 37, State: READY
-	ID: 19, Priority: 19, State: READY
-	ID: 23, Priority: 23, State: READY
-	ID: 12, Priority: 12, State: READY
-	ID: 15, Priority: 15, State: READY
-	ID: 5, Priority: 5, State: READY
-	ID: 6, Priority: 6, State: READY
-	ID: 17, Priority: 17, State: READY
-	ID: 8, Priority: 8, State: READY
-	ID: 1, Priority: 1, State: READY
-Display Processes in ReadyQueue:
-	ID: 37, Priority: 37, State: READY
-	ID: 23, Priority: 23, State: READY
-	ID: 19, Priority: 19, State: READY
-	ID: 17, Priority: 17, State: READY
-	ID: 12, Priority: 12, State: READY
-	ID: 15, Priority: 15, State: READY
-	ID: 5, Priority: 5, State: READY
-	ID: 6, Priority: 6, State: READY
-	ID: 1, Priority: 1, State: READY
-	ID: 8, Priority: 8, State: READY
-Display Processes in ReadyQueue:
-	ID: 23, Priority: 23, State: READY
-	ID: 17, Priority: 17, State: READY
-	ID: 19, Priority: 19, State: READY
-	ID: 8, Priority: 8, State: READY
-	ID: 12, Priority: 12, State: READY
-	ID: 15, Priority: 15, State: READY
-	ID: 5, Priority: 5, State: READY
-	ID: 6, Priority: 6, State: READY
-	ID: 1, Priority: 1, State: READY
-Display Processes in ReadyQueue:
-	ID: 19, Priority: 19, State: READY
-	ID: 17, Priority: 17, State: READY
-	ID: 15, Priority: 15, State: READY
-	ID: 8, Priority: 8, State: READY
-	ID: 12, Priority: 12, State: READY
-	ID: 1, Priority: 1, State: READY
-	ID: 5, Priority: 5, State: READY
-	ID: 6, Priority: 6, State: READY
-Display Processes in ReadyQueue:
-	ID: 17, Priority: 17, State: READY
-	ID: 12, Priority: 12, State: READY
-	ID: 15, Priority: 15, State: READY
-	ID: 8, Priority: 8, State: READY
-	ID: 6, Priority: 6, State: READY
-	ID: 1, Priority: 1, State: READY
-	ID: 5, Priority: 5, State: READY
-Display Processes in ReadyQueue:
-	ID: 15, Priority: 15, State: READY
-	ID: 12, Priority: 12, State: READY
-	ID: 5, Priority: 5, State: READY
-	ID: 8, Priority: 8, State: READY
-	ID: 6, Priority: 6, State: READY
-	ID: 1, Priority: 1, State: READY
-Display Processes in ReadyQueue:
-	ID: 12, Priority: 12, State: READY
-	ID: 8, Priority: 8, State: READY
-	ID: 5, Priority: 5, State: READY
-	ID: 1, Priority: 1, State: READY
-	ID: 6, Priority: 6, State: READY
-Display Processes in ReadyQueue:
-	ID: 8, Priority: 8, State: READY
-	ID: 6, Priority: 6, State: READY
-	ID: 5, Priority: 5, State: READY
-	ID: 1, Priority: 1, State: READY
-Display Processes in ReadyQueue:
-	ID: 6, Priority: 6, State: READY
-	ID: 1, Priority: 1, State: READY
-	ID: 5, Priority: 5, State: READY
-Display Processes in ReadyQueue:
-	ID: 5, Priority: 5, State: READY
-	ID: 1, Priority: 1, State: READY
-Display Processes in ReadyQueue:
-	ID: 1, Priority: 1, State: READY
-Display Processes in ReadyQueue:
+ID: 47, Priority: 47, State: RUNNING
+ID: 39, Priority: 39, State: RUNNING
+ID: 37, Priority: 37, State: RUNNING
+ID: 23, Priority: 23, State: RUNNING
+ID: 19, Priority: 19, State: RUNNING
+ID: 17, Priority: 17, State: RUNNING
+ID: 15, Priority: 15, State: RUNNING
+ID: 12, Priority: 12, State: RUNNING
+ID: 8, Priority: 8, State: RUNNING
+ID: 6, Priority: 6, State: RUNNING
+ID: 5, Priority: 5, State: RUNNING
+ID: 1, Priority: 1, State: RUNNING

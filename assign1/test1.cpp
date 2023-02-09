@@ -61,7 +61,8 @@ int main(int argc, char* argv[]) {
     while(q1.size() > 0)
     {
         p = q1.removePCB();
-        q1.displayAll();
+        p->display();
+        //q1.displayAll();
     }
     return 0;
 }
