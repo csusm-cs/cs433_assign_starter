@@ -53,6 +53,7 @@ Students must follow the Campus Academic Integrity and Student Conduct Policies.
   - Using the STL classes
 ### NOT Allowed:
 - Designing "pseudocode" together such that your pseudocode is directly translatable to C++
-- Even LOOKING at code which is a solution or partial solution to your assignments
+- Even LOOKING at code that is a solution or partial solution to your assignments
 - Posting your code publicly or showing it to anyone else
+- Using ChatGPT or any other generative artificial intelligence (AI) tools for programming assignments
 
