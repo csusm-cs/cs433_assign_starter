@@ -23,12 +23,12 @@ int main(int argc, char *argv[]) {
 
     // random seed. 
     srand(1);
-    int size = 200;
+    int size = 500;
 
     ReadyQueue q2;    // Ready Queue
     PCBTable table(size);  // PCBTable of given size
 
-    // Create initial 200 PCBs with random priorities, add them to the PCB table
+    // Create initial 500 PCBs with random priorities, add them to the PCB table
     // Randomly choose to add half of the processes into the ready queue
     for (int i = 0; i < size; i++) {
         int priority = rand() % 50 + 1;
