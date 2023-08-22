@@ -3,11 +3,20 @@ Course: CS433 (Operating Systems)
 Description : Program to implement a priority ready queue of processes
 ************Performing Test 2********************
 =================================
-ReadyQueue size = 101
-Time taken: 0.0308132 seconds
-ReadyQueue size = 4
+Initial ReadyQueue size = 247
+Time taken: 0.031297 seconds
+Final ReadyQueue size = 12
+# of removes = 483716, # of inserts = 483481
 Display Processes in ReadyQueue:
-	ID: 107, Priority: 36, State: READY
-	ID: 61, Priority: 10, State: READY
-	ID: 60, Priority: 3, State: READY
-	ID: 187, Priority: 9, State: READY
+	ID: 77, Priority: 11, State: READY
+	ID: 456, Priority: 11, State: READY
+	ID: 67, Priority: 10, State: READY
+	ID: 16, Priority: 9, State: READY
+	ID: 477, Priority: 6, State: READY
+	ID: 196, Priority: 9, State: READY
+	ID: 463, Priority: 8, State: READY
+	ID: 452, Priority: 2, State: READY
+	ID: 494, Priority: 7, State: READY
+	ID: 164, Priority: 6, State: READY
+	ID: 25, Priority: 2, State: READY
+	ID: 306, Priority: 3, State: READY

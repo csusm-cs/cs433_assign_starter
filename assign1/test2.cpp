@@ -36,16 +36,19 @@ int main(int argc, char *argv[]) {
         table.addPCB(pcbPtr, i);
         if (rand() % 2 == 0) q2.addPCB(pcbPtr);
     }
-    cout << "ReadyQueue size = " << q2.size() << endl;
+    cout << "Initial ReadyQueue size = " << q2.size() << endl;
     //q2.display();
     auto t1 = std::chrono::high_resolution_clock::now();
     int idx = 0;
+    int remove_count = 0;
+    int insert_count = 0;
     for (int i = 0; i < 1000000; i++) {
         int x = rand();
         if (x % 2 == 0) {
             // Remove a proc from ReadyQueue
             if (q2.size() > 0) {
                 q2.removePCB();
+                remove_count ++;
             }
         } else {
             // Add a PCB into ReadyQueue
@@ -55,13 +58,14 @@ int main(int argc, char *argv[]) {
                 int priority = rand() % 50 + 1;  
                 table.getPCB(idx)->setPriority(priority);  // change its priority to a random value
                 q2.addPCB(table.getPCB(idx));
+                insert_count ++;
             }
         }
     }
     auto t2 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> runtime = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
     std::cout << "Time taken: " << runtime.count() << " seconds" << std::endl;
-    cout << "ReadyQueue size = " << q2.size() << endl;
+    cout << "Final ReadyQueue size = " << q2.size() << endl;
+    cout << "# of removes = " << remove_count << ", # of inserts = " << insert_count << endl;
     q2.displayAll();
-    return 0;
 }
