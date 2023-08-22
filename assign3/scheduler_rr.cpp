@@ -11,5 +11,5 @@
 
 #include "scheduler_rr.h"
 
-// TODO: add implementation of SchedulerFCFS constructor, destrcutor and 
+// TODO: add implementation of SchedulerRR constructor, destrcutor and 
 // member functions init, print_results, and simulate here
