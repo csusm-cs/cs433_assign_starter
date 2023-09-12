@@ -1,7 +1,7 @@
 /**
  * Assignment 1: priority queue of processes
  * @file pcbtable.h
- * @author ??? (TODO: your name)
+ * @author Nick F. Andrew & Julian Rangel
  * @brief This is the header file for the PCBTable class, an array(list) of all PCB elements in the system..
  * @version 0.1
  */
