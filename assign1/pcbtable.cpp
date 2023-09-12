@@ -16,6 +16,7 @@
  */
 PCBTable::PCBTable(int size) {
    // TODO: add your code here
+   this->MAX = size;
 }
 
 /**
@@ -25,6 +26,10 @@ PCBTable::PCBTable(int size) {
 PCBTable::~PCBTable() {
    // TODO: add your code here
    // Delete all the PCBs in the table
+   for(int i = 0; i < size; i++){
+      delete pcb_array[i];
+   }
+   delete[] pcb_array;
 }
 
 /**
@@ -35,6 +40,9 @@ PCBTable::~PCBTable() {
  */
 PCB* PCBTable::getPCB(unsigned int idx) {
     // TODO: add your code here
+   if(idx < MAX){
+      return pcb_array[idx];
+   }
     return NULL;
 }
 
@@ -46,4 +54,9 @@ PCB* PCBTable::getPCB(unsigned int idx) {
 void PCBTable::addPCB(PCB *pcb, unsigned int idx) {
     // TODO: add your code here
     // Add a PCB pointer to the PCBTable at index idx.
+   if(idx << MAX && pcb_array[idx] == nullptr){
+      return pcb_array[idx] = pcb;
+   }else{
+      cout << "Invalid input try again bud." << endl;
+   }
 }
