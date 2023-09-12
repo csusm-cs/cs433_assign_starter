@@ -20,6 +20,8 @@ private:
     // TODO: add your private member variables here
     // choose a data structure for the PCBTable. 
     // You can use an array of PCB pointers, e.g. vector<PCB *>. 
+    PCB** pcb_array; //array of PCB pointers
+    int MAX; //Max value of pcb table
 
 public:
     /**
