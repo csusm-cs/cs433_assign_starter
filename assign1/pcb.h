@@ -83,6 +83,7 @@ public:
      */
     void setState(ProcState state) {
         // TODO: add your code here
+	this->state = state;
     }
 
     /**
@@ -91,6 +92,7 @@ public:
      */
     void setPriority(unsigned int priority) {
         // TODO: add your code here
+	this->priority = priority //set the priority of the pcb table or changes it
     }
 
     /**
