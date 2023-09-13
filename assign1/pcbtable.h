@@ -17,7 +17,6 @@
  */
 class PCBTable {
 private:
-    // TODO: add your private member variables here
     // choose a data structure for the PCBTable. 
     // You can use an array of PCB pointers, e.g. vector<PCB *>. 
     PCB** pcb_array; //array of PCB pointers
