@@ -20,8 +20,7 @@ class ReadyQueue {
 private:
     // TODO: add your private member variables here
     // choose a data structure for the ReadyQueue. No STL class is allowed.
-    int *heaparray;
-    int capacity;
+    PCB* heaparray;
     int count; 
 
 public:
@@ -29,7 +28,7 @@ public:
      * @brief Construct a new ReadyQueue object
      *
      */
-    ReadyQueue(int size = 50);
+    ReadyQueue();
 
     /**
      * @brief Destructor
@@ -63,5 +62,54 @@ public:
       * @brief Display the PCBs in the queue.
       */
 	void displayAll();
+
+    /**
+     * @brief removes the maximum element from the heap
+     * @return PCB the maximum element. return -1 if heap is empty
+     */
+    PCB removeMax();
+
+    /**
+     * @brief Heapify the list by comparing values from top to bottom
+     * 
+    */
+    void percolateDown(int index);
+
+    /**
+     * @brief Swap the positions of two PCB's in queue based on priority
+    */
+    void swap(int index1, int index2);
+
+    /**
+     * @brief Heapify the lsit by comparing values from bottom to top
+    */
+    void percolateUp(int index);
+
+    /**
+     * @brief Returns the right child of the node at index
+     * @return int: the priority of the PCB
+     */
+    int rightChild(int index)
+    {
+        return 2 * index + 2;
+    };
+    /**
+     * @brief Returns the left child of the node at index
+     * @return int: the priority of the PCB
+     */
+    int leftChild(int index)
+    {
+        return 2 * index + 1;
+    }
+    /**
+     * @brief Returns the index of the parent of the child located at index
+     * @return int: the priority of the PCB
+     */
+    int parent(int index)
+    {
+        if (index <= 0 || index >= count)
+            return -1;
+        return (index - 1) / 2;
+    }
 
 };

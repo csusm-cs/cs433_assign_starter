@@ -40,7 +40,7 @@ PCB* PCBTable::getPCB(unsigned int idx) {
    if(idx << MAX){
       return pcb_array[idx];
    }
-    return NULL;
+   return NULL;
 }
 
 /**
@@ -55,4 +55,5 @@ void PCBTable::addPCB(PCB *pcb, unsigned int idx) {
    }else{
       cout << "Invalid input try again bud." << endl;
    }
+   
 }
