@@ -37,8 +37,7 @@ PCBTable::~PCBTable() {
  * @return PCB*: pointer to the PCB at index "idx"
  */
 PCB* PCBTable::getPCB(unsigned int idx) {
-   int i = idx;
-   if(i < MAX){
+   if(idx << MAX){
       return pcb_array[idx];
    }
     return NULL;

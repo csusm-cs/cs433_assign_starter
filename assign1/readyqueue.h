@@ -20,13 +20,16 @@ class ReadyQueue {
 private:
     // TODO: add your private member variables here
     // choose a data structure for the ReadyQueue. No STL class is allowed.
+    int *heaparray;
+    int capacity;
+    int count; 
 
 public:
     /**
      * @brief Construct a new ReadyQueue object
      *
      */
-    ReadyQueue();
+    ReadyQueue(int size = 50);
 
     /**
      * @brief Destructor

@@ -10,8 +10,11 @@ using namespace std;
 /**
  * @brief Constructor for the ReadyQueue class.
  */
- ReadyQueue::ReadyQueue()  {
+ ReadyQueue::ReadyQueue(int size)  {
      //TODO: add your code here
+    capacity = size;
+    heaparray = new int[size];
+    count = 0;
  }
 
 /**
@@ -19,6 +22,7 @@ using namespace std;
 */
 ReadyQueue::~ReadyQueue() {
     //TODO: add your code to release dynamically allocate memory
+    delete[] heaparray;
 }
 
 /**
@@ -29,6 +33,10 @@ ReadyQueue::~ReadyQueue() {
 void ReadyQueue::addPCB(PCB *pcbPtr) {
     //TODO: add your code here
     // When adding a PCB to the queue, you must change its state to READY.
+    heaparray[count] = pcbPtr->priority;
+    count++;
+    
+
 }
 
 /**
