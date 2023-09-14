@@ -8,12 +8,11 @@ using namespace std;
 
 
 /**
- * @brief Constructor for the ReadyQueue class.
+ * @brief Constructor for the ReadyQueue class. has a count of current number of values
+ * 
  */
- ReadyQueue::ReadyQueue(int size)  {
-     //TODO: add your code here
-    capacity = size;
-    heaparray = new int[size];
+ReadyQueue::ReadyQueue()  {
+    PCB* heaparray = new PCB[50];
     count = 0;
  }
 
@@ -21,7 +20,6 @@ using namespace std;
  *@brief Destructor
 */
 ReadyQueue::~ReadyQueue() {
-    //TODO: add your code to release dynamically allocate memory
     delete[] heaparray;
 }
 
@@ -31,11 +29,11 @@ ReadyQueue::~ReadyQueue() {
  * @param pcbPtr: the pointer to the PCB to be added
  */
 void ReadyQueue::addPCB(PCB *pcbPtr) {
-    //TODO: add your code here
     // When adding a PCB to the queue, you must change its state to READY.
-    heaparray[count] = pcbPtr->priority;
+    heaparray[count] = *pcbPtr;
     count++;
-    
+    pcbPtr->setState(ProcState::READY);
+    percolateUp(count-1);
 
 }
 
@@ -47,6 +45,18 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
 PCB* ReadyQueue::removePCB() {
     //TODO: add your code here
     // When removing a PCB from the queue, you must change its state to RUNNING.
+    PCB* retval = new PCB;
+    //check if heap is empty, if not, then proceed
+
+    heaparray[0].setState(ProcState::RUNNING);
+    *retval = heaparray[0];
+    heaparray[0] = heaparray[count-1];
+    heaparray[count-1].~PCB();
+    count--;
+    percolateDown(0);
+
+    return retval;
+
 }
 
 /**
@@ -55,7 +65,7 @@ PCB* ReadyQueue::removePCB() {
  * @return int: the number of PCBs in the queue
  */
 int ReadyQueue::size() {
-    //TODO: add your code here
+    return count;
 }
 
 /**
@@ -63,4 +73,36 @@ int ReadyQueue::size() {
  */
 void ReadyQueue::displayAll() {
     //TODO: add your code here
+    cout << "Did we even get here?";
+    for (int i = 0; i < count - 1; i++){
+        heaparray[i].display();
+    }
 }
+
+void ReadyQueue::percolateDown(int index) {
+    // Run recursively until the current node is bigger than its children
+    while(heaparray[index].getPriority() < heaparray[leftChild(index)].getPriority() || heaparray[index].getPriority() < heaparray[rightChild(index)].getPriority()){
+        if(heaparray[leftChild(index)].getPriority() > heaparray[rightChild(index)].getPriority()){
+            swap(index,leftChild(index));
+            index = leftChild(index);
+        } else {
+            swap(index,rightChild(index));
+            index = rightChild(index);
+        }
+    }
+}
+
+void ReadyQueue::swap(int index1, int index2) {
+    PCB temp = heaparray[index1];
+    heaparray[index1] = heaparray[index2];
+    heaparray[index2] = temp;
+}
+
+void ReadyQueue::percolateUp( int index) {
+    // run recursively until the current node is small than its parent
+    while(heaparray[index].getPriority() > heaparray[parent(index)].getPriority()){
+        swap(index,parent(index));
+        index = parent(index);
+    }
+}
+
