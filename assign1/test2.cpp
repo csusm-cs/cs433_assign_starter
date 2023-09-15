@@ -51,6 +51,7 @@ int main(int argc, char *argv[]) {
                 q2.removePCB();
                 remove_count ++;
                 std::cout << "Removed " << remove_count << endl;
+                std::cout << "Size is " << q2.size() << endl;
             }
         } else {
             // Add a PCB into ReadyQueue
@@ -63,6 +64,7 @@ int main(int argc, char *argv[]) {
                 q2.addPCB(table.getPCB(idx));
                 insert_count ++;
                 std::cout << "Added " << insert_count << endl;
+                std::cout << "Size is " << q2.size() << endl;
             }
         }
     }

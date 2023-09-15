@@ -20,7 +20,7 @@ class ReadyQueue {
 private:
     // TODO: add your private member variables here
     // choose a data structure for the ReadyQueue. No STL class is allowed.
-    PCB* heaparray;
+    PCB** heaparray;
     int capacity;
     int count; 
 

@@ -15,7 +15,7 @@ using namespace std;
  */
 ReadyQueue::ReadyQueue()  {
     capacity = 500;
-    heaparray = new PCB[capacity];
+    heaparray = new PCB*[capacity];
     count = 0;
  }
 
@@ -34,14 +34,15 @@ ReadyQueue::~ReadyQueue() {
 void ReadyQueue::addPCB(PCB *pcbPtr) {
     // When adding a PCB to the queue, you must change its state to READY.
     if (count == capacity) {
-        PCB* newArray = new PCB[capacity*2];
+        PCB** newArray = new PCB*[capacity*2];
         heaparray = newArray;
         capacity = capacity*2;
     }
     pcbPtr->setState(ProcState::READY);
-    heaparray[count] = *pcbPtr;
+    std::cout << "Set the state to READY" << endl;
+    heaparray[count] = pcbPtr;
     count++;
-    percolateUp(count-1);
+    percolateUp(count);
     //std::cout << "This is the count: " << count << endl;
 
 }
@@ -53,13 +54,12 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
  */
 PCB* ReadyQueue::removePCB() {
     // When removing a PCB from the queue, you must change its state to RUNNING.
-    PCB* retval = new PCB;
-    heaparray[0].setState(ProcState::RUNNING);
-    *retval = heaparray[0];
+
+    heaparray[0]->setState(ProcState::RUNNING);
+    PCB* retval = heaparray[0];
     //std::cout << "This is what return value should be: " << heaparray[0].getPriority() << endl;
     heaparray[0] = heaparray[count-1];
     //std::cout << "This is what was put on top: " << heaparray[count-1].getPriority() << endl;
-    heaparray[count-1].~PCB();
     count--;
     percolateDown(0);
     //std::cout << "This is what the return value is: " << retval->getPriority() << endl;
@@ -80,14 +80,14 @@ int ReadyQueue::size() {
  */
 void ReadyQueue::displayAll() {
     for (int i = 0; i < count; i++){
-        heaparray[i].display();
+        heaparray[i]->display();
     }
 }
 
 void ReadyQueue::percolateDown(int index) {
     // Run recursively until the current node is bigger than its children
-    while(heaparray[index].getPriority() < heaparray[leftChild(index)].getPriority() || heaparray[index].getPriority() < heaparray[rightChild(index)].getPriority()){
-        if(heaparray[leftChild(index)].getPriority() < heaparray[rightChild(index)].getPriority()){
+    while(heaparray[index]->getPriority() < heaparray[leftChild(index)]->getPriority() || heaparray[index]->getPriority() < heaparray[rightChild(index)]->getPriority()){
+        if(heaparray[leftChild(index)]->getPriority() < heaparray[rightChild(index)]->getPriority()){
             swap(index,rightChild(index));
             index = rightChild(index);
         } else {
@@ -105,7 +105,7 @@ void ReadyQueue::swap(int index1, int index2) {
 
 void ReadyQueue::percolateUp( int index) {
     // run recursively until the current node is small than its parent
-    while(heaparray[index].getPriority() > heaparray[parent(index)].getPriority()){
+    while(heaparray[index]->getPriority() > heaparray[parent(index)]->getPriority()){
         swap(index,parent(index));
         index = parent(index);
     }

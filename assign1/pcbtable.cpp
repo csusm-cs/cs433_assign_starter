@@ -37,7 +37,8 @@ PCBTable::~PCBTable() {
  * @return PCB*: pointer to the PCB at index "idx"
  */
 PCB* PCBTable::getPCB(unsigned int idx) {
-   if(idx << MAX){
+   if(idx < MAX){
+      std::cout << "Got the PCB" << endl;
       return pcb_array[idx];
    }
    return NULL;
@@ -50,5 +51,11 @@ PCB* PCBTable::getPCB(unsigned int idx) {
  */
 void PCBTable::addPCB(PCB *pcb, unsigned int idx) {
    // Add a PCB pointer to the PCBTable at index idx.
-   pcb_array[idx] = pcb;
+   if (idx < MAX && pcb_array[idx] == nullptr) {
+        // If idx is larger than maxSize and array idx assign ptr to index
+        pcb_array[idx] = pcb;
+    } else {
+        // If idx is smaller than maxSize and array idx display error message
+        cout << "Invalid index or PCB already exists at the specified index." << endl;
+    }
 }
