@@ -12,7 +12,8 @@ using namespace std;
  * 
  */
 ReadyQueue::ReadyQueue()  {
-    PCB* heaparray = new PCB[50];
+    capacity = 50;
+    heaparray = new PCB[capacity];
     count = 0;
  }
 
@@ -30,9 +31,14 @@ ReadyQueue::~ReadyQueue() {
  */
 void ReadyQueue::addPCB(PCB *pcbPtr) {
     // When adding a PCB to the queue, you must change its state to READY.
+    if (count == capacity) {
+        PCB* newArray = new PCB[capacity*2];
+        heaparray = newArray;
+        capacity = capacity*2;
+    }
+    pcbPtr->setState(ProcState::READY);
     heaparray[count] = *pcbPtr;
     count++;
-    pcbPtr->setState(ProcState::READY);
     percolateUp(count-1);
 
 }
@@ -73,8 +79,7 @@ int ReadyQueue::size() {
  */
 void ReadyQueue::displayAll() {
     //TODO: add your code here
-    cout << "Did we even get here?";
-    for (int i = 0; i < count - 1; i++){
+    for (int i = 0; i < count; i++){
         heaparray[i].display();
     }
 }
@@ -106,3 +111,29 @@ void ReadyQueue::percolateUp( int index) {
     }
 }
 
+ReadyQueue::ReadyQueue(const ReadyQueue& heap) {
+    capacity = heap.capacity;
+    for (int i = 1; i <= heap.count; i++)
+    {
+        heaparray[i - 1] = heap.heaparray[i - 1];
+    }
+    count = heap.count;
+}
+
+/**
+  * @brief assignment operator to set one heap to another
+  * @param the heap that you want to set your heap to
+  */
+ReadyQueue& ReadyQueue::operator = (const ReadyQueue& heap)
+{
+    if (this != &heap)
+    {
+        capacity = heap.capacity;
+        for (int i = 1; i <= heap.count; i++)
+        {
+            heaparray[i - 1] = heap.heaparray[i - 1];
+        }
+        count = heap.count;
+    }
+    return *this;
+}

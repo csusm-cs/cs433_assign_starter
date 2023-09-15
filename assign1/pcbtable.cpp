@@ -50,10 +50,11 @@ PCB* PCBTable::getPCB(unsigned int idx) {
  */
 void PCBTable::addPCB(PCB *pcb, unsigned int idx) {
     // Add a PCB pointer to the PCBTable at index idx.
-   if(idx << MAX && pcb_array[idx] == nullptr){
+   if(idx << MAX){
       pcb_array[idx] = pcb;
    }else{
-      cout << "Invalid input try again bud." << endl;
+
+      cout << "Invalid input try again bud: " << idx << endl;
    }
    
 }
