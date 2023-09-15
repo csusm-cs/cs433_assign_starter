@@ -115,8 +115,9 @@ public:
      */
     int parent(int index)
     {
+        //std::cout << "I'm in the parent checker" << endl;
         if (index <= 0 || index >= count)
-            return -1;
+            return 0;
         return (index - 1) / 2;
     }
 

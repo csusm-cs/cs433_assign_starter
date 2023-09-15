@@ -51,7 +51,7 @@ PCB* PCBTable::getPCB(unsigned int idx) {
  */
 void PCBTable::addPCB(PCB *pcb, unsigned int idx) {
    // Add a PCB pointer to the PCBTable at index idx.
-   if (idx < MAX && pcb_array[idx] == nullptr) {
+   if (idx < MAX) {
         // If idx is larger than maxSize and array idx assign ptr to index
         pcb_array[idx] = pcb;
     } else {

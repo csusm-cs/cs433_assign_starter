@@ -34,15 +34,18 @@ ReadyQueue::~ReadyQueue() {
 void ReadyQueue::addPCB(PCB *pcbPtr) {
     // When adding a PCB to the queue, you must change its state to READY.
     if (count == capacity) {
-        PCB** newArray = new PCB*[capacity*2];
-        heaparray = newArray;
-        capacity = capacity*2;
+        std::cout << "Queue is full" << endl;
+        return;
     }
     pcbPtr->setState(ProcState::READY);
-    std::cout << "Set the state to READY" << endl;
+    //std::cout << "Set the state to READY" << endl;
     heaparray[count] = pcbPtr;
+    //std::cout << "Put the PCB in the queue" << endl;
     count++;
-    percolateUp(count);
+    if (count > 1) {
+        percolateUp(count - 1);
+    }
+    //std::cout << "actually peroclated properly" << endl;
     //std::cout << "This is the count: " << count << endl;
 
 }
@@ -103,19 +106,22 @@ void ReadyQueue::swap(int index1, int index2) {
     //std::cout << "Now it is " << heaparray[index1].getPriority() << " and " << heaparray[index2].getPriority() << endl;
 }
 
-void ReadyQueue::percolateUp( int index) {
+void ReadyQueue::percolateUp(int index) {
     // run recursively until the current node is small than its parent
+    //std::cout << "Actually got into the perc Up" << endl;
     while(heaparray[index]->getPriority() > heaparray[parent(index)]->getPriority()){
+        //std::cout << "Trying to swap" << endl;
         swap(index,parent(index));
+        //std::cout << "actually swapped" << endl;
         index = parent(index);
     }
 }
 
 ReadyQueue::ReadyQueue(const ReadyQueue& heap) {
     capacity = heap.capacity;
-    for (int i = 1; i <= heap.count; i++)
+    for (int i = 0; i < heap.count; i++)
     {
-        heaparray[i - 1] = heap.heaparray[i - 1];
+        heaparray[i] = heap.heaparray[i];
     }
     count = heap.count;
 }
@@ -129,9 +135,9 @@ ReadyQueue& ReadyQueue::operator = (const ReadyQueue& heap)
     if (this != &heap)
     {
         capacity = heap.capacity;
-        for (int i = 1; i <= heap.count; i++)
+        for (int i = 0; i < heap.count; i++)
         {
-            heaparray[i - 1] = heap.heaparray[i - 1];
+            heaparray[i] = heap.heaparray[i];
         }
         count = heap.count;
     }
