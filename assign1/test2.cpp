@@ -59,6 +59,7 @@ int main(int argc, char *argv[]) {
                 table.getPCB(idx)->setPriority(priority);  // change its priority to a random value
                 q2.addPCB(table.getPCB(idx));
                 insert_count ++;
+                std::cout << "Tried This " << insert_count << endl;
             }
         }
     }

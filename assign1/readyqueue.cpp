@@ -38,8 +38,9 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
     }
     pcbPtr->setState(ProcState::READY);
     heaparray[count] = *pcbPtr;
-    count++;
+    count = count + 1;
     percolateUp(count-1);
+    std::cout << "This is the count: " << count << endl;
 
 }
 
@@ -52,13 +53,12 @@ PCB* ReadyQueue::removePCB() {
     //TODO: add your code here
     // When removing a PCB from the queue, you must change its state to RUNNING.
     PCB* retval = new PCB;
-    //check if heap is empty, if not, then proceed
 
     heaparray[0].setState(ProcState::RUNNING);
     *retval = heaparray[0];
     heaparray[0] = heaparray[count-1];
     heaparray[count-1].~PCB();
-    count--;
+    count = count - 1;
     percolateDown(0);
 
     return retval;
@@ -87,12 +87,12 @@ void ReadyQueue::displayAll() {
 void ReadyQueue::percolateDown(int index) {
     // Run recursively until the current node is bigger than its children
     while(heaparray[index].getPriority() < heaparray[leftChild(index)].getPriority() || heaparray[index].getPriority() < heaparray[rightChild(index)].getPriority()){
-        if(heaparray[leftChild(index)].getPriority() > heaparray[rightChild(index)].getPriority()){
-            swap(index,leftChild(index));
-            index = leftChild(index);
-        } else {
+        if(heaparray[leftChild(index)].getPriority() < heaparray[rightChild(index)].getPriority()){
             swap(index,rightChild(index));
             index = rightChild(index);
+        } else {
+            swap(index,leftChild(index));
+            index = leftChild(index);
         }
     }
 }

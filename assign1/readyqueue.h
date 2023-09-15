@@ -105,7 +105,7 @@ public:
      */
     int rightChild(int index)
     {
-        return 2 * index + 2;
+        return (2 * index) + 2;
     };
     /**
      * @brief Returns the left child of the node at index
@@ -113,7 +113,7 @@ public:
      */
     int leftChild(int index)
     {
-        return 2 * index + 1;
+        return (2 * index) + 1;
     }
     /**
      * @brief Returns the index of the parent of the child located at index
