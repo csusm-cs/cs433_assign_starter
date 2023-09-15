@@ -78,12 +78,6 @@ public:
 	void displayAll();
 
     /**
-     * @brief removes the maximum element from the heap
-     * @return PCB the maximum element. return -1 if heap is empty
-     */
-    PCB removeMax();
-
-    /**
      * @brief Heapify the list by comparing values from top to bottom
      * 
     */

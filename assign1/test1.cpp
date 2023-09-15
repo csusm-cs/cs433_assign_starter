@@ -60,6 +60,7 @@ int main(int argc, char* argv[]) {
     std::cout << "One by one remove the process with the highest priority from the queue q1" << std::endl;
     while(q1.size() > 0)
     {
+        //std::cout << "This is the size " << q1.size() << endl;
         p = q1.removePCB();
         p->display();
         //q1.displayAll();

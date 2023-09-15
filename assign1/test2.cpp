@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
         if (rand() % 2 == 0) q2.addPCB(pcbPtr);
     }
     cout << "Initial ReadyQueue size = " << q2.size() << endl;
-    //q2.display();
+    q2.displayAll();
     auto t1 = std::chrono::high_resolution_clock::now();
     int idx = 0;
     int remove_count = 0;
@@ -47,8 +47,10 @@ int main(int argc, char *argv[]) {
         if (x % 2 == 0) {
             // Remove a proc from ReadyQueue
             if (q2.size() > 0) {
+                std::cout << "Try to remove" << endl;
                 q2.removePCB();
                 remove_count ++;
+                std::cout << "Removed " << remove_count << endl;
             }
         } else {
             // Add a PCB into ReadyQueue
@@ -57,9 +59,10 @@ int main(int argc, char *argv[]) {
                 ProcState::READY) { // if the PCB is not in READY state, add it into ReadyQueue
                 int priority = rand() % 50 + 1;  
                 table.getPCB(idx)->setPriority(priority);  // change its priority to a random value
+                std::cout << "Try to add" << endl;
                 q2.addPCB(table.getPCB(idx));
                 insert_count ++;
-                std::cout << "Tried This " << insert_count << endl;
+                std::cout << "Added " << insert_count << endl;
             }
         }
     }

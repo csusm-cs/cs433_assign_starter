@@ -1,5 +1,7 @@
 #include <iostream>
 #include "readyqueue.h"
+#include "pcbtable.h"
+#include "pcb.h"
 
 using namespace std;
 
@@ -12,7 +14,7 @@ using namespace std;
  * 
  */
 ReadyQueue::ReadyQueue()  {
-    capacity = 50;
+    capacity = 500;
     heaparray = new PCB[capacity];
     count = 0;
  }
@@ -38,9 +40,9 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
     }
     pcbPtr->setState(ProcState::READY);
     heaparray[count] = *pcbPtr;
-    count = count + 1;
+    count++;
     percolateUp(count-1);
-    std::cout << "This is the count: " << count << endl;
+    //std::cout << "This is the count: " << count << endl;
 
 }
 
@@ -50,19 +52,18 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
  * @return PCB*: the pointer to the PCB with the highest priority
  */
 PCB* ReadyQueue::removePCB() {
-    //TODO: add your code here
     // When removing a PCB from the queue, you must change its state to RUNNING.
     PCB* retval = new PCB;
-
     heaparray[0].setState(ProcState::RUNNING);
     *retval = heaparray[0];
+    //std::cout << "This is what return value should be: " << heaparray[0].getPriority() << endl;
     heaparray[0] = heaparray[count-1];
+    //std::cout << "This is what was put on top: " << heaparray[count-1].getPriority() << endl;
     heaparray[count-1].~PCB();
-    count = count - 1;
+    count--;
     percolateDown(0);
-
+    //std::cout << "This is what the return value is: " << retval->getPriority() << endl;
     return retval;
-
 }
 
 /**
@@ -78,7 +79,6 @@ int ReadyQueue::size() {
  * @brief Display the PCBs in the queue.
  */
 void ReadyQueue::displayAll() {
-    //TODO: add your code here
     for (int i = 0; i < count; i++){
         heaparray[i].display();
     }
@@ -98,9 +98,9 @@ void ReadyQueue::percolateDown(int index) {
 }
 
 void ReadyQueue::swap(int index1, int index2) {
-    PCB temp = heaparray[index1];
-    heaparray[index1] = heaparray[index2];
-    heaparray[index2] = temp;
+    //std::cout << "Swap " << heaparray[index1].getPriority() << " with " << heaparray[index2].getPriority() << endl;
+    std::swap(heaparray[index1],heaparray[index2]);
+    //std::cout << "Now it is " << heaparray[index1].getPriority() << " and " << heaparray[index2].getPriority() << endl;
 }
 
 void ReadyQueue::percolateUp( int index) {
