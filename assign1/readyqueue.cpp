@@ -59,7 +59,7 @@ PCB* ReadyQueue::removePCB() {
     // When removing a PCB from the queue, you must change its state to RUNNING.
     //std::cout<< "Made it do remove" << std::endl;
     if(capacity == 0){
-        std::cout << "Heap is full " << std::endl;
+        std::cout << "Heap is empty " << std::endl;
         return nullptr;
     }
 
@@ -95,22 +95,28 @@ void ReadyQueue::displayAll() {
 }
 
 void ReadyQueue::percolateDown(int index) {
-    
-    while(heaparray[index]->getPriority() < heaparray[leftChild(index)]->getPriority() || heaparray[index]->getPriority() < heaparray[rightChild(index)]->getPriority()){
-       
-       if(heaparray[leftChild(index)]->getPriority() < heaparray[rightChild(index)]->getPriority()){
-           // std::cout << "Made it inside of percdown if statement" << endl;
-            swap(index,rightChild(index));
-            index = rightChild(index);
-        } else {
-           // std::cout << "Made it to else condition perc down " << endl;
-            swap(index,leftChild(index));
-            index = leftChild(index);
-        }
+    int greater = index;
 
-       if(heaparray[leftChild(index)] == nullptr || heaparray[leftChild(index)] == nullptr){
-            return;
-       }
+
+    if (leftChild(index) < count && rightChild(index) < count) {
+        if (heaparray[leftChild(index)]->priority > heaparray[rightChild(index)]->priority) {
+            greater = leftChild(index);
+        } else {
+            greater = rightChild(index);
+        }
+    } else if (leftChild(index) < count) {
+        greater = leftChild(index);
+    }
+
+
+    if (greater != index) {
+        // Swap the current node with the largest child
+        PCB* temp = heaparray[index];
+        heaparray[index] = heaparray[greater];
+        heaparray[greater] = temp;
+
+        // Recursively heapify the affected subtree
+        percolateDown(greater);
     }
     //std::cout << "Finished perc down" << endl;
     
@@ -126,7 +132,7 @@ void ReadyQueue::swap(int index1, int index2) {
 void ReadyQueue::percolateUp(int index) {
     // run recursively until the current node is small than its parent
     //std::cout << "Actually got into the perc Up" << endl;
-    while(heaparray[index]->getPriority() > heaparray[parent(index)]->getPriority()){
+    while(heaparray[index]->priority > heaparray[parent(index)]->priority){
         //std::cout << "Trying to swap" << endl;
         swap(index,parent(index));
         //std::cout << "actually swapped" << endl;

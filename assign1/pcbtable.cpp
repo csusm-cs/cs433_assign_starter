@@ -15,7 +15,11 @@
  * @param size: the capacity of the PCBTable
  */
 PCBTable::PCBTable(int size) {
-   this->MAX = size;
+   pcb_array = new PCB*[size]; 
+   MAX = size; 
+   for (int i = 0; i < MAX; ++i) {
+      pcb_array[i] = nullptr; 
+   }
 }
 
 /**

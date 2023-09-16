@@ -47,11 +47,11 @@ int main(int argc, char *argv[]) {
         if (x % 2 == 0) {
             // Remove a proc from ReadyQueue
             if (q2.size() > 0) {
-                std::cout << "Try to remove" << endl;
+                //std::cout << "Try to remove" << endl;
                 q2.removePCB();
                 remove_count ++;
-                std::cout << "Removed " << remove_count << endl;
-                std::cout << "Size is " << q2.size() << endl;
+                //std::cout << "Removed " << remove_count << endl;
+                //std::cout << "Size is " << q2.size() << endl;
             }
         } else {
             // Add a PCB into ReadyQueue
@@ -60,11 +60,11 @@ int main(int argc, char *argv[]) {
                 ProcState::READY) { // if the PCB is not in READY state, add it into ReadyQueue
                 int priority = rand() % 50 + 1;  
                 table.getPCB(idx)->setPriority(priority);  // change its priority to a random value
-                std::cout << "Try to add" << endl;
+                //std::cout << "Try to add" << endl;
                 q2.addPCB(table.getPCB(idx));
                 insert_count ++;
-                std::cout << "Added " << insert_count << endl;
-                std::cout << "Size is " << q2.size() << endl;
+                //std::cout << "Added " << insert_count << endl;
+                //std::cout << "Size is " << q2.size() << endl;
             }
         }
     }
