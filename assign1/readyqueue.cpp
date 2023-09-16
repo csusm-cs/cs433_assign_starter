@@ -5,17 +5,13 @@
 
 using namespace std;
 
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to add sufficient comments to your code
-
-
 /**
  * @brief Constructor for the ReadyQueue class. has a count of current number of values
  * 
  */
 ReadyQueue::ReadyQueue()  {
-    capacity = 500;
-    heaparray = new PCB*[capacity];
+    capacity = 500;                     
+    heaparray = new PCB*[capacity];     //creates a new heaparray and sets its size to our capacity
     count = 0;
  }
 
@@ -23,7 +19,7 @@ ReadyQueue::ReadyQueue()  {
  *@brief Destructor
 */
 ReadyQueue::~ReadyQueue() {
-    delete[] heaparray;
+    delete[] heaparray;                 //standard array destructor
 }
 
 /**
@@ -32,22 +28,16 @@ ReadyQueue::~ReadyQueue() {
  * @param pcbPtr: the pointer to the PCB to be added
  */
 void ReadyQueue::addPCB(PCB *pcbPtr) {
-    // When adding a PCB to the queue, you must change its state to READY.
     if (count == capacity) {
-        std::cout << "Queue is full" << endl;
+        std::cout << "Queue is full" << endl;       //If queue is full, rejects input
         return;
     }
-    pcbPtr->setState(ProcState::READY);
-    //std::cout << "Set the state to READY" << endl;
-    heaparray[count] = pcbPtr;
-    //std::cout << "Put the PCB in the queue" << endl;
-    count++;
+    pcbPtr->setState(ProcState::READY);             //sets our given PCB state to READY
+    heaparray[count] = pcbPtr;                      //adds new PCB to the bottom of our heaparray
+    count++;                                        //increments our heaparray's count
     if (count > 1) {
-        percolateUp(count - 1);
+        percolateUp(count - 1);                     //if needed due to multiple values in array, calls the percolateUp function
     }
-    //std::cout << "actually peroclated properly" << endl;
-    //std::cout << "This is the count: " << count << endl;
-
 }
 
 /**
@@ -56,24 +46,16 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
  * @return PCB*: the pointer to the PCB with the highest priority
  */
 PCB* ReadyQueue::removePCB() {
-    // When removing a PCB from the queue, you must change its state to RUNNING.
-    //std::cout<< "Made it do remove" << std::endl;
     if(capacity == 0){
-        std::cout << "Heap is empty " << std::endl;
+        std::cout << "ReadyQueue is empty " << std::endl;       //if our array is empty, rejects request
         return nullptr;
     }
-
-    PCB* retval = heaparray[0];
-    heaparray[0]->setState(ProcState::RUNNING);
-    //std::cout << "This is what return value should be: " << heaparray[0].getPriority() << endl;
-    count--;
-    heaparray[0] = heaparray[count];
-    //std::cout << "This is what was put on top: " << heaparray[count-1].getPriority() << endl;
-    //count--;
-    //std::cout << "going into perc down " << std::endl;
-    percolateDown(0);
-    //std::cout << "This is what the return value is: " << retval->getPriority() << endl;
-    return retval;
+    PCB* retval = heaparray[0];                                 //creates a temp retval to hold top of array
+    heaparray[0]->setState(ProcState::RUNNING);                 //sets our top value state ro RUNNING
+    count--;                                                    //decrement out array count
+    heaparray[0] = heaparray[count];                            //sets the top of our array to be eqaul to bottommost value
+    percolateDown(0);                                           //calls the percolateDown function to heapify our stack
+    return retval;                                              //Returns our requested value
 }
 
 /**
@@ -82,7 +64,7 @@ PCB* ReadyQueue::removePCB() {
  * @return int: the number of PCBs in the queue
  */
 int ReadyQueue::size() {
-    return count;
+    return count;                                               //returns the total number of PCBs in our stack
 }
 
 /**
@@ -90,60 +72,44 @@ int ReadyQueue::size() {
  */
 void ReadyQueue::displayAll() {
     for (int i = 0; i < count; i++){
-        heaparray[i]->display();
+        heaparray[i]->display();                                //iterates through the heaparray and calls display() for each PCB
     }
 }
 
 void ReadyQueue::percolateDown(int index) {
     int greater = index;
-
-
     if (leftChild(index) < count && rightChild(index) < count) {
         if (heaparray[leftChild(index)]->priority > heaparray[rightChild(index)]->priority) {
-            greater = leftChild(index);
-        } else {
-            greater = rightChild(index);
+            greater = leftChild(index);                                                         //Compares each of the children nodes to
+        } else {                                                                                //our given parent node. Prioritizes the
+            greater = rightChild(index);                                                        //largest of the two children
         }
     } else if (leftChild(index) < count) {
         greater = leftChild(index);
     }
-
-
     if (greater != index) {
-        // Swap the current node with the largest child
-        PCB* temp = heaparray[index];
-        heaparray[index] = heaparray[greater];
-        heaparray[greater] = temp;
-
-        // Recursively heapify the affected subtree
-        percolateDown(greater);
+        PCB* temp = heaparray[index];                                                           //If a larger child has been found, then
+        heaparray[index] = heaparray[greater];                                                  //we proceed to swap the positions of the
+        heaparray[greater] = temp;                                                              //given child and the parent. After which,
+        percolateDown(greater);                                                                 //We call the percolateDown again
     }
-    //std::cout << "Finished perc down" << endl;
-    
 }
 
 void ReadyQueue::swap(int index1, int index2) {
-    //std::cout << "Swap " << heaparray[index1].getPriority() << " with " << heaparray[index2].getPriority() << endl;
-    //std::cout << "MAde it to swap " << std::endl;
-    std::swap(heaparray[index1],heaparray[index2]);
-    //std::cout << "Now it is " << heaparray[index1].getPriority() << " and " << heaparray[index2].getPriority() << endl;
+    std::swap(heaparray[index1],heaparray[index2]);                                             //Custom swap function for percolateUp
 }
 
 void ReadyQueue::percolateUp(int index) {
-    // run recursively until the current node is small than its parent
-    //std::cout << "Actually got into the perc Up" << endl;
-    while(heaparray[index]->priority > heaparray[parent(index)]->priority){
-        //std::cout << "Trying to swap" << endl;
-        swap(index,parent(index));
-        //std::cout << "actually swapped" << endl;
+    while(heaparray[index]->priority > heaparray[parent(index)]->priority){                     //If the parent is found to be smaller 
+        swap(index,parent(index));                                                              //than the child node, we swap the two
         index = parent(index);
     }
 }
 
 ReadyQueue::ReadyQueue(const ReadyQueue& heap) {
-    capacity = heap.capacity;
-    for (int i = 0; i < heap.count; i++)
-    {
+    capacity = heap.capacity;                                                                   //Standard copy function for our heaparray
+    for (int i = 0; i < heap.count; i++)                                                        //takes an array and sets our current array
+    {                                                                                           //to it
         heaparray[i] = heap.heaparray[i];
     }
     count = heap.count;
@@ -157,9 +123,9 @@ ReadyQueue& ReadyQueue::operator = (const ReadyQueue& heap)
 {
     if (this != &heap)
     {
-        capacity = heap.capacity;
-        for (int i = 0; i < heap.count; i++)
-        {
+        capacity = heap.capacity;                                                               //allows the calling of the copy construct
+        for (int i = 0; i < heap.count; i++)                                                    // with an = sign. sets one array equal to
+        {                                                                                       //the other
             heaparray[i] = heap.heaparray[i];
         }
         count = heap.count;

@@ -5,8 +5,7 @@
  * @brief This is the header file for the PCBTable class, an array(list) of all PCB elements in the system..
  * @version 0.1
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to add sufficient and clear comments to your code
+
 #pragma once
 
 #include "pcb.h"

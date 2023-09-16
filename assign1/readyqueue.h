@@ -6,8 +6,7 @@
  * It should be a priority queue such that the process with the highest priority can be selected next.
  * @version 0.1
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-//Remember to add sufficient comments to your code
+
 #pragma once
 
 #include "pcb.h"
@@ -18,8 +17,6 @@
  */
 class ReadyQueue {
 private:
-    // TODO: add your private member variables here
-    // choose a data structure for the ReadyQueue. No STL class is allowed.
     PCB** heaparray;
     int capacity;
     int count; 
@@ -89,7 +86,7 @@ public:
     void swap(int index1, int index2);
 
     /**
-     * @brief Heapify the lsit by comparing values from bottom to top
+     * @brief Heapify the list by comparing values from bottom to top
     */
     void percolateUp(int index);
 
@@ -99,8 +96,6 @@ public:
      */
     int rightChild(int index)
     {
-        
-        //std::cout << "MAde it to right child: " << rightChild(index) << std::endl;
         return (2 * index) + 2;
     };
     /**
@@ -117,7 +112,6 @@ public:
      */
     int parent(int index)
     {
-        //std::cout << "I'm in the parent checker" << endl;
         if (index <= 0 || index >= count)
             return 0;
         return (index - 1) / 2;

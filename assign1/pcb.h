@@ -5,8 +5,6 @@
  * @brief This is the header file for the PCB class, a process control block.
  * @version 0.1
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to addPCB sufficient comments to your code
 
 #pragma once
 #include <iostream>
