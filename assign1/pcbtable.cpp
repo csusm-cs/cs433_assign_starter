@@ -3,8 +3,6 @@
  * @file pcbtable.h
  * @author Nick F. Andrew & Julian Rangel
  * @brief This is the implementation file for the PCBTable class.
- * //You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
- * // Remember to add sufficient comments to your code
  */
 
 #include "pcbtable.h"
@@ -15,7 +13,11 @@
  * @param size: the capacity of the PCBTable
  */
 PCBTable::PCBTable(int size) {
-   this->MAX = size;
+   pcb_array = new PCB*[size];         //Make a new pcb_array
+   MAX = size;                         //set our MAX to the given size
+   for (int i = 0; i < MAX; ++i) {     //Fill our new array with null pointers
+      pcb_array[i] = nullptr; 
+   }
 }
 
 /**
@@ -23,11 +25,10 @@ PCBTable::PCBTable(int size) {
  *
  */
 PCBTable::~PCBTable() {
-   // Delete all the PCBs in the table
-   for(int i = 0; i < MAX; i++){
+   for(int i = 0; i < MAX; i++){       //Delete all the PCBs in the table
       delete pcb_array[i];
    }
-   delete[] pcb_array;
+   delete[] pcb_array;                 //delete the array 
 }
 
 /**
@@ -37,8 +38,8 @@ PCBTable::~PCBTable() {
  * @return PCB*: pointer to the PCB at index "idx"
  */
 PCB* PCBTable::getPCB(unsigned int idx) {
-   if(idx << MAX){
-      return pcb_array[idx];
+   if(idx < MAX){
+      return pcb_array[idx];           //after checking for proper calling, return the requested PCB
    }
    return NULL;
 }
@@ -49,11 +50,10 @@ PCB* PCBTable::getPCB(unsigned int idx) {
  * @param pcb: the PCB to add
  */
 void PCBTable::addPCB(PCB *pcb, unsigned int idx) {
-    // Add a PCB pointer to the PCBTable at index idx.
-   if(idx << MAX && pcb_array[idx] == nullptr){
-      pcb_array[idx] = pcb;
-   }else{
-      cout << "Invalid input try again bud." << endl;
-   }
-   
+   // Add a PCB pointer to the PCBTable at index idx.
+   if (idx < MAX) {
+        pcb_array[idx] = pcb;             //sets the given PCB to the bottom of the list
+    } else {
+        cout << "Invalid input" << endl;  //catches invalid indexs
+    }
 }

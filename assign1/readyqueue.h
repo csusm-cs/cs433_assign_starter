@@ -6,8 +6,7 @@
  * It should be a priority queue such that the process with the highest priority can be selected next.
  * @version 0.1
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to add sufficient comments to your code
+
 #pragma once
 
 #include "pcb.h"
@@ -18,12 +17,12 @@
  */
 class ReadyQueue {
 private:
-    // TODO: add your private member variables here
-    // choose a data structure for the ReadyQueue. No STL class is allowed.
-    PCB* heaparray;
+    PCB** heaparray;
+    int capacity;
     int count; 
 
 public:
+    
     /**
      * @brief Construct a new ReadyQueue object
      *
@@ -36,6 +35,18 @@ public:
     ~ReadyQueue();
 
 	// You may add additional member functions, but don't change the definitions of the following four member functions.
+
+    /**
+     * @brief assignment operator to set one heap to another
+     * @param the heap that you want to set your heap to
+     */
+    ReadyQueue& operator = (const ReadyQueue& heap);
+
+    /**
+     * @brief Copy constructor to build a heap from another heap
+     * @param the heap to be copied
+     */
+    ReadyQueue(const ReadyQueue &heap);
 
     /**
      * @brief Add a PCB representing a process into the ready queue.
@@ -64,12 +75,6 @@ public:
 	void displayAll();
 
     /**
-     * @brief removes the maximum element from the heap
-     * @return PCB the maximum element. return -1 if heap is empty
-     */
-    PCB removeMax();
-
-    /**
      * @brief Heapify the list by comparing values from top to bottom
      * 
     */
@@ -81,7 +86,7 @@ public:
     void swap(int index1, int index2);
 
     /**
-     * @brief Heapify the lsit by comparing values from bottom to top
+     * @brief Heapify the list by comparing values from bottom to top
     */
     void percolateUp(int index);
 
@@ -91,7 +96,7 @@ public:
      */
     int rightChild(int index)
     {
-        return 2 * index + 2;
+        return (2 * index) + 2;
     };
     /**
      * @brief Returns the left child of the node at index
@@ -99,7 +104,7 @@ public:
      */
     int leftChild(int index)
     {
-        return 2 * index + 1;
+        return (2 * index) + 1;
     }
     /**
      * @brief Returns the index of the parent of the child located at index
@@ -108,7 +113,7 @@ public:
     int parent(int index)
     {
         if (index <= 0 || index >= count)
-            return -1;
+            return 0;
         return (index - 1) / 2;
     }
 

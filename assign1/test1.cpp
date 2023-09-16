@@ -14,6 +14,7 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
+    //std::cout << "TEST" << std::endl;
     std::cout << "CS 433 Programming assignment 1" << std::endl;
     std::cout << "Course: CS433 (Operating Systems)" << std::endl;
     std::cout << "Description : Program to implement a priority ready queue of processes" << std::endl;
@@ -60,9 +61,12 @@ int main(int argc, char* argv[]) {
     std::cout << "One by one remove the process with the highest priority from the queue q1" << std::endl;
     while(q1.size() > 0)
     {
+        
+        //std::cout << "This is the size " << q1.size() << endl;
         p = q1.removePCB();
         p->display();
         //q1.displayAll();
+        std::cout << "this is the size after removal " << q1.size() << endl;
     }
     return 0;
 }

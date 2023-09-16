@@ -5,8 +5,6 @@
  * @brief This is the header file for the PCB class, a process control block.
  * @version 0.1
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to addPCB sufficient comments to your code
 
 #pragma once
 #include <iostream>
@@ -82,7 +80,7 @@ public:
      * @param state
      */
     void setState(ProcState state) {
-	this->state = state;
+	    this->state = state;
     }
 
     /**
@@ -90,7 +88,7 @@ public:
      * @param priority
      */
     void setPriority(unsigned int priority) {
-	this->priority = priority; //set the priority of the pcb table or changes it
+	    this->priority = priority; //set the priority of the pcb table or changes it
     }
 
     /**
