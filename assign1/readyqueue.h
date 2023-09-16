@@ -99,6 +99,8 @@ public:
      */
     int rightChild(int index)
     {
+        
+        //std::cout << "MAde it to right child: " << rightChild(index) << std::endl;
         return (2 * index) + 2;
     };
     /**

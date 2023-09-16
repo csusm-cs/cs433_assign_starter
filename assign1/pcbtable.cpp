@@ -38,7 +38,7 @@ PCBTable::~PCBTable() {
  */
 PCB* PCBTable::getPCB(unsigned int idx) {
    if(idx < MAX){
-      std::cout << "Got the PCB" << endl;
+      //std::cout << "Got the PCB" << endl;
       return pcb_array[idx];
    }
    return NULL;

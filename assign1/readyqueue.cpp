@@ -57,13 +57,20 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
  */
 PCB* ReadyQueue::removePCB() {
     // When removing a PCB from the queue, you must change its state to RUNNING.
+    //std::cout<< "Made it do remove" << std::endl;
+    if(capacity == 0){
+        std::cout << "Heap is full " << std::endl;
+        return nullptr;
+    }
 
-    heaparray[0]->setState(ProcState::RUNNING);
     PCB* retval = heaparray[0];
+    heaparray[0]->setState(ProcState::RUNNING);
     //std::cout << "This is what return value should be: " << heaparray[0].getPriority() << endl;
-    heaparray[0] = heaparray[count-1];
-    //std::cout << "This is what was put on top: " << heaparray[count-1].getPriority() << endl;
     count--;
+    heaparray[0] = heaparray[count];
+    //std::cout << "This is what was put on top: " << heaparray[count-1].getPriority() << endl;
+    //count--;
+    //std::cout << "going into perc down " << std::endl;
     percolateDown(0);
     //std::cout << "This is what the return value is: " << retval->getPriority() << endl;
     return retval;
@@ -88,20 +95,30 @@ void ReadyQueue::displayAll() {
 }
 
 void ReadyQueue::percolateDown(int index) {
-    // Run recursively until the current node is bigger than its children
+    
     while(heaparray[index]->getPriority() < heaparray[leftChild(index)]->getPriority() || heaparray[index]->getPriority() < heaparray[rightChild(index)]->getPriority()){
-        if(heaparray[leftChild(index)]->getPriority() < heaparray[rightChild(index)]->getPriority()){
+       
+       if(heaparray[leftChild(index)]->getPriority() < heaparray[rightChild(index)]->getPriority()){
+           // std::cout << "Made it inside of percdown if statement" << endl;
             swap(index,rightChild(index));
             index = rightChild(index);
         } else {
+           // std::cout << "Made it to else condition perc down " << endl;
             swap(index,leftChild(index));
             index = leftChild(index);
         }
+
+       if(heaparray[leftChild(index)] == nullptr || heaparray[leftChild(index)] == nullptr){
+            return;
+       }
     }
+    //std::cout << "Finished perc down" << endl;
+    
 }
 
 void ReadyQueue::swap(int index1, int index2) {
     //std::cout << "Swap " << heaparray[index1].getPriority() << " with " << heaparray[index2].getPriority() << endl;
+    //std::cout << "MAde it to swap " << std::endl;
     std::swap(heaparray[index1],heaparray[index2]);
     //std::cout << "Now it is " << heaparray[index1].getPriority() << " and " << heaparray[index2].getPriority() << endl;
 }
