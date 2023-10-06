@@ -31,6 +31,17 @@ using namespace std;
 int parse_command(char command[], char *args[])
 {
     // TODO: implement this function
+     int args_count = 0;
+    char *token = strtok(command, " ");
+
+    while(token != NULL && args_count < MAX_LINE){
+        args[args_count++] = token;
+        token = strtok(nullptr," ");
+    }
+
+    args[args_count] = nullptr;
+
+    return args_count;
 }
 
 // TODO: Add additional functions if you need
