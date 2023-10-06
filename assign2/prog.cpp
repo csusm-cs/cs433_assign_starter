@@ -1,156 +1,304 @@
-
 /**
  * Assignment 2: Simple UNIX Shell
  * @file pcbtable.h
- * @author ??? (TODO: your name)
+ * @author Julian Rangel & Nick Andrew
  * @brief This is the main function of a simple UNIX Shell. You may add additional functions in this file for your implementation
  * @version 0.1
  */
 // You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
 // Remember to add sufficient and clear comments to your code
 
-#include <stdio.h>
-#include <unistd.h>
 #include <iostream>
-#include <fcntl.h>
+#include <vector>
+#include <string>
 #include <cstring>
+#include <cstdio>
+#include <cstdlib>
 #include <unistd.h>
+#include <fcntl.h>
 #include <sys/wait.h>
 
 using namespace std;
 
-#define MAX_LINE 80 // The maximum length command
+#define MAX_LINE 80
 
-/**
- * @brief parse out the command and arguments from the input command separated by spaces
- *
- * @param command
- * @param args
- * @return int
- */
-int parse_command(char command[], char *args[])
-{
-    // TODO: implement this function
-     int args_count = 0;
-    char *token = strtok(command, " ");
+vector<string> history;
 
-    while(token != NULL && args_count < MAX_LINE){
-        args[args_count++] = token;
-        token = strtok(nullptr," ");
+
+vector<string> split_command(const string& command) {
+    vector<string> commands;
+    string temp_command = command;
+    size_t pos = 0;
+
+    while ((pos = temp_command.find("|")) != string::npos) {
+        commands.push_back(temp_command.substr(0, pos));
+        temp_command.erase(0, pos + 1);
     }
 
-    args[args_count] = nullptr;
+    commands.push_back(temp_command);
+    return commands;
+}
+
+int parse_command(char command[], char* args[]) {
+    int args_count = 0;
+    char* token = strtok(command, " \n");
+
+    while (token != NULL) {
+        if (token[strlen(token) - 1] == '&' && strlen(token) > 1) {
+            args[args_count++] = strtok(token, "&");
+            args[args_count++] = const_cast<char*>("&");
+        } else {
+            args[args_count++] = token;
+        }
+
+        if (strcmp(token, "!!") != 0) {
+            history.push_back(token);
+        }
+
+        token = strtok(NULL, " \n");
+    }
+
+    args[args_count] = NULL;
+
+    if (args_count > 0 && strcmp(args[args_count - 1], "&") == 0) {
+        args[args_count - 1] = NULL;
+        args_count--;
+    }
 
     return args_count;
 }
 
-// TODO: Add additional functions if you need
-void last_command(){
+void last_command() {
+    if (!history.empty()) {
+        string last_command = history.back();
+        cout << "Previous command: " << last_command << endl;
+        char last_command_cstr[MAX_LINE];
+        strcpy(last_command_cstr, last_command.c_str());
+        char* args[MAX_LINE / 2 + 1];
+        int args_count = parse_command(last_command_cstr, args);
 
-    if(!history.empty()){ // checks to see if hsitory is empty
-        string prev_command = history.back(); // retrieves last command
-        char prev_command_cstr[MAX_LINE];  //C string
-        strcpy(prev_command_cstr, prev_command.c_str()); //gets copied to other string
-        char *args[MAX_LINE/2+1]; 
-        int args_count = parse_command(prev_command_cstr, args); //parse arguments and store them in args array
-
-        if(args_count < 0){ //special command check see if num of arguments is negative
-            if(strcmp(args[0], "exit")==0){
+        if (args_count > 0) {
+            if (strcmp(args[0], "exit") == 0) {
                 exit(0);
             }
-        }
-        //handle background execution
-        int background = 0;
-        if(args_count > 0 && strcmp(args[args_count - 1], "&") == 0){ //checks if last argument is '&' then modifies background accordingly
-            background = 1;
-            args[args_count - 1] = nullptr;
-        }
 
-        pid_t pid = fork(); //forks the process
+            int run_in_background = 0;
 
-        if(pid == 0){
-
-            if(background){ //close input, output, and error if in background
-                fclose(stdin);
-                fclose(stdout);
-                fclose(stderr);
+            if (args_count > 0 && strcmp(args[args_count - 1], "&") == 0) {
+                run_in_background = 1;
+                args[args_count - 1] = NULL;
             }
-            if(execvp(args[0], args) == -1){ //execute command
-                perror("execvp failed.");
-                printf("command not found\n");
+
+            pid_t pid = fork();
+
+            if (pid == 0) {
+                if (run_in_background) {
+                    fclose(stdin);
+                    fclose(stdout);
+                    fclose(stderr);
+                }
+
+                if (execvp(args[0], args) == -1) {
+                    perror("Execvp failed");
+                    printf("Command not found\n");
+                    exit(1);
+                }
+            } else if (pid < 0) {
+                perror("Fork failed");
+            } else {
+                if (!run_in_background) {
+                    int status;
+                    if (waitpid(pid, &status, 0) == -1) {
+                        perror("Waitpid failed");
+                    }
+                }
+            }
+        }
+    } else {
+        cout << "No command history found." << endl;
+    }
+}
+
+int main(int argc, char* argv[]) {
+    char command[MAX_LINE];
+    char* args[MAX_LINE / 2 + 1];
+    int state = 1;
+
+    if (getenv("PATH") == NULL) {
+        setenv("PATH", "/usr/bin:/bin", 1);
+    }
+
+    while (state) {
+        printf("osh>");
+        fflush(stdout);
+        fgets(command, MAX_LINE, stdin);
+
+        if (strcmp(command, "exit\n") == 0) {
+            state = 0;
+            continue;
+        }
+
+        if (strcmp(command, "!!\n") == 0){
+            last_command();
+            continue;
+        }
+
+        if (string(command).find("|") != string::npos) {
+            vector<string> piped_commands = split_command(command);
+            int num_pipes = piped_commands.size() - 1;
+            int pipefds[2 * num_pipes];
+
+            for (int i = 0; i < num_pipes; i++) {
+                if (pipe(pipefds + i * 2) == -1) {
+                    perror("Pipe creation failed");
+                    exit(1);
+                }
+            }
+
+            int cmd_index = 0;
+            for (const string& cmd : piped_commands) {
+                char cmd_cstr[MAX_LINE];
+                strcpy(cmd_cstr, cmd.c_str());
+                int args_count = parse_command(cmd_cstr, args);
+
+                pid_t pid = fork();
+                if (pid == 0) {
+                    if (cmd_index > 0) {
+                        if (dup2(pipefds[(cmd_index - 1) * 2], STDIN_FILENO) == -1) {
+                            perror("Dup2 failed");
+                            exit(1);
+                        }
+                    }
+                    if (cmd_index < num_pipes) {
+                        if (dup2(pipefds[cmd_index * 2 + 1], STDOUT_FILENO) == -1) {
+                            perror("Dup2 failed");
+                            exit(1);
+                        }
+                    }
+
+                    for (int i = 0; i < 2 * num_pipes; i++) {
+                        close(pipefds[i]);
+                    }
+
+                    if (execvp(args[0], args) == -1) {
+                        perror("Execvp failed");
+                        printf("Command not found\n");
+                        exit(1);
+                    }
+                } else if (pid < 0) {
+                    perror("Fork failed");
+                    exit(1);
+                }
+
+                cmd_index++;
+            }
+
+            for (int i = 0; i < 2 * num_pipes; i++) {
+                close(pipefds[i]);
+            }
+
+            for (int i = 0; i < num_pipes + 1; i++) {
+                int status;
+                if (wait(&status) == -1) {
+                    perror("Wait failed");
+                }
+            }
+        } else if (strcmp(command, "!!\n") == 0) {
+            last_command();
+        } else {
+            int args_count = parse_command(command, args);
+
+            int run_in_background = 0;
+            if (args_count > 0 && strcmp(args[args_count - 1], "&") == 0) {
+                run_in_background = 1;
+                args[args_count - 1] = NULL;
+            }
+
+            char* input_file = NULL;
+            char* output_file = NULL;
+            for (int i = 0; i < args_count; i++) {
+                if (strcmp(args[i], "<") == 0) {
+                    if (i + 1 < args_count) {
+                        input_file = args[i + 1];
+                        args[i] = NULL;
+                        args[i + 1] = NULL;
+                        break;
+                    }
+                } else if (strcmp(args[i], ">") == 0) {
+                    if (i + 1 < args_count) {
+                        output_file = args[i + 1];
+                        args[i] = NULL;
+                        args[i + 1] = NULL;
+                        break;
+                    }
+                } else if (strcmp(args[i], ">>") == 0) {
+                    if (i + 1 < args_count) {
+                        output_file = args[i + 1];
+                        args[i] = NULL;
+                        args[i + 1] = NULL;
+                        break;
+                    }
+                }
+            }
+
+            pid_t pid = fork();
+
+            if (pid == 0) {
+                if (run_in_background) {
+                    fclose(stdin);
+                    fclose(stdout);
+                    fclose(stderr);
+                }
+
+                if (input_file != NULL) {
+                    int input_fd = open(input_file, O_RDONLY);
+                    if (input_fd < 0) {
+                        perror("Input redirection failed");
+                        exit(1);
+                    }
+                    if (dup2(input_fd, STDIN_FILENO) == -1) {
+                        perror("Dup2 failed");
+                        exit(1);
+                    }
+                    close(input_fd);
+                }
+
+                if (output_file != NULL) {
+                    int output_fd;
+                    if (strcmp(args[0], ">>") == 0) {
+                        output_fd = open(output_file, O_WRONLY | O_CREAT | O_APPEND, 0666);
+                    } else {
+                        output_fd = open(output_file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+                    }
+                    if (output_fd < 0) {
+                        perror("Output redirection failed");
+                        exit(1);
+                    }
+                    if (dup2(output_fd, STDOUT_FILENO) == -1) {
+                        perror("Dup2 failed");
+                        exit(1);
+                    }
+                    close(output_fd);
+                }
+
+                if (execvp(args[0], args) == -1) {
+                    perror("Execvp failed");
+                    printf("Command not found\n");
+                    exit(1);
+                }
+            } else if (pid < 0) {
+                perror("Fork failed");
                 exit(1);
-            }
-        }else if(pid < 0){
-            perror("fork faild.");
-        }else{
-            if(!background){ 
-                int state; //if not in background wait for child to finish
-                if(waitpid(pid, &state, 0) == -1){ 
-                    perror("waitpid failed");
+            } else {
+                if (!run_in_background) {
+                    int status;
+                    if (waitpid(pid, &status, 0) == -1) {
+                        perror("Waitpid failed");
+                    }
                 }
             }
         }
     }
-}
-/**
- * @brief The main function of a simple UNIX Shell. You may add additional functions in this file for your implementation
- * @param argc The number of arguments
- * @param argv The array of arguments
- * @return The exit status of the program
- */
-int main(int argc, char *argv[])
-{
-    char command[MAX_LINE];       // the command that was entered
-    char *args[MAX_LINE / 2 + 1]; // hold parsed out command line arguments
-    int should_run = 1;           /* flag to determine when to exit program */
 
-    // TODO: Add additional variables for the implementation.
-     pthread_t tid; //the thread identifier
-    pthread_attr_t attr; //set attribute of the thread
-
-    if(argc != 2){
-        fprintf(stderr, "usage: %s <integer val> \n", argv[0]);
-
-        return -1;
-    }
-
-    pthread_attr_init(&attr); //set default attributes
-
-    pthread_create(&tid, &attr, runner, argv[1]); //create the thread
-
-    pthread_join(tid, NULL); //wait for thread to exit
-
-    printf("parent print sum = %d\n",sum);
-    
-    while (should_run)
-    {
-        printf("osh>");
-        fflush(stdout);
-        // Read the input command
-        fgets(command, MAX_LINE, stdin);
-        // Parse the input command
-        int num_args = parse_command(command, args);
-
-        // TODO: Add your code for the implementation
-        /**
-         * After reading user input, the steps are:
-         * (1) fork a child process using fork()
-         * (2) the child process will invoke execvp()
-         * (3) parent will invoke wait() unless command included &
-         */
-    }
     return 0;
-}
-//thread begins in control function
-void *runner(void *param){
-    int upper = atoi(param);
-    sum = 0;
-    cout << "Running the child thread" << endl;
-    
-    if(upper > 0){
-        for(int i = 0; i <= upper; i++){
-            sum++;
-        }
-    }
-
 }
