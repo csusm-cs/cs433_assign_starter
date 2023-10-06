@@ -59,7 +59,23 @@ int main(int argc, char *argv[])
     int should_run = 1;           /* flag to determine when to exit program */
 
     // TODO: Add additional variables for the implementation.
+     pthread_t tid; //the thread identifier
+    pthread_attr_t attr; //set attribute of the thread
 
+    if(argc != 2){
+        fprintf(stderr, "usage: %s <integer val> \n", argv[0]);
+
+        return -1;
+    }
+
+    pthread_attr_init(&attr); //set default attributes
+
+    pthread_create(&tid, &attr, runner, argv[1]); //create the thread
+
+    pthread_join(tid, NULL); //wait for thread to exit
+
+    printf("parent print sum = %d\n",sum);
+    
     while (should_run)
     {
         printf("osh>");
@@ -78,4 +94,17 @@ int main(int argc, char *argv[])
          */
     }
     return 0;
+}
+//thread begins in control function
+void *runner(void *param){
+    int upper = atoi(param);
+    sum = 0;
+    cout << "Running the child thread" << endl;
+    
+    if(upper > 0){
+        for(int i = 0; i <= upper; i++){
+            sum++;
+        }
+    }
+
 }
