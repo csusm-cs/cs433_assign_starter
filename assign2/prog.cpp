@@ -45,7 +45,53 @@ int parse_command(char command[], char *args[])
 }
 
 // TODO: Add additional functions if you need
+void last_command(){
 
+    if(!history.empty()){ // checks to see if hsitory is empty
+        string prev_command = history.back(); // retrieves last command
+        char prev_command_cstr[MAX_LINE];  //C string
+        strcpy(prev_command_cstr, prev_command.c_str()); //gets copied to other string
+        char *args[MAX_LINE/2+1]; 
+        int args_count = parse_command(prev_command_cstr, args); //parse arguments and store them in args array
+
+        if(args_count < 0){ //special command check see if num of arguments is negative
+            if(strcmp(args[0], "exit")==0){
+                exit(0);
+            }
+        }
+        //handle background execution
+        int background = 0;
+        if(args_count > 0 && strcmp(args[args_count - 1], "&") == 0){ //checks if last argument is '&' then modifies background accordingly
+            background = 1;
+            args[args_count - 1] = nullptr;
+        }
+
+        pid_t pid = fork(); //forks the process
+
+        if(pid == 0){
+
+            if(background){ //close input, output, and error if in background
+                fclose(stdin);
+                fclose(stdout);
+                fclose(stderr);
+            }
+            if(execvp(args[0], args) == -1){ //execute command
+                perror("execvp failed.");
+                printf("command not found\n");
+                exit(1);
+            }
+        }else if(pid < 0){
+            perror("fork faild.");
+        }else{
+            if(!background){ 
+                int state; //if not in background wait for child to finish
+                if(waitpid(pid, &state, 0) == -1){ 
+                    perror("waitpid failed");
+                }
+            }
+        }
+    }
+}
 /**
  * @brief The main function of a simple UNIX Shell. You may add additional functions in this file for your implementation
  * @param argc The number of arguments
