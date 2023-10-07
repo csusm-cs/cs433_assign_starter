@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/wait.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -53,6 +54,7 @@ int parse_command(char command[], char* args[]) {
 
         if (strcmp(token, "!!") != 0) {
             history.push_back(token);
+            cout << "This is what was jsut added to History: " << token << endl;
         }
 
         token = strtok(NULL, " \n");
@@ -74,6 +76,7 @@ void last_command() {
         cout << "Previous command: " << last_command << endl;
         char last_command_cstr[MAX_LINE];
         strcpy(last_command_cstr, last_command.c_str());
+        
         char* args[MAX_LINE / 2 + 1];
         int args_count = parse_command(last_command_cstr, args);
 
