@@ -16,6 +16,11 @@
 class SchedulerRR : public Scheduler {
 private:
     // TODO: add necessary member variables here for your implementation
+    int current_time;
+    int quantum;
+    vector<PCB> processes;
+    vector<int> remainingBurst;
+    vector<int> turnaroundTime;
 
 public:
     /**
