@@ -33,7 +33,7 @@ void SchedulerFCFS::print_results(){
     for(PCB& process : processes){
         current_time += process.burst_time;
         //T1 turn-around time = 20, waiting time = 0
-        cout << process.name << " turn-around time = " << current_time << ", waiting time = " << (current_time - process.arrival_time) << endl;
+        cout << process.name << " turn-around time = " << current_time << ", waiting time = " << (current_time - process.arrival_time - process.burst_time) << endl;
         total_turnaround_time += (current_time - process.arrival_time);
         total_waiting_time += (current_time - process.arrival_time - process.burst_time);
     }

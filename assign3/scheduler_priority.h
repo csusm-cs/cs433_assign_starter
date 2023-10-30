@@ -17,6 +17,8 @@
 class SchedulerPriority : public Scheduler {
 private:
     // TODO: add necessary member variables here for your implementation
+    int current_time;
+    vector<PCB> processes;
 
 public:
     /**
