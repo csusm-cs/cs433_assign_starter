@@ -47,21 +47,21 @@ You should also write a report for each programming assignment and submit it in 
 #### Problem Description
 In this section, describe the problem you are solving and the functionalities of your program to solve the problem.
 
-##### Program Design
+#### Program Design
 Describe the overall design of your program. 
 
 What algorithms and/or data structures did you choose for implementing the program? Why this algorithm is applicable here?
 Why do you choose to use those data structures?
 
-##### System Implementation
+#### System Implementation
 Describe the details of your implementations. Did you run into problems in your implementation? How did you overcome those problems?
 
-##### Results
+#### Results
 If applicable, your report should include any results for the assignment, the features implemented or missing from the submission, and  You should give references to the code you used from online/book resources and explain your contributions. You may also discuss extra things you have done in the project, future improvements to your program.
 
 #### Conclusion
 Give the conclusion and summary of your project. Did it solve the intended problem successfully?  What functionalities does your program have? What lessons have you learned from this assignment? Any comments about the project that you want to communicate to the instructor. 
-Your reports are usually expected to be 2 to 4 pages and contain sufficient details.
+Your reports should contain sufficient details are usually expected to be 2 to 4 pages long.
  
 ## Academic Honesty
 Students must follow the Campus Academic Integrity and Student Conduct Policies. The following are what is allowed and not allowed for completing the assignments. 
