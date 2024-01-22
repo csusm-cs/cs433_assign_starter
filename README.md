@@ -3,7 +3,7 @@
  ## Get Started
  1. Clone the repository
  ```
- git clone https://github.com/csusm-cs/cs433_assign_fall23.git
+ git clone https://github.com/csusm-cs/cs433_assign_starter.git 
  ```
  2. Develop your program in a Linux system
 The assignments are designed to compile and run on a Linux environement. You can use the cs433.cs.csusm.edu server or set up your own Linux environment. Contact the instructor if you need help on using Linux.
