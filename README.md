@@ -63,7 +63,11 @@ You should give references to the code you used from online/book resources and e
 #### Conclusion
 Give the conclusion and summary of your project. Did it solve the intended problem successfully?  What functionalities does your program have? What lessons have you learned from this assignment? Any comments about the project that you want to communicate to the instructor. 
 
-Your reports should contain sufficient details are usually expected to be 2 to 4 pages long.
+Your reports should contain sufficient details and are usually expected to be 2 to 4 pages long. Your report will be graded according to its organization, content, and writing. To receive full credits for the report, it should satisfy the following:
+1. Organization: Structure is logically clear and conforms to standards if required. Provides smooth transitions in between sections.
+2. Content: Provides all key technical components and details. Provides ample supporting details (such as figures, tables, analysis, etc.)
+3. Writing: Flow smoothly, effective in using strong topic sentences to start paragraphs, transitions to link sentences, a varied sentence structure, and logical connections between ideas. Demonstrates thorough proofreading. Defines all high-tech terms (acronyms or abbreviations); Uses highlighting techniques appropriately to emphasize main points to help information accessibility; clear cross-references.
+
  
 ## Academic Honesty
 Students must follow the Campus Academic Integrity and Student Conduct Policies. The following are what is allowed and not allowed for completing the assignments. 
