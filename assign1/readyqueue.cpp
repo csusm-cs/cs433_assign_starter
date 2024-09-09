@@ -1,24 +1,23 @@
-#include <iostream>
 #include "readyqueue.h"
+#include <iostream>
 
 using namespace std;
 
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to add sufficient comments to your code
-
+// You must complete the all parts marked as "TODO". Delete "TODO" after you are
+// done. Remember to add sufficient comments to your code.
 
 /**
  * @brief Constructor for the ReadyQueue class.
  */
- ReadyQueue::ReadyQueue()  {
-     //TODO: add your code here
- }
+ReadyQueue::ReadyQueue() {
+  // TODO: add your code here
+}
 
 /**
- *@brief Destructor
-*/
+ * @brief Destructor for the ReadyQueue class.
+ */
 ReadyQueue::~ReadyQueue() {
-    //TODO: add your code to release dynamically allocate memory
+  // TODO: add your code to release dynamically allocate memory
 }
 
 /**
@@ -27,8 +26,8 @@ ReadyQueue::~ReadyQueue() {
  * @param pcbPtr: the pointer to the PCB to be added
  */
 void ReadyQueue::addPCB(PCB *pcbPtr) {
-    //TODO: add your code here
-    // When adding a PCB to the queue, you must change its state to READY.
+  // TODO: add your code here
+  // When adding a PCB to the queue, you must change its state to READY.
 }
 
 /**
@@ -36,9 +35,9 @@ void ReadyQueue::addPCB(PCB *pcbPtr) {
  *
  * @return PCB*: the pointer to the PCB with the highest priority
  */
-PCB* ReadyQueue::removePCB() {
-    //TODO: add your code here
-    // When removing a PCB from the queue, you must change its state to RUNNING.
+PCB *ReadyQueue::removePCB() {
+  // TODO: add your code here
+  // When removing a PCB from the queue, you must change its state to RUNNING.
 }
 
 /**
@@ -47,12 +46,12 @@ PCB* ReadyQueue::removePCB() {
  * @return int: the number of PCBs in the queue
  */
 int ReadyQueue::size() {
-    //TODO: add your code here
+  // TODO: add your code here
 }
 
 /**
  * @brief Display the PCBs in the queue.
  */
 void ReadyQueue::displayAll() {
-    //TODO: add your code here
+  // TODO: add your code here
 }
