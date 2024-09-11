@@ -38,3 +38,6 @@
 .idea
 .vscode
 .DS_Store
+
+# Other files
+playground.cpp
