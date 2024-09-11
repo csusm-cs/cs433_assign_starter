@@ -9,15 +9,16 @@ using namespace std;
 /**
  * @brief Constructor for the ReadyQueue class.
  */
-ReadyQueue::ReadyQueue() {
+ReadyQueue::ReadyQueue() : count(0) {
   // TODO: add your code here
+  // Implement heap data structure for the ReadyQueue
 }
 
 /**
  * @brief Destructor for the ReadyQueue class.
  */
 ReadyQueue::~ReadyQueue() {
-  // TODO: add your code to release dynamically allocate memory
+  // TODO: add your code to release dynamically allocated memory
 }
 
 /**
@@ -26,8 +27,9 @@ ReadyQueue::~ReadyQueue() {
  * @param pcbPtr: the pointer to the PCB to be added
  */
 void ReadyQueue::addPCB(PCB *pcbPtr) {
-  // TODO: add your code here
   // When adding a PCB to the queue, you must change its state to READY.
+  // TODO: add your code here
+
 }
 
 /**

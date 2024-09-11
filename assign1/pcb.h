@@ -19,17 +19,23 @@ enum class ProcState { NEW, READY, RUNNING, WAITING, TERMINATED };
 
 /**
  * @brief A process control block (PCB) is a data structure representing a
- process in the system. A process should have at least an ID and a state (i.e.,
- NEW, READY, RUNNING, WAITING or TERMINATED). It may also have other attributes,
- such as scheduling information (e.g., priority).
+ * process in the system.
+ *
+ * A process should have at least an ID and a state
+ * (i.e., NEW, READY, RUNNING, WAITING or TERMINATED).
+ *
+ * It may also have other attributes, such as scheduling information
+ * (e.g., priority).
  */
 class PCB {
 public:
   // The unique process ID
   unsigned int id;
+
   // The priority of a process valued between 1-50. Larger number represents
   // higher priority
   unsigned int priority;
+
   // The current state of the process.
   // A process in the ReadyQueue should be in READY state
   ProcState state;
@@ -47,13 +53,16 @@ public:
     this->id = id;
     this->priority = priority;
     this->state = state;
+    cout << "PCB with ID " << id << " is being created." << endl; // DEBUG
   }
 
   /**
    * @brief Destroy the PCB object.
    *
    */
-  ~PCB() {}
+  ~PCB() {
+    cout << "PCB with ID " << id << " is being destroyed." << endl; // DEBUG
+  }
 
   /**
    * @brief Get the ID of the PCB.
@@ -81,18 +90,14 @@ public:
    * .
    * @param state: the state of the PCB
    */
-  void setState(ProcState state) {
-    // TODO: add your code here
-  }
+  void setState(ProcState state) { this->state = state; }
 
   /**
    * @brief Change the priority of the PCB.
    *
    * @param priority: the priority of the PCB
    */
-  void setPriority(unsigned int priority) {
-    // TODO: add your code here
-  }
+  void setPriority(unsigned int priority) { this->priority = priority; }
 
   /**
    * @brief Print the PCB.

@@ -16,13 +16,18 @@
 #include "pcb.h"
 
 /**
- * @brief A queue of PCB's that are in the READY state to be scheduled to run.
+ * @brief A queue of PCBs that are in the `READY` state to be scheduled to run.
+ * 
  * It should be a priority queue such that the process with the highest priority
  * can be selected next.
  */
 class ReadyQueue {
 private:
   // TODO: add your private member variables here
+  // Implement heap data structure for the ReadyQueue
+  PCB pcbArray[100];
+  int count;
+
   // Choose a data structure for the ReadyQueue. No STL class is allowed.
 
 public:

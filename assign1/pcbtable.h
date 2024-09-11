@@ -13,13 +13,14 @@
 #pragma once
 
 #include "pcb.h"
+#include <vector>
 
 /**
  * @brief PCTable is an array of all PCBs in the system.
  */
 class PCBTable {
 private:
-  // TODO: add your private member variables here
+  vector<PCB *> pcbTable;
   // Choose a data structure for the PCBTable.
   // You can use an array of PCB pointers (e.g., vector<PCB *>).
 
@@ -64,7 +65,7 @@ public:
   /**
    * @brief Add a new PCB to the PCBTable.
    *
-   * @param pid: Id of the new PCB
+   * @param pid: ID of the new PCB
    * @param priority: Priority of the new PCB
    * @param idx: The index of the new PCB in the PCBTable
    */
