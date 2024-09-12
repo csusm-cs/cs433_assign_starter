@@ -53,7 +53,7 @@ public:
     this->id = id;
     this->priority = priority;
     this->state = state;
-    cout << "PCB with ID " << id << " is being created." << endl; // DEBUG
+    // cout << "PCB with ID " << id << " is being created." << endl; // DEBUG
   }
 
   /**
@@ -61,7 +61,7 @@ public:
    *
    */
   ~PCB() {
-    cout << "PCB with ID " << id << " is being destroyed." << endl; // DEBUG
+    // cout << "PCB with ID " << id << " is being destroyed." << endl; // DEBUG
   }
 
   /**
@@ -86,8 +86,8 @@ public:
   ProcState getState() { return state; }
 
   /**
-   * @brief Change the state of the PCB
-   * .
+   * @brief Change the state of the PCB.
+   *
    * @param state: the state of the PCB
    */
   void setState(ProcState state) { this->state = state; }
