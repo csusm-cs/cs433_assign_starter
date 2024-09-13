@@ -1,7 +1,7 @@
 /**
  * Assignment 1: priority queue of processes
  * @file pcbtable.h
- * @author ??? (TODO: your name)
+ * @author Zach Miller
  * @brief This is the implementation file for the PCBTable class.
  * //You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
  * // Remember to add sufficient comments to your code
@@ -15,7 +15,7 @@
  * @param size: the capacity of the PCBTable
  */
 PCBTable::PCBTable(int size) {
-   // TODO: add your code here
+   this->pcbTable.resize(size);
 }
 
 /**
@@ -23,8 +23,10 @@ PCBTable::PCBTable(int size) {
  *
  */
 PCBTable::~PCBTable() {
-   // TODO: add your code here
    // Delete all the PCBs in the table
+    for (PCB *pcb : pcbTable) {
+    delete pcb;
+   }
 }
 
 /**
@@ -34,8 +36,7 @@ PCBTable::~PCBTable() {
  * @return PCB*: pointer to the PCB at index "idx"
  */
 PCB* PCBTable::getPCB(unsigned int idx) {
-    // TODO: add your code here
-    return NULL;
+    return pcbTable[idx];
 }
 
 /**
@@ -44,6 +45,6 @@ PCB* PCBTable::getPCB(unsigned int idx) {
  * @param pcb: the PCB to add
  */
 void PCBTable::addPCB(PCB *pcb, unsigned int idx) {
-    // TODO: add your code here
     // Add a PCB pointer to the PCBTable at index idx.
+    pcbTable[idx] = pcb;
 }
