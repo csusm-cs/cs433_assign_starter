@@ -82,7 +82,6 @@ public:
      * @param state
      */
     void setState(ProcState state) {
-        // TODO: add your code here
         this->state = state;
     }
 
@@ -91,7 +90,7 @@ public:
      * @param priority
      */
     void setPriority(unsigned int priority) {
-        // TODO: add your code here
+        this->priority = priority;
     }
 
     /**

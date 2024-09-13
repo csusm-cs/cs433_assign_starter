@@ -53,8 +53,7 @@ int main(int argc, char *argv[]) {
         } else {
             // Add a PCB into ReadyQueue
             idx = rand() % size;
-            if (table.getPCB(idx)->getState() !=
-                ProcState::READY) { // if the PCB is not in READY state, add it into ReadyQueue
+            if (table.getPCB(idx)->getState() != ProcState::READY) { // if the PCB is not in READY state, add it into ReadyQueue
                 int priority = rand() % 50 + 1;  
                 table.getPCB(idx)->setPriority(priority);  // change its priority to a random value
                 q2.addPCB(table.getPCB(idx));

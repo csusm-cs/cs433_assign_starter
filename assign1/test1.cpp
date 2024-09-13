@@ -11,7 +11,7 @@
 #include "readyqueue.h"
 #include "pcbtable.h"
 
-using namespace std;
+//using namespace std;
 
 int main(int argc, char* argv[]) {
     std::cout << "CS 433 Programming assignment 1" << std::endl;

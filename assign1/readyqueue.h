@@ -17,7 +17,7 @@
  * It should be a priority queue such that the process with the highest priority can be selected next.
  */
 class ReadyQueue {
-    vector<PCB *> pQueue;
+    vector<PCB> pQueue;
 private:
     // TODO: add your private member variables here
     // choose a data structure for the ReadyQueue. No STL class is allowed.
@@ -27,7 +27,7 @@ private:
 
     void heapify(int = 0);      // heapifies heap after modifying it
 
-    int getLargerChild(int);   // returns the location of the smaller child 
+    //int getLargerChild(int);    returns the location of the smaller child 
 
 public:
     /**
