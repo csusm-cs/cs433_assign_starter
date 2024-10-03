@@ -2,7 +2,7 @@
 /**
  * Assignment 2: Simple UNIX Shell
  * @file pcbtable.h
- * @author ??? (TODO: your name)
+ * @author Zach Miller
  * @brief This is the main function of a simple UNIX Shell. You may add additional functions in this file for your implementation
  * @version 0.1
  */
@@ -30,7 +30,17 @@ using namespace std;
  */
 int parse_command(char command[], char *args[])
 {
-    // TODO: implement this function
+    char *token = strtok(command, "\n");    // token delimeter is 
+    int argcount = 0;
+    while (nullptr != token) {
+        args[argcount] = token;
+
+        printf("parsed argument[%d]: |%s|\n", argcount, args[argcount]);
+        argcount++;
+
+        token = strtok(nullptr, "\n");
+    }
+    return argcount;
 }
 
 // TODO: Add additional functions if you need
@@ -49,14 +59,41 @@ int main(int argc, char *argv[])
 
     // TODO: Add additional variables for the implementation.
 
+    unsigned int loop = 0;
     while (should_run)
     {
-        printf("osh>");
+        printf("osh[%u]>", loop++);
         fflush(stdout);
         // Read the input command
         fgets(command, MAX_LINE, stdin);
         // Parse the input command
         int num_args = parse_command(command, args);
+
+        if (num_args) {
+            char *cmd = args[0];
+
+            if (!strcmp(cmd, "quit")) {
+                should_run = 0;     // exit while loop and terminate shell
+            } else {
+                // call fork determine child or parent if child
+                // then do an if-else-statement for each commmand.
+                // use that command and arguments to call execvp().
+
+                // I would recommend you create a function:
+                // void child(int numargs, char *args[]); and call
+                // this function when you determine you are the child.
+
+                pid_t pid = fork();
+                if (0 == pid) {
+                    printf("[child]\n");
+
+                    exit(0);
+                } else {
+                    printf ("[parent]\n");
+                    printf("child pid: %d\n", pid);
+                }
+            }
+        }
 
         // TODO: Add your code for the implementation
         /**
@@ -65,6 +102,8 @@ int main(int argc, char *argv[])
          * (2) the child process will invoke execvp()
          * (3) parent will invoke wait() unless command included &
          */
+        //cout << parse_command(command, args);
+
     }
     return 0;
 }
