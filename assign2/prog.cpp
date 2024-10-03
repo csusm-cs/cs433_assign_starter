@@ -86,7 +86,8 @@ int main(int argc, char *argv[])
                 pid_t pid = fork();
                 if (0 == pid) {
                     printf("[child]\n");
-
+                    execvp(args[0], args);
+                    perror("execvp");    // if execvp fails, print error message
                     exit(0);
                 } else {
                     printf ("[parent]\n");
