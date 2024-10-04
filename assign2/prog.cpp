@@ -28,26 +28,13 @@ using namespace std;
  * @param args
  * @return int
  */
-// int parse_command(char command[], char *args[])
-// {
-//     char *token = strtok(command, "\n");    // token delimeter is (CHANGED \n WITH BLANK SPACE)
-//     int argcount = 0;
-//     while (nullptr != token) {
-//         args[argcount] = token;
 
-//         printf("parsed argument[%d]: |%s|\n", argcount, args[argcount]);
-//         argcount++;
-
-//         token = strtok(nullptr, "\n");   // replaced \n with blank space
-//     }
-//     return argcount;
-// }
 
 int parse_command(char command[], char *args[])
 {
     char *token = strtok(command, " \n");   // Handle both spaces and newlines
-    int argcount = 0;
-    while (token != nullptr) {
+    int argcount = 0;   // int to keep track of arguments
+    while (token != nullptr) {      // loops through whole command until end
         args[argcount] = token;
         printf("parsed argument[%d]: |%s|\n", argcount, args[argcount]);
         argcount++;
@@ -75,17 +62,13 @@ int main(int argc, char *argv[])
 
     // TODO: Add additional variables for the implementation.
 
-    unsigned int loop = 0;
+    unsigned int loop = 0;  // int to keep track of command count
     while (should_run)
     {
         printf("osh[%u]>", loop++);
         fflush(stdout);
         // Read the input command
         fgets(command, MAX_LINE, stdin);
-
-        // Save command into history if the command is not !!
-        free(history);
-        history = strdup(command);
         
          //cout << "This is history right after it is typed: " << history;
         // Parse the input command
@@ -93,15 +76,24 @@ int main(int argc, char *argv[])
 
         // check for history command
         if (strncmp(args[0], "!!", 2) == 0) {
-            if (history == nullptr) {
+            if (history == nullptr) {       // if history is empty, then print no commands
                 printf("No commands in history.\n");
-                continue;
+                break;
             } else {
             // copy command in history to args
+            strcpy(command, history);
             cout << "history: " << history;
-            execvp(history, args);
+            num_args = parse_command(command, args);     // parse the history command again
+            printf("Executing previous command: %s\n", command);
             }
+
+        } else {
+            // Save command into history
+            free(history);
+            history = strdup(command);
         }
+
+        
 
 
         if (num_args) {
@@ -119,7 +111,7 @@ int main(int argc, char *argv[])
                 // this function when you determine you are the child.
 
                 pid_t pid = fork();
-                if (0 == pid) {
+                if (pid == 0) {
                     printf("[child]\n");
                     execvp(args[0], args);
                     perror("execvp");    // if execvp fails, print error message
