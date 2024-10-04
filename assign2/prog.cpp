@@ -36,16 +36,21 @@ int parse_command(char command[], char *args[])
     int argcount = 0;   // int to keep track of arguments
     while (token != nullptr) {      // loops through whole command until end
         args[argcount] = token;
-        printf("parsed argument[%d]: |%s|\n", argcount, args[argcount]);
+        //printf("parsed argument[%d]: |%s|\n", argcount, args[argcount]);
         argcount++;
-        token = strtok(nullptr, " \n");
+        token = strtok(nullptr, "\n");
     }
     args[argcount] = nullptr;  // End the argument list
     return argcount;
 }
 
-
-// TODO: Add additional functions if you need
+/**
+ * TODO and Questions:
+ * Redirecting input and output
+ * ampersand still not working properly
+ * history function is not reading whole command
+ * Clean up Output
+ */
 
 /**
  * @brief The main function of a simple UNIX Shell. You may add additional functions in this file for your implementation
@@ -73,16 +78,18 @@ int main(int argc, char *argv[])
          //cout << "This is history right after it is typed: " << history;
         // Parse the input command
         int num_args = parse_command(command, args);
+        cout << "num_args: " << num_args << "\n";     // print statement to show value of num_args
 
         // check for history command
         if (strncmp(args[0], "!!", 2) == 0) {
             if (history == nullptr) {       // if history is empty, then print no commands
                 printf("No commands in history.\n");
-                break;
+                continue;
             } else {
             // copy command in history to args
-            strcpy(command, history);
-            cout << "history: " << history;
+            cout << "command: " << command << "\n";
+            //strcpy(command, history);
+            cout << "history: " << history << "\n";
             num_args = parse_command(command, args);     // parse the history command again
             printf("Executing previous command: %s\n", command);
             }
@@ -101,8 +108,7 @@ int main(int argc, char *argv[])
 
             if (!strcmp(cmd, "exit")) {
                 should_run = 0;     // exit while loop and terminate shell
-            } else {
-                // call fork determine child or parent if child
+            } else {                // call fork determine child or parent if child
                 // then do an if-else-statement for each commmand.
                 // use that command and arguments to call execvp().
 
@@ -112,7 +118,7 @@ int main(int argc, char *argv[])
 
                 pid_t pid = fork();
                 if (pid == 0) {
-                    printf("[child]\n");
+                    //printf("[child]\n");
                     execvp(args[0], args);
                     perror("execvp");    // if execvp fails, print error message
                     exit(0);
@@ -120,9 +126,11 @@ int main(int argc, char *argv[])
                     perror("Fork Failed.");     // if fork fails print error message, then exit
                     exit(EXIT_FAILURE);
                 } else {
-                    printf ("[parent]\n");
-                    printf("-----------\n");
-                    //printf("child pid: %d\n", pid);
+                    //printf ("[parent]\n");
+                    //printf("-----------\n");
+                    if (strcmp(args[num_args - 1], command) == EXIT_SUCCESS){   // if the last index in the command is '&' then run concurrently 
+                        wait(NULL);
+                    }
                     wait(NULL);     // parent process waits for the child to exit
                 }
             }
