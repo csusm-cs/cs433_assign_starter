@@ -28,20 +28,35 @@ using namespace std;
  * @param args
  * @return int
  */
+// int parse_command(char command[], char *args[])
+// {
+//     char *token = strtok(command, "\n");    // token delimeter is (CHANGED \n WITH BLANK SPACE)
+//     int argcount = 0;
+//     while (nullptr != token) {
+//         args[argcount] = token;
+
+//         printf("parsed argument[%d]: |%s|\n", argcount, args[argcount]);
+//         argcount++;
+
+//         token = strtok(nullptr, "\n");   // replaced \n with blank space
+//     }
+//     return argcount;
+// }
+
 int parse_command(char command[], char *args[])
 {
-    char *token = strtok(command, "\n");    // token delimeter is 
+    char *token = strtok(command, " \n");   // Handle both spaces and newlines
     int argcount = 0;
-    while (nullptr != token) {
+    while (token != nullptr) {
         args[argcount] = token;
-
         printf("parsed argument[%d]: |%s|\n", argcount, args[argcount]);
         argcount++;
-
-        token = strtok(nullptr, "\n");
+        token = strtok(nullptr, " \n");
     }
+    args[argcount] = nullptr;  // End the argument list
     return argcount;
 }
+
 
 // TODO: Add additional functions if you need
 
@@ -56,6 +71,7 @@ int main(int argc, char *argv[])
     char command[MAX_LINE];       // the command that was entered
     char *args[MAX_LINE / 2 + 1]; // hold parsed out command line arguments
     int should_run = 1;           /* flag to determine when to exit program */
+    char *history = nullptr;
 
     // TODO: Add additional variables for the implementation.
 
@@ -66,13 +82,32 @@ int main(int argc, char *argv[])
         fflush(stdout);
         // Read the input command
         fgets(command, MAX_LINE, stdin);
+
+        // Save command into history if the command is not !!
+        free(history);
+        history = strdup(command);
+        
+         //cout << "This is history right after it is typed: " << history;
         // Parse the input command
         int num_args = parse_command(command, args);
+
+        // check for history command
+        if (strncmp(args[0], "!!", 2) == 0) {
+            if (history == nullptr) {
+                printf("No commands in history.\n");
+                continue;
+            } else {
+            // copy command in history to args
+            cout << "history: " << history;
+            execvp(history, args);
+            }
+        }
+
 
         if (num_args) {
             char *cmd = args[0];
 
-            if (!strcmp(cmd, "quit")) {
+            if (!strcmp(cmd, "exit")) {
                 should_run = 0;     // exit while loop and terminate shell
             } else {
                 // call fork determine child or parent if child
@@ -89,12 +124,18 @@ int main(int argc, char *argv[])
                     execvp(args[0], args);
                     perror("execvp");    // if execvp fails, print error message
                     exit(0);
+                } else if (pid < 0) {
+                    perror("Fork Failed.");     // if fork fails print error message, then exit
+                    exit(EXIT_FAILURE);
                 } else {
                     printf ("[parent]\n");
-                    printf("child pid: %d\n", pid);
+                    printf("-----------\n");
+                    //printf("child pid: %d\n", pid);
+                    wait(NULL);     // parent process waits for the child to exit
                 }
             }
         }
+        
 
         // TODO: Add your code for the implementation
         /**
@@ -106,5 +147,6 @@ int main(int argc, char *argv[])
         //cout << parse_command(command, args);
 
     }
+    free(history);
     return 0;
 }
