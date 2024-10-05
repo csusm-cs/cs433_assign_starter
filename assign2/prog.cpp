@@ -35,10 +35,11 @@ int parse_command(char command[], char *args[])
     char *token = strtok(command, " \n");   // Handle both spaces and newlines
     int argcount = 0;   // int to keep track of arguments
     while (token != nullptr) {      // loops through whole command until end
+        printf("token: %s\n", token);
         args[argcount] = token;
         //printf("parsed argument[%d]: |%s|\n", argcount, args[argcount]);
         argcount++;
-        token = strtok(nullptr, "\n");
+        token = strtok(nullptr, " \n");
     }
     args[argcount] = nullptr;  // End the argument list
     return argcount;
@@ -48,7 +49,8 @@ int parse_command(char command[], char *args[])
  * TODO and Questions:
  * Redirecting input and output
  * ampersand still not working properly
- * history function is not reading whole command
+ * history function is not reading whole command (not re-executing the entire command)
+ * grep not functioning properly (hangs indefinetly)
  * Clean up Output
  */
 
@@ -61,47 +63,48 @@ int parse_command(char command[], char *args[])
 int main(int argc, char *argv[])
 {
     char command[MAX_LINE];       // the command that was entered
+    char command_history[MAX_LINE];       // the command that was entered
+    command_history[0] = '\0';
     char *args[MAX_LINE / 2 + 1]; // hold parsed out command line arguments
-    int should_run = 1;           /* flag to determine when to exit program */
-    char *history = nullptr;
+    int should_run = 1;           /* flag to determine when to exit program */  
 
     // TODO: Add additional variables for the implementation.
 
     unsigned int loop = 0;  // int to keep track of command count
     while (should_run)
     {
+        int background = 0;
+
         printf("osh[%u]>", loop++);
         fflush(stdout);
         // Read the input command
         fgets(command, MAX_LINE, stdin);
-        
-         //cout << "This is history right after it is typed: " << history;
-        // Parse the input command
+
+        if (strcmp(command, "!!\n")) {
+            strcpy(command_history, command);
+            printf("command: %s\n", command);
+        }
+
+// Parse the input command
         int num_args = parse_command(command, args);
-        cout << "num_args: " << num_args << "\n";     // print statement to show value of num_args
+
+
+        if (!num_args)
+            continue;
 
         // check for history command
-        if (strncmp(args[0], "!!", 2) == 0) {
-            if (history == nullptr) {       // if history is empty, then print no commands
+        if (strcmp(args[0], "!!") == 0) {
+            if (!strlen(command_history)) {       // if history is empty, then print no commands
                 printf("No commands in history.\n");
                 continue;
             } else {
             // copy command in history to args
             cout << "command: " << command << "\n";
-            //strcpy(command, history);
-            cout << "history: " << history << "\n";
-            num_args = parse_command(command, args);     // parse the history command again
-            printf("Executing previous command: %s\n", command);
+            cout << "command_history: " << command_history << "\n";
+            num_args = parse_command(command_history, args);
             }
-
-        } else {
-            // Save command into history
-            free(history);
-            history = strdup(command);
+            
         }
-
-        
-
 
         if (num_args) {
             char *cmd = args[0];
@@ -116,22 +119,37 @@ int main(int argc, char *argv[])
                 // void child(int numargs, char *args[]); and call
                 // this function when you determine you are the child.
 
+                for (int i = 0; i < num_args; i++)
+                {
+                    int length = strlen(args[i]);
+                    if ('&' == args[i][length - 1])
+                    {
+                        printf("running in background: %s\n", args[0]);
+                        args[i][length - 1] = '\0';
+                        background = 1;
+                    }
+                }
+
                 pid_t pid = fork();
                 if (pid == 0) {
-                    //printf("[child]\n");
+                    printf("[child]\n");
+                    printf("execvp(%s)\n", args[0]);
                     execvp(args[0], args);
+                    command_history[0] = '\0';  
+                    printf("after execvp\n");
                     perror("execvp");    // if execvp fails, print error message
                     exit(0);
                 } else if (pid < 0) {
                     perror("Fork Failed.");     // if fork fails print error message, then exit
                     exit(EXIT_FAILURE);
                 } else {
-                    //printf ("[parent]\n");
-                    //printf("-----------\n");
-                    if (strcmp(args[num_args - 1], command) == EXIT_SUCCESS){   // if the last index in the command is '&' then run concurrently 
-                        wait(NULL);
-                    }
+                    printf ("[parent]: %d \n", background);
+                    printf("-----------\n");
+                    if (!background) {
+                    printf("before wait\n");
                     wait(NULL);     // parent process waits for the child to exit
+                    printf("after wait\n");
+                    }
                 }
             }
         }
@@ -147,6 +165,5 @@ int main(int argc, char *argv[])
         //cout << parse_command(command, args);
 
     }
-    free(history);
     return 0;
 }
