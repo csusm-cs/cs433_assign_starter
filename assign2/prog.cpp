@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
         // check for history command
         if (strcmp(args[0], "!!") == 0) {
             if (!strlen(command_history)) {       // if history is empty, then print no commands
-                printf("No commands in history.\n");
+                printf("No command history found.\n");
                 continue;
             } else {
             // copy command in history to args
