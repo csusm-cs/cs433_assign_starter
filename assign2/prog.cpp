@@ -35,7 +35,7 @@ int parse_command(char command[], char *args[])
     char *token = strtok(command, " \n");   // Handle both spaces and newlines
     int argcount = 0;   // int to keep track of arguments
     while (token != nullptr) {      // loops through whole command until end
-        printf("token: %s\n", token);
+        //printf("token: %s\n", token);
         args[argcount] = token;
         //printf("parsed argument[%d]: |%s|\n", argcount, args[argcount]);
         argcount++;
@@ -70,6 +70,9 @@ int main(int argc, char *argv[])
 
     // TODO: Add additional variables for the implementation.
 
+
+    //command: ls -l > out.txt
+
     unsigned int loop = 0;  // int to keep track of command count
     while (should_run)
     {
@@ -82,7 +85,7 @@ int main(int argc, char *argv[])
 
         if (strcmp(command, "!!\n")) {
             strcpy(command_history, command);
-            printf("command: %s\n", command);
+            //printf("command: %s\n", command);
         }
 
 // Parse the input command
@@ -99,8 +102,8 @@ int main(int argc, char *argv[])
                 continue;
             } else {
             // copy command in history to args
-            cout << "command: " << command << "\n";
-            cout << "command_history: " << command_history << "\n";
+            //cout << "command: " << command << "\n";
+            //cout << "command_history: " << command_history << "\n";
             num_args = parse_command(command_history, args);
             }
             
@@ -124,7 +127,7 @@ int main(int argc, char *argv[])
                     int length = strlen(args[i]);
                     if ('&' == args[i][length - 1])
                     {
-                        printf("running in background: %s\n", args[0]);
+                        //printf("running in background: %s\n", args[0]);
                         args[i][length - 1] = '\0';
                         background = 1;
                     }
@@ -132,23 +135,23 @@ int main(int argc, char *argv[])
 
                 pid_t pid = fork();
                 if (pid == 0) {
-                    printf("[child]\n");
-                    printf("execvp(%s)\n", args[0]);
+                    //printf("[child]\n");
+                    //printf("execvp(%s)\n", args[0]);
                     execvp(args[0], args);
                     command_history[0] = '\0';  
-                    printf("after execvp\n");
+                    //printf("after execvp\n");
                     perror("execvp");    // if execvp fails, print error message
                     exit(0);
                 } else if (pid < 0) {
                     perror("Fork Failed.");     // if fork fails print error message, then exit
                     exit(EXIT_FAILURE);
                 } else {
-                    printf ("[parent]: %d \n", background);
-                    printf("-----------\n");
+                    //printf ("[parent]: %d \n", background);
+                    //printf("-----------\n");
                     if (!background) {
-                    printf("before wait\n");
+                    //printf("before wait\n");
                     wait(NULL);     // parent process waits for the child to exit
-                    printf("after wait\n");
+                    //printf("after wait\n");
                     }
                 }
             }
