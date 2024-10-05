@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
             } else {
             // copy command in history to args
             //cout << "command: " << command << "\n";
-            //cout << "command_history: " << command_history << "\n";
+            cout << "previous command: " << command_history << "\n";
             num_args = parse_command(command_history, args);
             }
             
