@@ -16,7 +16,9 @@
 
 class SchedulerPriority : public Scheduler {
 private:
-    // TODO: add necessary member variables here for your implementation
+    std::vector<PCB>* proc_li;
+    std::vector<vector<int>> times; // vector.at(i).at(0) the ith proc wait time,  .at(i).at(1) is ith turnaround time
+    PCB* curr_proc;
 
 public:
     /**
@@ -52,3 +54,10 @@ public:
 
 
 #endif //ASSIGN3_SCHEDULER_PRIORITY_H
+
+
+/*
+*   Good way to sort a vector of PCB's 
+*   https://www.geeksforgeeks.org/how-to-sort-vector-of-custom-objects-in-cpp/
+*       overload comparison operator for the PCB then the normal <= >= < > will work (whichever gets used)
+*/
