@@ -35,22 +35,15 @@ int parse_command(char command[], char *args[])
     char *token = strtok(command, " \n");   // Handle both spaces and newlines
     int argcount = 0;   // int to keep track of arguments
     while (token != nullptr) {      // loops through whole command until end
+        //printf("token: %s\n", token);
         args[argcount] = token;
         //printf("parsed argument[%d]: |%s|\n", argcount, args[argcount]);
         argcount++;
-        token = strtok(nullptr, "\n");
+        token = strtok(nullptr, " \n");
     }
     args[argcount] = nullptr;  // End the argument list
     return argcount;
 }
-
-/**
- * TODO and Questions:
- * Redirecting input and output
- * ampersand still not working properly
- * history function is not reading whole command
- * Clean up Output
- */
 
 /**
  * @brief The main function of a simple UNIX Shell. You may add additional functions in this file for your implementation
@@ -61,47 +54,44 @@ int parse_command(char command[], char *args[])
 int main(int argc, char *argv[])
 {
     char command[MAX_LINE];       // the command that was entered
+    char command_history[MAX_LINE];       // the command that was entered
+    command_history[0] = '\0';
     char *args[MAX_LINE / 2 + 1]; // hold parsed out command line arguments
-    int should_run = 1;           /* flag to determine when to exit program */
-    char *history = nullptr;
-
-    // TODO: Add additional variables for the implementation.
+    int should_run = 1;           /* flag to determine when to exit program */  
 
     unsigned int loop = 0;  // int to keep track of command count
     while (should_run)
     {
+        int background = 0;     // to keep track of background process
+
         printf("osh[%u]>", loop++);
         fflush(stdout);
         // Read the input command
         fgets(command, MAX_LINE, stdin);
-        
-         //cout << "This is history right after it is typed: " << history;
-        // Parse the input command
+
+        if (strcmp(command, "!!\n")) {
+            strcpy(command_history, command);
+        }
+
+// Parse the input command
         int num_args = parse_command(command, args);
-        cout << "num_args: " << num_args << "\n";     // print statement to show value of num_args
+
+
+        if (!num_args)
+            continue;
 
         // check for history command
-        if (strncmp(args[0], "!!", 2) == 0) {
-            if (history == nullptr) {       // if history is empty, then print no commands
-                printf("No commands in history.\n");
+        if (strcmp(args[0], "!!") == 0) {
+            if (!strlen(command_history)) {       // if history is empty, then print no commands
+                printf("No command history found.\n");
                 continue;
             } else {
             // copy command in history to args
-            cout << "command: " << command << "\n";
-            //strcpy(command, history);
-            cout << "history: " << history << "\n";
-            num_args = parse_command(command, args);     // parse the history command again
-            printf("Executing previous command: %s\n", command);
+            cout << "previous command: " << command_history << "\n";
+            num_args = parse_command(command_history, args);
             }
-
-        } else {
-            // Save command into history
-            free(history);
-            history = strdup(command);
+            
         }
-
-        
-
 
         if (num_args) {
             char *cmd = args[0];
@@ -109,44 +99,35 @@ int main(int argc, char *argv[])
             if (!strcmp(cmd, "exit")) {
                 should_run = 0;     // exit while loop and terminate shell
             } else {                // call fork determine child or parent if child
-                // then do an if-else-statement for each commmand.
-                // use that command and arguments to call execvp().
 
-                // I would recommend you create a function:
-                // void child(int numargs, char *args[]); and call
-                // this function when you determine you are the child.
+                for (int i = 0; i < num_args; i++)  // iterates through num_args 
+                {
+                    int length = strlen(args[i]);
+                    if ('&' == args[i][length - 1])     // if there is an &, remove it from command and then continue executing as normal
+                    {
+                        //printf("running in background: %s\n", args[0]);
+                        args[i][length - 1] = '\0';
+                        background = 1;
+                    }
+                }
 
-                pid_t pid = fork();
+                pid_t pid = fork();     // fork process
                 if (pid == 0) {
-                    //printf("[child]\n");
-                    execvp(args[0], args);
+                    execvp(args[0], args);  // execute args[0]
+                    command_history[0] = '\0';  
                     perror("execvp");    // if execvp fails, print error message
                     exit(0);
                 } else if (pid < 0) {
                     perror("Fork Failed.");     // if fork fails print error message, then exit
                     exit(EXIT_FAILURE);
                 } else {
-                    //printf ("[parent]\n");
-                    //printf("-----------\n");
-                    if (strcmp(args[num_args - 1], command) == EXIT_SUCCESS){   // if the last index in the command is '&' then run concurrently 
-                        wait(NULL);
-                    }
+                    if (!background) {
                     wait(NULL);     // parent process waits for the child to exit
+                    }
                 }
             }
         }
-        
-
-        // TODO: Add your code for the implementation
-        /**
-         * After reading user input, the steps are:
-         * (1) fork a child process using fork()
-         * (2) the child process will invoke execvp()
-         * (3) parent will invoke wait() unless command included &
-         */
-        //cout << parse_command(command, args);
 
     }
-    free(history);
     return 0;
 }
