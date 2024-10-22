@@ -17,7 +17,7 @@
 class SchedulerPriority : public Scheduler {
 private:
     std::vector<PCB>* proc_li;
-    std::vector<int> times; // vector.at(i).at(0) the ith proc wait time,  .at(i).at(1) is ith turnaround time
+    std::vector<int> times; // vector.at(i) is ith wait time
     PCB* curr_proc;
     int elapsed_time = 0;
 
