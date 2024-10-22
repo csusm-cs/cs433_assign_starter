@@ -13,6 +13,10 @@
 
 // TODO: add implementation of SchedulerSJF constructor, destrcutor and 
 // member functions init, print_results, and simulate here
+    double turnaroundTime;
+    double waitingTime;
+    double avgTurnTime;
+    double avgWaitTime;
 
 /**
  * Algorithm:
@@ -28,7 +32,10 @@
  * @brief SchedulerSJF constructor to initialize member functions
  */
 SchedulerSJF::SchedulerSJF() {
-    // member variables initialized here
+    this->turnaroundTime = turnaroundTime;
+    this->waitingTime = waitingTime;
+    this->avgTurnTime = avgTurnTime;
+    this->avgWaitTime = avgWaitTime;
 }
 
 /**
@@ -39,14 +46,11 @@ SchedulerSJF::~SchedulerSJF() {
 }
 
 /**
- * @brief Called once before simulation starts
+ * @brief Called once before simulation starts. This initializes the scheduler.
  * @param process_list List of processes in the simulation
  */
 void SchedulerSJF::init(std::vector<PCB>& process_list) {
-   for (int i = 0; i < process_list.size(); i++) {  // iterate through process_list
-     PCB process = process_list[i];  // create new process object and save from process_list
-        process.print();  // prints each process using print() function
-   }
+   
 }
 
 /**
@@ -54,6 +58,8 @@ void SchedulerSJF::init(std::vector<PCB>& process_list) {
  */
 void SchedulerSJF::print_results() {
     // print results
+    cout << "Turnaround Time: " << turnaroundTime << " Waiting Time: " << waitingTime << endl;
+
 }
 
 /**
@@ -62,4 +68,5 @@ void SchedulerSJF::print_results() {
  */
 void SchedulerSJF::simulate() {
     // run simulation (somehow)
+    // SJF logic goes here (I think)
 }
