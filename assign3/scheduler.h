@@ -1,7 +1,7 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler.h
- * @author ??? (TODO: your name)
+ * @author Zach Miller
  * @brief This is the header file for the base Scheduler class. Specific schedulers, e.g. FCFS, SJF and RR, inherit
  *        this base class.
  * @version 0.1

@@ -15,8 +15,8 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
     std::cout << "CS 433 Programming assignment 3" << std::endl;
-    std::cout << "Author: xxxxxx and xxxxxxx" << std::endl;     // TODO: add your name
-    std::cout << "Date: xx/xx/20xx" << std::endl;               // TODO: add date
+    std::cout << "Author: Zach and Erin" << std::endl;     
+    std::cout << "Date: 10/21/2024" << std::endl;               
     std::cout << "Course: CS433 (Operating Systems)" << std::endl;
     std::cout << "Description : test SJF scheduling algorithm " << std::endl;
     std::cout << "=================================" << std::endl;
@@ -64,4 +64,5 @@ int main(int argc, char *argv[]) {
     scheduler.init(process_list);
     scheduler.simulate();
     scheduler.print_results();
+    
 }

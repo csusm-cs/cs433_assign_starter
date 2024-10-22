@@ -1,7 +1,7 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler_fcfs.h
- * @author ??? (TODO: your name)
+ * @author Zach Miller
  * @brief This Scheduler class implements the FCSF scheduling algorithm.
  * @version 0.1
  */
