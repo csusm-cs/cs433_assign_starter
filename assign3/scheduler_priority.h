@@ -51,6 +51,8 @@ public:
      */
     void simulate() override;
 
+    friend bool operator< (PCB A, PCB B);
+
 };
 
 
