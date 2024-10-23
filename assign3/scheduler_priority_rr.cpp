@@ -98,4 +98,3 @@ void SchedulerPriorityRR::simulate() {
 bool operator< (PCB A, PCB B){
     return A.priority > B.priority;
 }
-
