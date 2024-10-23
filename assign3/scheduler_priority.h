@@ -21,8 +21,8 @@ private:
     std::deque<PCB> proc_li;
     std::vector<vector<unsigned int>> times; // vector.at(i) is ith wait time
     PCB* curr_proc;
-    unsigned int elapsed_time = 0,
-                 count = 0;
+    unsigned int elapsed_time = 0;
+    int count = 0;
     float avg_wait = 0,
           avg_turnaround = 0;
 
