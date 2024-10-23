@@ -1,12 +1,10 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler_priority.h
- * @author Erin Bailey(433.01), Zack Miller(433.?)
+ * @author Erin Bailey(433.01), Zach Miller(433.02)
  * @brief This Scheduler class implements the Priority scheduling algorithm.
  * @version 42(did you bring your towel?)
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to add sufficient and clear comments to your code
 
 
 #ifndef ASSIGN3_SCHEDULER_PRIORITY_H
