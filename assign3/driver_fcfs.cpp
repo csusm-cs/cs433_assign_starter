@@ -15,7 +15,7 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
     std::cout << "CS 433 Programming assignment 3" << std::endl;
-    std::cout << "Author: xxxxxx and xxxxxxx" << std::endl;     // TODO: add your name
+    std::cout << "Author: Zach and Erin" << std::endl;     // TODO: add your name
     std::cout << "Date: xx/xx/20xx" << std::endl;               // TODO: add date
     std::cout << "Course: CS433 (Operating Systems)" << std::endl;
     std::cout << "Description : test FCFS scheduling algorithm " << std::endl;
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 
     // Make sure the user has provided the input file name
     if (argc < 2) {
-        cerr << "Usage: " << argv[0] << " <input_file>" << endl;
+        cerr << "Usage: " << argv[0] << "schedule.txt" << endl;
         exit(1);
     }
 
@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
         process_list.push_back(pcb);
     }
 
-    // Create a scheduler object
+    // Create a scheduler object 
     SchedulerFCFS scheduler;
     // Run the scheduler
     scheduler.init(process_list);

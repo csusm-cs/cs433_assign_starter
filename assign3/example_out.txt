@@ -30,6 +30,9 @@ T6 turn-around time = 115, waiting time = 105
 T7 turn-around time = 145, waiting time = 115
 T8 turn-around time = 170, waiting time = 145
 Average turn-around time = 94.375, Average waiting time = 73.125
+----------------------------------------------------------------
+
+
 CS 433 Programming assignment 3
 Author: xxxxxx and xxxxxxx
 Date: xx/xx/20xx
@@ -62,6 +65,8 @@ T6 turn-around time = 10, waiting time = 0
 T7 turn-around time = 170, waiting time = 140
 T8 turn-around time = 140, waiting time = 115
 Average turn-around time = 82.5, Average waiting time = 61.25
+
+------------------------------------------------------------------
 CS 433 Programming assignment 3
 Author: xxxxxx and xxxxxxx
 Date: xx/xx/20xx

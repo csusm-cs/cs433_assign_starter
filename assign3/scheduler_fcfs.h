@@ -17,11 +17,9 @@
  */
 class SchedulerFCFS : public Scheduler {
 private:
-    double waitingTime;  // waiting time for a process
-    double burstTime;  // burst time of a process
-    double arrTime;  // arrival time
-    double avgWT;  // average waiting time
-    double avgTT;  // average turnaround time 
+    vector<PCB> processes;  // vector to hold processes locally
+    vector<int> completionTimes;  // vector to hold completion times for each process
+    int currentTime;  // current time of scheduler
                   
 public:
     /**
