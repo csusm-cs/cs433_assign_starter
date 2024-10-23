@@ -1,30 +1,38 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler_priority_rr.h
- * @author ??? (TODO: your name)
- * @brief This Scheduler class implements the Priority RR scheduling algorithm.
- * @version 0.1
+ * @author Erin Bailey(433.01), Zack Miller(433.02)
+ * @brief This Scheduler class implements the Priority RoundRobin (PriorityRR) scheduling algorithm.
+ * @version 9001
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to add sufficient and clear comments to your code
 
 #ifndef ASSIGN3_SCHEDULER_PRIORITY_RR_H
 #define ASSIGN3_SCHEDULER_PRIORITY_RR_H
 
 #include "scheduler.h"
+#include <deque>
+#include <algorithm>
 
 class SchedulerPriorityRR : public Scheduler {
 private:
-    // TODO: add necessary member variables here for your implementation
+    std::deque<PCB> proc_li;
+    std::vector<vector<unsigned int>> times; // vector.at(i).at(0) is ith turnaround time, .at(1) is the ith run time
+    PCB* curr_proc;
+    int time_quantum = 0,
+        count = 0;
+    unsigned int elapsed_time = 0;
+                 
+    float avg_wait = 0,
+          avg_turnaround = 0;
 
 public:
     /**
-     * @brief Construct a new SchedulerPriority object
+     * @brief Construct a new SchedulerRR object
      */
     SchedulerPriorityRR(int time_quantum = 10);
 
     /**
-     * @brief Destroy the SchedulerPriority object
+     * @brief Destroy the SchedulerRR object
      */
     ~SchedulerPriorityRR() override;
 
@@ -47,6 +55,10 @@ public:
      */
     void simulate() override;
 
+    /**
+     * @brief overload < operator so it works on PCB objects
+     */
+    friend bool operator< (PCB A, PCB B);
 };
 
 
