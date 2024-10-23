@@ -1,9 +1,9 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler_priority.h
- * @author ??? (TODO: your name)
+ * @author Erin Bailey(433.01), Zack Miller(433.?)
  * @brief This Scheduler class implements the Priority scheduling algorithm.
- * @version 0.1
+ * @version 42(did you bring your towel?)
  */
 //You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
 // Remember to add sufficient and clear comments to your code
@@ -13,13 +13,18 @@
 #define ASSIGN3_SCHEDULER_PRIORITY_H
 
 #include "scheduler.h"
+#include <algorithm>
+#include <deque>
 
 class SchedulerPriority : public Scheduler {
 private:
-    std::vector<PCB>* proc_li;
-    std::vector<int> times; // vector.at(i) is ith wait time
+    std::deque<PCB> proc_li;
+    std::vector<vector<unsigned int>> times; // vector.at(i) is ith wait time
     PCB* curr_proc;
-    int elapsed_time = 0;
+    unsigned int elapsed_time = 0,
+                 count = 0;
+    float avg_wait = 0,
+          avg_turnaround = 0;
 
 public:
     /**
@@ -57,10 +62,3 @@ public:
 
 
 #endif //ASSIGN3_SCHEDULER_PRIORITY_H
-
-
-/*
-*   Good way to sort a vector of PCB's 
-*   https://www.geeksforgeeks.org/how-to-sort-vector-of-custom-objects-in-cpp/
-*       overload comparison operator for the PCB then the normal <= >= < > will work (whichever gets used)
-*/
