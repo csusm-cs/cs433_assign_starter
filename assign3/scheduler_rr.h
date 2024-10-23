@@ -1,21 +1,27 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler_rr.h
- * @author ??? (TODO: your name)
+ * @author Erin Bailey(433.01) and Zach Miller(433.02)
  * @brief This Scheduler class implements the RoundRobin (RR) scheduling algorithm.
  * @version 0.1
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to add sufficient and clear comments to your code
 
 #ifndef ASSIGN3_SCHEDULER_RR_H
 #define ASSIGN3_SCHEDULER_RR_H
 
 #include "scheduler.h"
+#include <deque>
 
 class SchedulerRR : public Scheduler {
 private:
-    // TODO: add necessary member variables here for your implementation
+    std::deque<PCB> proc_li;
+    std::vector<vector<unsigned int>> times; // vector.at(i).at(0) is ith wait time, .at(1) is the ith turnaround time
+    PCB* curr_proc;
+    int time_quantum = 0;
+    unsigned int elapsed_time = 0,
+                 count = 0;
+    float avg_wait = 0,
+          avg_turnaround = 0;
 
 public:
     /**
