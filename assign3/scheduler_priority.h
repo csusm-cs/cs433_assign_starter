@@ -1,22 +1,28 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler_priority.h
- * @author ??? (TODO: your name)
+ * @author Erin Bailey(433.01), Zach Miller(433.02)
  * @brief This Scheduler class implements the Priority scheduling algorithm.
- * @version 0.1
+ * @version 42(did you bring your towel?)
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to add sufficient and clear comments to your code
 
 
 #ifndef ASSIGN3_SCHEDULER_PRIORITY_H
 #define ASSIGN3_SCHEDULER_PRIORITY_H
 
 #include "scheduler.h"
+#include <algorithm>
+#include <deque>
 
 class SchedulerPriority : public Scheduler {
 private:
-    // TODO: add necessary member variables here for your implementation
+    std::deque<PCB> proc_li;
+    std::vector<vector<unsigned int>> times; // vector.at(i) is ith wait time
+    PCB* curr_proc;
+    unsigned int elapsed_time = 0;
+    int count = 0;
+    float avg_wait = 0,
+          avg_turnaround = 0;
 
 public:
     /**
@@ -47,6 +53,8 @@ public:
      *        It stops when all processes are finished.
      */
     void simulate() override;
+
+    friend bool operator< (PCB A, PCB B);
 
 };
 
