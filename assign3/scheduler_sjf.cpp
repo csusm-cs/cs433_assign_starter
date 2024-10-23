@@ -1,7 +1,7 @@
 /**
  * Assignment 3: CPU Scheduler
  * @file scheduler_sjf.cpp
- * @author Zach Miller
+ * @author Zach Miller(433.02) and Erin Bailey(433.01)
  * @brief This Scheduler class implements the SJF scheduling algorithm.
  * @version 0.1
  */
@@ -13,30 +13,14 @@
 #include <bits/stdc++.h>
 
 /**
- * Algorithm:
- * - Sort all processes according to arrival time
- * - Then select the process that has the minimum CPU burst
- * - After completion, make a pool of processes that arrives afterward
- * till the completion of the previous procecss and select that process
- * among the pool which is having minimum CPU burst.
- */
-
-
-
-/**
  * @brief SchedulerSJF constructor to initialize member functions
  */
-SchedulerSJF::SchedulerSJF()
-{
-   // currentTime = 0;
-}
+SchedulerSJF::SchedulerSJF() {}
 
 /**
  * @brief SchedulerSJF deconstructor
  */
-SchedulerSJF::~SchedulerSJF()
-{
-}
+SchedulerSJF::~SchedulerSJF() {}
 
 /**
  * @brief Called once before simulation starts. This initializes the scheduler.
@@ -44,24 +28,15 @@ SchedulerSJF::~SchedulerSJF()
  */
 void SchedulerSJF::init(std::vector<PCB> &process_list)
 {
+    // iterate through process_list and populate proc_li deque and initialize times vector
     for (PCB A : process_list) {
-        processes.push_back(A);
-        proc_count ++;
-        completionTimes.push_back(0); 
+        proc_li.push_back(A);
+        count++;
+        times.push_back({0, 0});
     }
-    cout << "processes size: " << processes.size() << endl;
 
-    sort(processes.begin(), processes.end());  // sort processes list in ascending order by priority
-    proc_count = processes.size();
-    cout << "processes size after sorting: " << proc_count << endl;
-
-
-    int testCount = 0;
-    for (PCB A :processes) {
-        testCount++;
-    }
-    cout << "There are " << testCount << " processes in processes vector." << endl;
-
+    // sort proc_li by priority, using overloaded <  operator
+    sort(proc_li.begin(), proc_li.end());
 }
 
 /**
@@ -69,32 +44,19 @@ void SchedulerSJF::init(std::vector<PCB> &process_list)
  */
 void SchedulerSJF::print_results()
 {
-    deque<PCB> localProc = processes;
-    double totalTurnaroundTime = 0;
-    double totalWaitingTime = 0;
-    int count = 0;
+    // iterate for each process and calculate average wait and turnaround times
+    for (int i = 0; i < count; i++) {
+        int ttime = times.at(i).at(0) + times.at(i).at(1);
+        int wtime = times.at(i).at(0);
+        avg_turnaround += ttime;
+        avg_wait += wtime;
 
-    avgTT = 0;
-    avgWT = 0;
-
-    cout << "Original process count: " << processes.size() << endl;
-
-
-    for (int i = 0; i < processes.size(); i++) {  // iterate through proceses vector
-        double turnaroundTime = completionTimes[processes[i].id] - processes[i].arrival_time;
-        double waitTime = turnaroundTime - processes[i].burst_time;
-
-        avgTT += turnaroundTime;
-        avgWT += waitTime;
-        count ++;
-
-        cout << processes[i].name << " turn-around time = " << turnaroundTime << ", waiting time = " << waitTime << std::endl;
-       
+        cout << "T" << i + 1 << " turn-around time = " << avg_turnaround << ", waiting time = " << wtime << endl;
     }
-    cout << "proc_count: " << count << endl;
-    avgTT = avgTT /  count;
-    avgWT = avgWT / count;
-    cout << "Average turn-around time = " << avgTT << ", Average waiting time = " << avgWT << endl;
+
+    avg_turnaround = avg_turnaround / count;
+    avg_wait = avg_wait / count;
+    cout << "Average turn-around time = " << "turn-around time = " << avg_turnaround << " Average waiting time = " << avg_wait << endl;
 }
 
 /**
@@ -103,28 +65,24 @@ void SchedulerSJF::print_results()
  */
 void SchedulerSJF::simulate()
 {
-    int procPriority = 0;  // local variable to store priority of process
-    deque<PCB> localProc = processes;
+    while (!proc_li.empty()) {
+     // while proc_li is not empty pop off and run each process
+        curr_proc = &proc_li.front();
 
-    for (size_t i = 0; i < processes.size(); i++) {
-        if (currentTime < processes[i].arrival_time) {
-            currentTime = processes[i].arrival_time;
-        }
+        cout << "Running Process " << curr_proc->name << " for " << curr_proc->burst_time << " time units " << endl;
 
-    while (localProc.size() > 0) {
-        currentProc = &localProc.front();  // currentProc holds first object in sorted processes list
-
-        cout << "Running Process " << currentProc->name << " for " << currentProc->burst_time << " time units" << std::endl;
-        localProc.pop_front();
-    }
-        
-
+        proc_li.pop_front();
+        times.at(curr_proc->id).at(0) = elapsed_time;
+        times.at(curr_proc->id).at(1) = curr_proc->burst_time;
+        elapsed_time += curr_proc->burst_time;
     }
 }
 
 /**
- * @brief overloads < operator to work with PCB objects
+ * @brief overloads < operator to work with PCB objects. This will be used for the sort function so that it sorts by burst time.
+ * @param PCB objects A and B to be compared.
  */
-bool operator< (PCB A, PCB B) {
+bool operator<(PCB A, PCB B)
+{
     return A.burst_time < B.burst_time;
 }
