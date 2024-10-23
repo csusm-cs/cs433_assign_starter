@@ -1,7 +1,7 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler_priority.cpp
- * @author Erin Bailey(433.01), Zack Miller(433.?)
+ * @author Erin Bailey(433.01), Zach Miller(433.?)
  * @brief This Scheduler class implements the Priority scheduling algorithm.
  * @version 0.1
  */
