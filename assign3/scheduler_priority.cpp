@@ -42,13 +42,13 @@ void SchedulerPriority::init(std::vector<PCB>& process_list){
  */
 void SchedulerPriority::print_results(){
 
-    for(int i = 0; i < times.size(); i++){
+    for(int i = 0; i < count; i++){
         int ttime = times.at(i).at(0) + times.at(i).at(1);
-        int wtime = times.at(i).at(1);
+        int wtime = times.at(i).at(0);
         avg_turnaround += ttime;
         avg_wait += wtime;
 
-        std::cout << "T" << i << " turn-around time = " << ttime << ", waiting time = " << wtime << std::endl;
+        std::cout << "T" << i + 1 << " turn-around time = " << ttime << ", waiting time = " << wtime << std::endl;
     }
 
     avg_turnaround = avg_turnaround / count;
@@ -65,13 +65,14 @@ void SchedulerPriority::simulate(){
     // at this point, proc_li was initialized, atd sorted into descending order
     
     while(proc_li.size() > 0){
+        curr_proc = &proc_li.front(); // curr_proc holds the highest priority process
+        
         std::cout << "Running Process " << curr_proc->name << " for " << curr_proc->burst_time << " time units" << std::endl;
-        curr_proc = &proc_li.back(); // curr_proc holds the highest priority process
-        proc_li.pop_back();          // remove highest priority process from list
+        
+        proc_li.pop_front();          // remove highest priority process from list
         times.at(curr_proc->id).at(0) = elapsed_time;
         times.at(curr_proc->id).at(1) = curr_proc->burst_time;
         elapsed_time += curr_proc->burst_time;
-        curr_proc = nullptr;
     }
 
 }
@@ -81,5 +82,5 @@ void SchedulerPriority::simulate(){
  *        this causes proc_li to sort in ascending order
  */
 bool operator< (PCB A, PCB B){
-    return A.priority < B.priority;
+    return A.priority > B.priority;
 }
