@@ -1,7 +1,7 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler_priority_rr.h
- * @author Erin Bailey(433.01), Zack Miller(433.02)
+ * @author Erin Bailey(433.01), Zach Miller(433.02)
  * @brief This Scheduler class implements the Priority RoundRobin (PriorityRR) scheduling algorithm.
  * @version 9001
  */
