@@ -15,7 +15,10 @@
 
 class SchedulerSJF : public Scheduler {
 private:
-    // TODO: add necessary member variables here for your implementation
+    double turnaroundTime;
+    double waitingTime;
+    double avgTurnTime;
+    double avgWaitTime;
 
 public:
     /**
@@ -26,12 +29,14 @@ public:
      * @brief Destroy the SchedulerSJF object
      */
     ~SchedulerSJF() override;
+
     /**
      * @brief This function is called once before the simulation starts.
      *        It is used to initialize the scheduler.
      * @param process_list The list of processes in the simulation.
      */
     void init(std::vector<PCB>& process_list) override;
+
     /**
      * @brief This function is called once after the simulation ends.
      *        It is used to print out the results of the simulation.
