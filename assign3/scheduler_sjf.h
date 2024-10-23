@@ -1,7 +1,7 @@
 /**
 * Assignment 3: CPU Scheduler
  * @file scheduler_fcfs.h
- * @author Zach Miller
+ * @author Zach Miller(433.02) and Erin Bailey(433.01) 
  * @brief This Scheduler class implements the SJF scheduling algorithm.
  * @version 0.1
  */
@@ -16,14 +16,12 @@
 
 class SchedulerSJF : public Scheduler {
 private:
-    deque<PCB> processes;  // deque to hold processes locally
-    vector<double> completionTimes;  // vector to hold completion time for each process
-    PCB *currentProc;  // local PCB 
-    int currentTime;  // current time of scheduler
-    int proc_count;  // processor counter
-    unsigned int elapsed_time;
-    double avgWT;  // avg wait time
-    double avgTT;  // avg turnaround time
+    deque<PCB> proc_li;  // deque to hold processes
+    vector<vector<unsigned int>> times;  // vector to hold completion times
+    PCB *curr_proc;  // local variable to hold PCB objects
+    unsigned int elapsed_time = 0;  // total scheduler time
+    int count = 0;  // local variable count
+    float avg_wait = 0, avg_turnaround = 0;  // average turn-around and wait times
 
 public:
     /**
