@@ -67,14 +67,13 @@ void SchedulerSJF::simulate()
 {
     while (!proc_li.empty()) {
      // while proc_li is not empty pop off and run each process
-        curr_proc = &proc_li.front();
 
-        cout << "Running Process " << curr_proc->name << " for " << curr_proc->burst_time << " time units " << endl;
+        cout << "Running Process " << proc_li.front().name << " for " << proc_li.front().burst_time << " time units " << endl;
 
         proc_li.pop_front();
-        times.at(curr_proc->id).at(0) = elapsed_time;
-        times.at(curr_proc->id).at(1) = curr_proc->burst_time;
-        elapsed_time += curr_proc->burst_time;
+        times.at(proc_li.front().id).at(0) = elapsed_time;
+        times.at(proc_li.front().id).at(1) = proc_li.front().burst_time;
+        elapsed_time += proc_li.front().burst_time;
     }
 }
 
