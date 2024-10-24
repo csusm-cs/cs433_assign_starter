@@ -16,7 +16,6 @@ class SchedulerRR : public Scheduler {
 private:
     std::deque<PCB> proc_li;
     std::vector<vector<unsigned int>> times; // vector.at(i).at(0) is ith turnaround time, .at(1) is the ith run time
-    PCB* curr_proc;
     int time_quantum = 0,
         count = 0;
     unsigned int elapsed_time = 0;
