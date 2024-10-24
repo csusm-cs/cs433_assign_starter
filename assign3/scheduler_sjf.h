@@ -18,7 +18,6 @@ class SchedulerSJF : public Scheduler {
 private:
     deque<PCB> proc_li;  // deque to hold processes
     vector<vector<unsigned int>> times;  // vector to hold completion times
-    PCB *curr_proc;  // local variable to hold PCB objects
     unsigned int elapsed_time = 0;  // total scheduler time
     int count = 0;  // local variable count
     float avg_wait = 0, avg_turnaround = 0;  // average turn-around and wait times
