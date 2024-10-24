@@ -63,14 +63,12 @@ void SchedulerPriority::simulate(){
     // at this point, proc_li was initialized, atd sorted into descending order
     
     while(proc_li.size() > 0){
-        curr_proc = &proc_li.front(); // curr_proc points at the highest priority process
         
-        std::cout << "Running Process " << curr_proc->name << " for " << curr_proc->burst_time << " time units" << std::endl;
-        
+        std::cout << "Running Process " << proc_li.front().name << " for " << proc_li.front().burst_time << " time units" << std::endl;
+        times.at(proc_li.front().id).at(0) = elapsed_time;            //record the current time at which the process was removed as i'th processes wait time
+        times.at(proc_li.front().id).at(1) = proc_li.front().burst_time;   //record the current processes burst time as the i'th processes runtime
+        elapsed_time += proc_li.front().burst_time;                   //record the passage of time as though i'th process just completed running
         proc_li.pop_front();          // remove highest priority process from list
-        times.at(curr_proc->id).at(0) = elapsed_time;            //record the current time at which the process was removed as i'th processes wait time
-        times.at(curr_proc->id).at(1) = curr_proc->burst_time;   //record the current processes burst time as the i'th processes runtime
-        elapsed_time += curr_proc->burst_time;                   //record the passage of time as though i'th process just completed running
     }
 
 }
