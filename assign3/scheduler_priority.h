@@ -18,7 +18,6 @@ class SchedulerPriority : public Scheduler {
 private:
     std::deque<PCB> proc_li;
     std::vector<vector<unsigned int>> times; // vector.at(i).at(0) is ith processes wait time, .at(1) is the i'th run time
-    PCB* curr_proc;
     unsigned int elapsed_time = 0;
     int count = 0;
     float avg_wait = 0,
