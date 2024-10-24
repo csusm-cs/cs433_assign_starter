@@ -70,10 +70,12 @@ void SchedulerSJF::simulate()
 
         cout << "Running Process " << proc_li.front().name << " for " << proc_li.front().burst_time << " time units " << endl;
 
-        proc_li.pop_front();
+        
         times.at(proc_li.front().id).at(0) = elapsed_time;
         times.at(proc_li.front().id).at(1) = proc_li.front().burst_time;
         elapsed_time += proc_li.front().burst_time;
+
+        proc_li.pop_front();
     }
 }
 
