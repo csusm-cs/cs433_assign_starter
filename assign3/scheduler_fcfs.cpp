@@ -83,7 +83,7 @@ void SchedulerFCFS::print_results() {
 void SchedulerFCFS::simulate() {
     for (size_t i = 0; i < processes.size(); i++) {
         // If the current time is less than the arrival time of the process, wait until it arrives (not applicable in this scheduling method)
-        if (currentTime < processes[i].arrival_time) {
+        if (unsigned(currentTime) < processes[i].arrival_time) {
             currentTime = processes[i].arrival_time;
         }
 
