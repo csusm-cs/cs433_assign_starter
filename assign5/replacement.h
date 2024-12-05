@@ -58,7 +58,7 @@ public:
 	 * It may be overridden in a subclass 
 	 * @param page_num The logical page number.
      */
-    virtual void touch_page(int page_num) {}
+    virtual void touch_page(int page_num);
 
     /**
      * @brief Access an invalid page, but free frames are available.
@@ -66,7 +66,7 @@ public:
      * It may be overridden in a subclass 
      * @param page_num The logical page number.
      */
-    virtual void load_page(int page_num) {}
+    virtual void load_page(int page_num);
 
 
     /**
@@ -89,7 +89,4 @@ public:
 	 * @brief Print the statistics of simulation
 	 */
     void print_statistics() const;
-
-    // returns true if there are free frames present, false if there are none
-    bool freeFrames();
 };
