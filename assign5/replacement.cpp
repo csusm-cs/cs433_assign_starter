@@ -24,14 +24,6 @@ Replacement::Replacement(int num_pages, int num_frames) : page_table(num_pages)
 // Destructor
 Replacement::~Replacement() {}
 
-// returns true if there are free frames present, false if there are none
-bool Replacement::freeFrames() {
-    if (num_frames > used_frames) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 // Simulate a single page access 
 // @return true if it's a page fault
@@ -48,7 +40,7 @@ bool Replacement::access_page(int page_num, bool is_write)
         return false;   // no page fault
     } 
     else {  // page is invalid
-        if (freeFrames) {  // if there are free frames
+        if (num_frames > used_frames) {  // if there are more available frames than used frames
             page.valid = true;  // move this into load_page function when defined in subclasses
             used_frames++; 
             load_page(page_num);
