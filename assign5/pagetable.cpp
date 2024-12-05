@@ -11,21 +11,12 @@
 
 // Constructor
 PageTable::PageTable(int num_pages) {
-    /*
     for(int i = 0; i < num_pages; i++){
         pages.emplace_back(PageEntry());
     }
-    */
-   
-    pages.resize(num_pages);  // makes pages the length of passed num_pages
 }
 
 // Destructor
 // TODO: Add your code
 PageTable::~PageTable() {
-}
-
-// returns the size of the page table
-int PageTable::getSize() {
-    return pages.size();
 }
