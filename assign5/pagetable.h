@@ -1,11 +1,10 @@
 /**
 * Assignment 5: Page replacement algorithms
  * @file pagetable.h
- * @author ??? (TODO: your name)
+ * @author Zach Miller and Erin Bailey
  * @brief This class represents a traditional pagetable data structure.
  * @version 0.1
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
 // Remember to add sufficient and clear comments to your code
 
 #pragma once
@@ -28,8 +27,18 @@ public:
 	int frame_num;
 	// valid bit represents whether a page is in the physical memory
 	bool valid = false;
-    // dirty bit represents whether a page is changed
-    bool dirty = false;
+	// dirty bit represents whether a page is changed
+	bool dirty = false;
+	// last_access records the step in the algorithm when this page was last accessed
+	unsigned int last_access = 0;
+
+	PageEntry(int frame = 0){
+		frame_num = frame;
+		if(frame != 0){
+			valid = true;
+		}
+	}
+	~PageEntry(){}
 };
 
 
@@ -41,21 +50,24 @@ class PageTable
 {
 private:
     // A page table is like an array of page entries.
-    vector<PageEntry> pages;
+
+	vector<PageEntry>::iterator pageIt;
+	vector<PageEntry> pages;
 public:
-    // Constructor
-    PageTable(int num_pages);
-    // Destructor
-    ~PageTable();
+	// Constructor
+	PageTable(int num_pages);
+	// Destructor
+	~PageTable();
 
-	// TODO: Add your implementation of the page table here
-
-    /**
-     * @brief Access a page in the page table.
-     * @param i
-     * @return
-     */
-    PageEntry& operator [] (int i) {
-        return pages[i];
-    }
+    // returns size of the page table
+    int PageTable::getSize();
+	
+	/**
+	* @brief Access a page in the page table.
+	* @param i
+	* @return
+	*/
+	PageEntry& operator [] (int i) {
+		return pages[i];
+	}
 };

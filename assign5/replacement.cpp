@@ -1,7 +1,7 @@
 /**
 * Assignment 5: Page replacement algorithms
  * @file replacement.cpp
- * @author ??? (TODO: your name)
+ * @author Zach Miller and Erin Bailey 
  * @brief A base class for different page replacement algorithms.
  * @version 0.1
  */
@@ -13,16 +13,26 @@
 // TODO: Add your implementation of the Replacement member functions here
 
 // Constructor
-Replacement::Replacement(int num_pages, int num_frames)
-: page_table(num_pages)
+Replacement::Replacement(int num_pages, int num_frames) : page_table(num_pages)
 {
 	//TODO: Add your implementation here
+    num_frames = this->num_frames;
+    
 }
 
 // Destructor
 Replacement::~Replacement()
 {
     // TOOD: Add your code here
+}
+
+// returns true if there are free frames present, false if there are none
+bool Replacement::freeFrames() {
+    if (num_frames > used_frames) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // Simulate a single page access 
@@ -33,7 +43,25 @@ bool Replacement::access_page(int page_num, bool is_write)
     // If the page is valid, it calls the touch_page function. 
     // If the page is not valid but free frames are available, it calls the load_page function.
     // If the page is not valid and there is no free frame, it calls the replace_page function.
-    return false;
+    PageEntry& page = page_table[page_num];
+
+    if (page.valid) {   // if page is valid
+        touch_page(page_num);   // call touch_page function
+        return false;   // no page fault
+    } 
+    else {  // page is invalid
+        if (freeFrames) {  // if there are free frames
+            page.valid = true;  // move this into load_page function when defined in subclasses
+            used_frames++; 
+            load_page(page_num);
+        } else {           // if there are no free frames
+            replace_page(page_num);
+            num_replace++;
+        }
+        num_fault++;    // if page is invalid, we have a page fault
+        return true;    // page fault
+    }
+
 }
 
 // Print out statistics of simulation

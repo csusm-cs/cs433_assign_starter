@@ -1,11 +1,10 @@
 /**
 * Assignment 5: Page replacement algorithms
  * @file replacement.h
- * @author ??? (TODO: your name)
+ * @author Zach Miller and Erin Bailey
  * @brief A base class for different page replacement algorithms.
  * @version 0.1
  */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
 // Remember to add sufficient and clear comments to your code
 #pragma once
 
@@ -21,7 +20,12 @@ class Replacement
 protected:      // subclasses can access these members
     // Member variable for the page table
     PageTable page_table;
-	// TODO: Add additional member variables to this class
+	int num_fault = 0,  // number of page faults
+		num_replace = 0,  // number of replacements
+		num_pages = 0,  // number of pages
+		num_frames = 0,  // number of frames
+		used_frames = 0,  // number of used frames
+		used_pages = 0;  // number of used pages
 	
 public:
 	/**
@@ -49,7 +53,7 @@ public:
     virtual bool access_page(int page_num, bool is_write = false);
 
     /**
-	 * @brief Accesss a page alreay in physical memory
+	 * @brief Accesss a page already in physical memory
 	 * It may be overridden in a subclass 
 	 * @param page_num The logical page number.
      */
@@ -84,4 +88,7 @@ public:
 	 * @brief Print the statistics of simulation
 	 */
     void print_statistics() const;
+
+    // returns true if there are free frames present, false if there are none
+    bool freeFrames();
 };
