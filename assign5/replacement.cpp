@@ -22,10 +22,7 @@ Replacement::Replacement(int num_pages, int num_frames) : page_table(num_pages)
 }
 
 // Destructor
-Replacement::~Replacement()
-{
-    // TOOD: Add your code here
-}
+Replacement::~Replacement() {}
 
 // returns true if there are free frames present, false if there are none
 bool Replacement::freeFrames() {
@@ -62,7 +59,11 @@ bool Replacement::access_page(int page_num, bool is_write)
         num_fault++;    // if page is invalid, we have a page fault
         return true;    // page fault
     }
+	counter++;
+}
 
+void Replacement::touch_page(int page_num) {
+	page_table[page_num].last_access = counter;
 }
 
 // Print out statistics of simulation
