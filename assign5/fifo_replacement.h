@@ -19,7 +19,7 @@
  */
 class FIFOReplacement : public Replacement {
 private:
-    unsigned int least_frame = 0; // records the "first" frame used (as frames are replaced this may not be the lowest frame number)
+    int least_frame = 0; // records the "first" frame used (as frames are replaced this may not be the lowest frame number)
 
 public:
     /**
