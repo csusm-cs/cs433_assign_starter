@@ -16,7 +16,8 @@
 Replacement::Replacement(int num_pages, int num_frames) : page_table(num_pages)
 {
 	//TODO: Add your implementation here
-    num_frames = this->num_frames;
+	this->num_frames = num_frames;
+	this->num_pages = num_pages;
     
 }
 
