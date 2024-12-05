@@ -25,7 +25,8 @@ protected:      // subclasses can access these members
 		num_pages = 0,  // number of pages
 		num_frames = 0,  // number of frames
 		used_frames = 0,  // number of used frames
-		used_pages = 0;  // number of used pages
+		used_pages = 0,  // number of used pages
+		counter = 0; // counts number of accesses to measure how long ago a ref was accessed last.
 	
 public:
 	/**
