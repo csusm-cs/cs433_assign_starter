@@ -24,9 +24,9 @@ void LIFOReplacement::load_page(int page_num) {
 // Access an invalid page and no free frames are available
 int LIFOReplacement::replace_page(int page_num) {
 	for(int i = 0; i < num_pages; i++){
-		if(page_table[i].valid == true && page_table[i].frame == greatest_frame){ // if the page is a valid frame ref AND it's frame is least_frame
+		if(page_table[i].valid == true && page_table[i].frame == greatest_frame){ // if the page is a valid frame ref AND it's frame is greatest_frame
 			page_table[i].valid = false;			// make found page invalid
-			page_table[page_num].frame = greatest_frame;	// make new page have the least_frame
+			page_table[page_num].frame = greatest_frame;	// make new page have the greatest_frame
 			page_table[page_num].valid = true;		// make new page valid
 			if(greatest_frame == 0){			// decrements greatest_frame, resets to num_frames if decrement would result in negative value
 				greatest_frame = num_frames - 1;
