@@ -17,8 +17,7 @@
 class SchedulerPriority : public Scheduler {
 private:
     std::deque<PCB> proc_li;
-    std::vector<vector<unsigned int>> times; // vector.at(i) is ith wait time
-    PCB* curr_proc;
+    std::vector<vector<unsigned int>> times; // vector.at(i).at(0) is ith processes wait time, .at(1) is the i'th run time
     unsigned int elapsed_time = 0;
     int count = 0;
     float avg_wait = 0,
@@ -54,6 +53,9 @@ public:
      */
     void simulate() override;
 
+    /**
+     * @brief overload < operator so it works on PCB objects
+     */
     friend bool operator< (PCB A, PCB B);
 
 };

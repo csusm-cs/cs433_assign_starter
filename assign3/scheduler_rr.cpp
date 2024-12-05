@@ -12,16 +12,14 @@
 /**
  * @brief Construct a new SchedulerRR object
  */
-SchedulerRR::SchedulerRR(int time_quantum = 10){
+SchedulerRR::SchedulerRR(int time_quantum){
     this->time_quantum = time_quantum;
 }
 
 /**
  * @brief Destroy the SchedulerRR object
  */
-SchedulerRR::~SchedulerRR() {
-    delete curr_proc;
-}
+SchedulerRR::~SchedulerRR() {}
 
 /**
  * @brief This function is called once before the simulation starts.
@@ -42,13 +40,13 @@ void SchedulerRR::init(std::vector<PCB>& process_list) {
  */
 void SchedulerRR::print_results() {
 
-    for(int i = 0; i < times.size(); i++){
-        int ttime = times.at(i).at(0) + times.at(i).at(1);
-        int wtime = times.at(i).at(1);
+    for(int i = 0; i < count; i++){
+        int ttime = times.at(i).at(0);
+        int wtime = times.at(i).at(0) - times.at(i).at(1);
         avg_turnaround += ttime;
         avg_wait += wtime;
 
-        std::cout << "T" << i << " turn-around time = " << ttime << ", waiting time = " << wtime << std::endl;
+        std::cout << "T" << i + 1 << " turn-around time = " << ttime << ", waiting time = " << wtime << std::endl;
     }
 
     avg_turnaround = avg_turnaround / count;
@@ -63,26 +61,20 @@ void SchedulerRR::print_results() {
  */
 void SchedulerRR::simulate() {
     while(proc_li.size() > 0){
-        curr_proc = &proc_li.front(); // curr_proc holds the highest priority process
-        proc_li.pop_front();          // remove highest priority process from list
-
-        if(time_quantum < curr_proc->burst_time){       // if burst time is longer than the quantum
-            std::cout << "Running Process " << curr_proc->name << " for " << time_quantum << " time units" << std::endl;
+        
+        if(unsigned(time_quantum) < proc_li.front().burst_time){       // if burst time is longer than the quantum
+            std::cout << "Running Process " << proc_li.front().name << " for " << time_quantum << " time units" << std::endl;
             elapsed_time += time_quantum;               // only record passage of the time quantum
-            times.at(curr_proc->id).at(1) += time_quantum;
-            curr_proc->burst_time -= time_quantum;
-            proc_li.push_back(*curr_proc);
-        }else {
-            std::cout << "Running Process " << curr_proc->name << " for " << curr_proc->burst_time << " time units" << std::endl;
-            elapsed_time += curr_proc->burst_time;    // if burst time is shorter, record passage of burst time
-            times.at(curr_proc->id).at(1) += curr_proc->burst_time;
-            curr_proc->burst_time = 0;
-            curr_proc = nullptr;
+            times.at(proc_li.front().id).at(1) += time_quantum;    //record the passage of 1 time_quantum in the i'th runtime
+            proc_li.front().burst_time -= time_quantum;            //decrease the burst time by 1 time_quantum
+            if(proc_li.front().burst_time > 0) proc_li.push_back(proc_li.front());     //push the PCB to the back of the queue if it still has bursttime remaining
+        }else { //if the burst_time is less than the time_quantum
+            std::cout << "Running Process " << proc_li.front().name << " for " << proc_li.front().burst_time << " time units" << std::endl;
+            elapsed_time += proc_li.front().burst_time;    //record passage of remaining burst time
+            times.at(proc_li.front().id).at(1) += proc_li.front().burst_time;    //record passage of remaining bursttime into the i'th runtime
+            proc_li.front().burst_time = 0; //proc is done, make bursttime 0
+            times.at(proc_li.front().id).at(0) = elapsed_time;
         }
-
-
-
-        curr_proc = nullptr;
+        proc_li.pop_front();          // remove highest priority process from list
     }
 }
-
