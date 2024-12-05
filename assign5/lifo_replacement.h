@@ -16,7 +16,7 @@
  */
 class LIFOReplacement : public Replacement {
 private:
-	unsigned int greatest_frame = 0;
+	int greatest_frame = 0;
 
 public:
     /**
