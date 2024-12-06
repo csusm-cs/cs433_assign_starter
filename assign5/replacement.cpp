@@ -18,6 +18,7 @@ Replacement::Replacement(int num_pages, int num_frames) : page_table(num_pages)
 	//TODO: Add your implementation here
 	this->num_frames = num_frames;
 	this->num_pages = num_pages;
+	frames.resize(num_frames, -1);
     
 }
 
@@ -37,21 +38,22 @@ bool Replacement::access_page(int page_num, bool is_write)
 
     if (page.valid) {   // if page is valid
         touch_page(page_num);   // call touch_page function
+        counter++;
         return false;   // no page fault
     } 
     else {  // page is invalid
         if (num_frames > used_frames) {  // if there are more available frames than used frames
             page.valid = true;  // move this into load_page function when defined in subclasses
-            used_frames++; 
             load_page(page_num);
+	    used_frames++;
         } else {           // if there are no free frames
             replace_page(page_num);
-            num_replace++;
+            num_replace++; // counter for the number of page replacements
         }
         num_fault++;    // if page is invalid, we have a page fault
+        counter++;
         return true;    // page fault
     }
-	counter++;
 }
 
 void Replacement::touch_page(int page_num) {
@@ -64,7 +66,7 @@ void Replacement::load_page(int page_num) {}
 // Print out statistics of simulation
 void Replacement::print_statistics() const {
         // TODO: print out the number of references, number of page faults and number of page replacements
-		std::cout << "Number of references: \t\t"  << std::endl;
-		std::cout << "Number of page faults: \t\t" << std::endl;
-		std::cout << "Number of page replacements: \t"  << std::endl;
+		std::cout << "Number of references: \t\t"  << counter << std::endl;
+		std::cout << "Number of page faults: \t\t" << num_fault << std::endl;
+		std::cout << "Number of page replacements: \t"  << num_replace << std::endl;
 }
