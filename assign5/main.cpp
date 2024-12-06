@@ -120,7 +120,11 @@ int main(int argc, char *argv[]) {
     for (std::vector<int>::const_iterator it = large_refs.begin(); it != large_refs.end(); ++it) {
         //cout << a++ << endl;
         int page_num = (*it) >> page_offset_bits;
-        vm2.access_page(page_num, 0);
+        
+        /*bool isPageFault = */vm2.access_page(page_num, 0);
+        //PageEntry pg = vm2.getPageEntry(page_num);
+        //std::cout << "Logical address: " << *it << ", \tpage number: " << page_num;
+        //std::cout << ", \tframe number = " << pg.frame_num << ", \tis page fault? " << isPageFault << std::endl;
     }
     
     vm2.print_statistics();
