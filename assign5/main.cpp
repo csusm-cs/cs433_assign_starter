@@ -95,10 +95,35 @@ int main(int argc, char *argv[]) {
 
     // Test 2: Read and simulate the large list of logical addresses from the input file "large_refs.txt"
     std::cout << "\n================================Test 2==================================================\n";
+    std::ifstream in2;
+    // Open the large reference file
+    in2.open("large_refs.txt");
+    if (!in2.is_open()) {
+        std::cerr << "Cannot open large_refs.txt to read. Please check your path." << std::endl;
+        return 1;
+    }
+    int val2;
+    // Create a vector to store the logical addresses
+    std::vector<int> large_refs;
+    while (in2 >> val2) {
+        large_refs.push_back(val2);
+    }
+    cout << large_refs.size() << endl;
+    in2.close();
 
     std::cout << "****************Simulate FIFO replacement****************************" << std::endl;
     // TODO: Add your code to calculate number of page faults using FIFO replacement algorithm
     // TODO: print the statistics and run-time
+    
+    FIFOReplacement vm2(num_pages, num_frames);
+    //int a = 0;
+    for (std::vector<int>::const_iterator it = large_refs.begin(); it != large_refs.end(); ++it) {
+        //cout << a++ << endl;
+        int page_num = (*it) >> page_offset_bits;
+        vm2.access_page(page_num, 0);
+    }
+    
+    vm2.print_statistics();
 
     std::cout << "****************Simulate LIFO replacement****************************" << std::endl;
     // TODO: Add your code to calculate number of page faults using LIFO replacement algorithm
