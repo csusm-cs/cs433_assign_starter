@@ -18,6 +18,7 @@ Replacement::Replacement(int num_pages, int num_frames) : page_table(num_pages)
 	//TODO: Add your implementation here
 	this->num_frames = num_frames;
 	this->num_pages = num_pages;
+	frames.resize(num_frames, -1);
     
 }
 
@@ -37,20 +38,18 @@ bool Replacement::access_page(int page_num, bool is_write)
 
     if (page.valid) {   // if page is valid
         touch_page(page_num);   // call touch_page function
-	    counter++;
+        counter++;
         return false;   // no page fault
     } 
     else {  // page is invalid
         if (num_frames > used_frames) {  // if there are more available frames than used frames
             page.valid = true;  // move this into load_page function when defined in subclasses
             load_page(page_num);
-			used_frames++;
+	    used_frames++;
         } else {           // if there are no free frames
             replace_page(page_num);
-            num_replace++; // counter for the number of page replacements
         }
-        num_fault++;    // if page is invalid, we have a page fault
-		counter++;
+        counter++;
         return true;    // page fault
     }
 }

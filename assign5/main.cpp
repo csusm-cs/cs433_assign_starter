@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
     while (in2 >> val2) {
         large_refs.push_back(val2);
     }
-    //cout << large_refs[0] << endl;
+    cout << large_refs.size() << endl;
     in2.close();
 
     std::cout << "****************Simulate FIFO replacement****************************" << std::endl;
@@ -116,13 +116,10 @@ int main(int argc, char *argv[]) {
     // TODO: print the statistics and run-time
     
     FIFOReplacement vm2(num_pages, num_frames);
-    
     for (std::vector<int>::const_iterator it = large_refs.begin(); it != large_refs.end(); ++it) {
         int page_num = (*it) >> page_offset_bits;
-        bool isPageFault = vm2.access_page(page_num, 0);
-        PageEntry pg = vm2.getPageEntry(page_num);
-        //std::cout << "Logical address: " << *it << ", \tpage number: " << page_num;
-        //std::cout << ", \tframe number = " << pg.frame_num << ", \tis page fault? " << isPageFault << std::endl;
+        
+        vm2.access_page(page_num, 0);
     }
     
     vm2.print_statistics();
