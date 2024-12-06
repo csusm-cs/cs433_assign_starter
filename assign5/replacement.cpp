@@ -58,6 +58,13 @@ void Replacement::touch_page(int page_num) {
 	page_table[page_num].last_access = counter;
 }
 
+// Access an invalid page, but free frames are available
+void Replacement::load_page(int page_num) {
+  page_table[page_num].frame_num = used_frames;	// used_frames doubles as a frame number recorder here
+    page_table[page_num].valid = true;			// make the new page valid
+	used_frames++;
+}
+
 // Print out statistics of simulation
 void Replacement::print_statistics() const {
         // TODO: print out the number of references, number of page faults and number of page replacements
