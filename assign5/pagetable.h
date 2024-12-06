@@ -49,18 +49,13 @@ public:
 class PageTable
 {
 private:
-    // A page table is like an array of page entries.
-
-	vector<PageEntry>::iterator pageIt;
+    // A page table is an array of page entries.
 	vector<PageEntry> pages;
 public:
 	// Constructor
 	PageTable(int num_pages);
 	// Destructor
 	~PageTable();
-
-    // returns size of the page table
-    int PageTable::getSize();
 	
 	/**
 	* @brief Access a page in the page table.

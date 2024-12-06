@@ -9,8 +9,6 @@
 
 #pragma once
 
-// Remember to add comments to your code
-
 #include "replacement.h"
 
 /**
@@ -18,7 +16,7 @@
  */
 class LIFOReplacement : public Replacement {
 private:
-    // TODO: Add necessary member variables to this class
+	int greatest_frame = 0;
 
 public:
     /**

@@ -19,7 +19,7 @@
  */
 class FIFOReplacement : public Replacement {
 private:
-    // TODO: Add necessary member variables to this class
+    int least_frame = 0; // records the "first" frame used (as frames are replaced this may not be the lowest frame number)
 
 public:
     /**
@@ -47,6 +47,6 @@ public:
      * @param page_num The logical page number.
      * @return Selected victim page #
      */
-    virtual int replace_page(int page_num);
+    virtual int replace_page(int page_num) override;
 
 };

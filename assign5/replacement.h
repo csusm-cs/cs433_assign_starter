@@ -26,6 +26,7 @@ protected:      // subclasses can access these members
 		num_frames = 0,  // number of frames
 		used_frames = 0,  // number of used frames
 		used_pages = 0;  // number of used pages
+	unsigned int counter = 0; // counts number of accesses to measure how long ago a ref was accessed last.
 	
 public:
 	/**
@@ -57,7 +58,7 @@ public:
 	 * It may be overridden in a subclass 
 	 * @param page_num The logical page number.
      */
-    virtual void touch_page(int page_num) {}
+    virtual void touch_page(int page_num);
 
     /**
      * @brief Access an invalid page, but free frames are available.
@@ -65,7 +66,7 @@ public:
      * It may be overridden in a subclass 
      * @param page_num The logical page number.
      */
-    virtual void load_page(int page_num) {}
+    virtual void load_page(int page_num);
 
 
     /**
@@ -88,7 +89,4 @@ public:
 	 * @brief Print the statistics of simulation
 	 */
     void print_statistics() const;
-
-    // returns true if there are free frames present, false if there are none
-    bool freeFrames();
 };
