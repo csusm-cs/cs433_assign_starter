@@ -42,8 +42,8 @@ bool Replacement::access_page(int page_num, bool is_write)
     else {  // page is invalid
         if (num_frames > used_frames) {  // if there are more available frames than used frames
             page.valid = true;  // move this into load_page function when defined in subclasses
-            used_frames++; 
             load_page(page_num);
+			used_frames++; 
         } else {           // if there are no free frames
             replace_page(page_num);
             num_replace++;
