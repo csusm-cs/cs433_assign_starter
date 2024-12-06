@@ -108,6 +108,7 @@ int main(int argc, char *argv[]) {
     while (in >> val2) {
         small_refs.push_back(val2);
     }
+    in2.close();
 
     std::cout << "****************Simulate FIFO replacement****************************" << std::endl;
     // TODO: Add your code to calculate number of page faults using FIFO replacement algorithm
