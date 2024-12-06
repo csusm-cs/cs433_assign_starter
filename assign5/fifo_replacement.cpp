@@ -15,7 +15,10 @@ FIFOReplacement::FIFOReplacement(int num_pages, int num_frames)
 FIFOReplacement::~FIFOReplacement() {}
 
 // Access an invalid page, but free frames are available
-void FIFOReplacement::load_page(int page_num) {}
+void FIFOReplacement::load_page(int page_num) {
+  page_table[page_num].frame_num = used_frames - 1;	// used_frames doubles as a frame number recorder here
+  page_table[page_num].valid = true;			// make the new page valid
+}
 
 // Access an invalid page and no free frames are available
 int FIFOReplacement::replace_page(int page_num) {
