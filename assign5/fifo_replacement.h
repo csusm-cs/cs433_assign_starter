@@ -47,6 +47,6 @@ public:
      * @param page_num The logical page number.
      * @return Selected victim page #
      */
-    virtual int replace_page(int page_num);
+    virtual int replace_page(int page_num) override;
 
 };
