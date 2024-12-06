@@ -20,7 +20,6 @@
 class FIFOReplacement : public Replacement {
 private:
     int least_frame = 0; // records the "first" frame used (as frames are replaced this may not be the lowest frame number)
-    int lower_bound = 0;
 
 public:
     /**
