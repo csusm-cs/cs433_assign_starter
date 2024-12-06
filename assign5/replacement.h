@@ -27,6 +27,7 @@ protected:      // subclasses can access these members
 		used_frames = 0,  // number of used frames
 		used_pages = 0;  // number of used pages
 	unsigned int counter = 0; // counts number of accesses to measure how long ago a ref was accessed last.
+	vector<int> frames;
 	
 public:
 	/**
