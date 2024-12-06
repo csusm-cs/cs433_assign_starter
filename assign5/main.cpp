@@ -95,6 +95,19 @@ int main(int argc, char *argv[]) {
 
     // Test 2: Read and simulate the large list of logical addresses from the input file "large_refs.txt"
     std::cout << "\n================================Test 2==================================================\n";
+    std::ifstream in2;
+    // Open the samll reference file
+    in2.open("large_refs.txt");
+    if (!in2.is_open()) {
+        std::cerr << "Cannot open large_refs.txt to read. Please check your path." << std::endl;
+        return 1;
+    }
+    int val2;
+    // Create a vector to store the logical addresses
+    std::vector<int> large_refs;
+    while (in >> val2) {
+        small_refs.push_back(val2);
+    }
 
     std::cout << "****************Simulate FIFO replacement****************************" << std::endl;
     // TODO: Add your code to calculate number of page faults using FIFO replacement algorithm
