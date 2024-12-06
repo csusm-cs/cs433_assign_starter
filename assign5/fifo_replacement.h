@@ -1,7 +1,7 @@
 /**
 * Assignment 5: Page replacement algorithms
  * @file fifo_replacement.h
- * @author Zach Miller and Erin Bailey
+ * @author ??? (TODO: your name)
  * @brief A class implementing the FIFO page replacement algorithms
  * @version 0.1
  */
