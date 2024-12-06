@@ -48,9 +48,7 @@ bool Replacement::access_page(int page_num, bool is_write)
 	    used_frames++;
         } else {           // if there are no free frames
             replace_page(page_num);
-            num_replace++; // counter for the number of page replacements
         }
-        num_fault++;    // if page is invalid, we have a page fault
         counter++;
         return true;    // page fault
     }
