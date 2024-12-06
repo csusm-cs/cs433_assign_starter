@@ -37,6 +37,7 @@ bool Replacement::access_page(int page_num, bool is_write)
 
     if (page.valid) {   // if page is valid
         touch_page(page_num);   // call touch_page function
+	    counter++;
         return false;   // no page fault
     } 
     else {  // page is invalid
@@ -50,9 +51,9 @@ bool Replacement::access_page(int page_num, bool is_write)
             num_replace++; // counter for the number of page replacements
         }
         num_fault++;    // if page is invalid, we have a page fault
+		counter++;
         return true;    // page fault
     }
-	counter++;
 }
 
 void Replacement::touch_page(int page_num) {
