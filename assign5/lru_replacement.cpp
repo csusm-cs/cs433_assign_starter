@@ -10,32 +10,51 @@
 
 #include "lru_replacement.h"
 
-// TODO: Add your implementation here
+// Constructor
 LRUReplacement::LRUReplacement(int num_pages, int num_frames)
-: Replacement(num_pages, num_frames)
-{
-    // TODO: Complete this constructor
-}
+    : Replacement(num_pages, num_frames) {}
 
-// TODO: Add your implementations for desctructor, touch_page, load_page, replace_page here
-LRUReplacement::~LRUReplacement()
-{
-    // TODO: Add necessary code here
-}
+// Destructor
+LRUReplacement::~LRUReplacement() {}
 
-// Accesss a page alreay in physical memory
-void LRUReplacement::touch_page(int page_num)
-{
-    // TODO: Update your data structure LRU replacement
+// Access a page already in physical memory
+void LRUReplacement::touch_page(int page_num) {
+    // find page in lru_list and move to front
+    lru_list.remove(page_num); 
+    lru_list.push_front(page_num); // add it to front
 }
 
 // Access an invalid page, but free frames are available
 void LRUReplacement::load_page(int page_num) {
-    // TODO: Update your data structure LRU replacement and pagetable
+    num_fault++; // Increment page fault count
+    page_table[page_num].valid = true;
+    page_table[page_num].frame_num = used_frames; // Assign a frame to the page
+    page_table[page_num].last_access = counter;  // Update access time
+
+    // Add the page to the front of the LRU list
+    lru_list.push_front(page_num);
 }
 
 // Access an invalid page and no free frames are available
 int LRUReplacement::replace_page(int page_num) {
-    // TODO: Update your data structure LRU replacement and pagetable
-    return 0;
+    num_fault++;  // Increment page fault count
+    num_replace++; // Increment replacement count
+
+    // least recently used page is at the back of the list, save into lru_page
+    int lru_page = lru_list.back();
+    lru_list.pop_back(); // Remove lru_page from the list
+
+    // set removed page to invalid
+    page_table[lru_page].valid = false;
+    int lru_frame = page_table[lru_page].frame_num;
+
+    // replace removed page with new page
+    frames[lru_frame] = page_num;
+    page_table[page_num].valid = true;
+    page_table[page_num].frame_num = lru_frame;
+
+    // add new page to the front of the LRU list
+    lru_list.push_front(page_num);
+
+    return lru_page;
 }
