@@ -131,5 +131,19 @@ int main(int argc, char *argv[]) {
     std::cout << "****************Simulate LRU replacement****************************" << std::endl;
     // TODO: Add your code to calculate number of page faults using LRU replacement algorithm
     // TODO: print the statistics and run-time
+    LRUReplacement vm4(num_pages, num_frames);
+    // for (std::vector<int>::const_iterator it = large_refs.begin(); it != large_refs.end(); ++it) {
+    //     int page_num = (*it) >> page_offset_bits;
+        
+    //     vm4.access_page(page_num, 0);
+    // }
+    for (size_t i = 0; i < large_refs.size(); ++i) {
+    int page_num = large_refs[i] >> page_offset_bits;
+    if (i % 1000 == 0) { // show progress of test
+        std::cout << "page reference num " << i << "/" << large_refs.size() << std::endl;
+    }
+    vm4.access_page(page_num, 0);
+}
+    vm4.print_statistics();
 
 }
