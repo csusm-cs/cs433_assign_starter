@@ -133,22 +133,38 @@ int main(int argc, char *argv[]) {
 
     std::cout << "****************Simulate LIFO replacement****************************" << std::endl;
     
-     begin = std::chrono::steady_clock::now();
+         begin = std::chrono::steady_clock::now();
+
     
+
     LIFOReplacement vm3(num_pages, num_frames);
+
     for (std::vector<int>::const_iterator it = large_refs.begin(); it != large_refs.end(); ++it) {
+
         int page_num = (*it) >> page_offset_bits;
+
         vm3.access_page(page_num, 0);
+
     }
+
     
+
     end = std::chrono::steady_clock::now();
+
     
+
     elapsed = std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() / 1000000000.0;
+
     
+
     vm3.print_statistics();
+
     
+
     
+
     std::cout << "Elapsed time = " << elapsed << " seconds" << std::endl;
+
 
     std::cout << "****************Simulate LRU replacement****************************" << std::endl;
     // TODO: Add your code to calculate number of page faults using LRU replacement algorithm
