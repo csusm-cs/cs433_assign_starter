@@ -14,6 +14,7 @@
 
 #include "replacement.h"
 #include <list>
+#include <unordered_map>
 
 /**
  * @brief A class to simulate the least recently used (LRU) page replacement algorithm.
@@ -63,8 +64,10 @@ public:
     void removeAtIndex(vector<int>& vec, int index);
 
     private:
-    // A list to maintain LRU order of pages
-    std::vector<int> lru_list;
+    // A list (doubly) to maintain LRU order of pages
+    std::list<int> lru_list;
+
+    std::unordered_map<int, std::list<int>::iterator> page_map;
 
     
 

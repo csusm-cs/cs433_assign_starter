@@ -1,13 +1,3 @@
-/**
-* Assignment 5: Page replacement algorithms
- * @file lru_replacement.cpp
- * @author ??? (TODO: your name)
- * @brief A class implementing the LRU page replacement algorithms
- * @version 0.1
- */
-//You must complete the all parts marked as "TODO". Delete "TODO" after you are done.
-// Remember to add sufficient and clear comments to your code
-
 #include "lru_replacement.h"
 
 // Constructor
@@ -17,45 +7,14 @@ LRUReplacement::LRUReplacement(int num_pages, int num_frames)
 // Destructor
 LRUReplacement::~LRUReplacement() {}
 
-int LRUReplacement::binarySearch(vector<int>& v, int target) {
-    int low = 0, high = v.size() - 1;
-
-    while (low <= high) {
-        int mid = low + (high - low) / 2; // Avoid potential overflow
-        if (v[mid] == target) {
-            return mid; // Return the index of the target
-        }
-        if (v[mid] > target) {
-            high = mid - 1; // Search the left half
-        } else {
-            low = mid + 1; // Search the right half
-        }
-    }
-    return -1; // Target not found
-}
-
-
-
-void LRUReplacement::removeAtIndex(vector<int>& vec, int index) {
-    // Check if the index is valid
-    int size = vec.size();
-    if (index < 0 || index >= size) {
-        return;
-    }
-
-    // Erase the element at the specified index
-    vec.erase(vec.begin() + index);
-}
-
-
-
 // Access a page already in physical memory
 void LRUReplacement::touch_page(int page_num) {
-    // find page in lru_list and move to front
-    int index = binarySearch(lru_list, page_num);  // binary search the lru_list and return index page_num is found in 
-    //lru_list.remove(index); 
-    removeAtIndex(lru_list, index);
-    //lru_list.push_front(index); // add it to front
+    // Remove the page from its current position in the list
+    lru_list.erase(page_map[page_num]);
+    // Move the page to the front of the list (most recently used)
+    lru_list.push_front(page_num);
+    // Update its iterator in the map
+    page_map[page_num] = lru_list.begin();
 }
 
 // Access an invalid page, but free frames are available
@@ -65,33 +24,35 @@ void LRUReplacement::load_page(int page_num) {
     page_table[page_num].frame_num = used_frames; // Assign a frame to the page
     page_table[page_num].last_access = counter;  // Update access time
 
-    // Add the page to the front of the LRU list
-    // lru_list.push_front(page_num);
-    lru_list.insert(lru_list.begin(), page_num);  // add page to front of lru_list
-    
+    // Add the new page to the front of the list
+    lru_list.push_front(page_num);
+    // Store its iterator in the map
+    page_map[page_num] = lru_list.begin();
 }
 
 // Access an invalid page and no free frames are available
 int LRUReplacement::replace_page(int page_num) {
-    num_fault++;  // count page fault 
-    num_replace++; // count replacement
+    num_fault++;  // Increment page fault count
+    num_replace++; // Increment replacement count
 
-    // least recently used page is at the back of the list, save into lru_page
+    // The least recently used page is at the back of the list
     int lru_page = lru_list.back();
-    lru_list.pop_back(); // remove lru_page from the list
+    lru_list.pop_back(); // Remove it from the list
 
-    // set removed page to invalid
+    // Invalidate the evicted page in the page table
     page_table[lru_page].valid = false;
     int lru_frame = page_table[lru_page].frame_num;
 
-    // replace removed page with new page
+    // Replace the evicted page with the new page
     frames[lru_frame] = page_num;
     page_table[page_num].valid = true;
     page_table[page_num].frame_num = lru_frame;
+    page_table[page_num].last_access = counter;
 
-    // add new page to the front of the LRU list
-    // lru_list.push_front(page_num);
-    lru_list.insert(lru_list.begin(), page_num);  // add page to front of lru_list
+    // Add the new page to the front of the list
+    lru_list.push_front(page_num);
+    // Update its iterator in the map
+    page_map[page_num] = lru_list.begin();
 
-    return lru_page;
+    return lru_page; // Return the evicted page
 }
