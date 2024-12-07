@@ -164,9 +164,7 @@ int main(int argc, char *argv[]) {
     }
     
     end = std::chrono::steady_clock::now();
-    
     elapsed = std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() / 1000000000.0;
-    
     vm4.print_statistics();
     
     
