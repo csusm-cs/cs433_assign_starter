@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <vector>
+#include <chrono>
 
 #include "fifo_replacement.h"
 #include "lru_replacement.h"
@@ -108,42 +109,67 @@ int main(int argc, char *argv[]) {
     while (in2 >> val2) {
         large_refs.push_back(val2);
     }
-    cout << large_refs.size() << endl;
     in2.close();
-
+  
+    float elapsed = 0.0;
+    std::cout << "Total number of references: " << large_refs.size() << std::endl;
     std::cout << "****************Simulate FIFO replacement****************************" << std::endl;
-    // TODO: Add your code to calculate number of page faults using FIFO replacement algorithm
-    // TODO: print the statistics and run-time
+    
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     
     FIFOReplacement vm2(num_pages, num_frames);
     for (std::vector<int>::const_iterator it = large_refs.begin(); it != large_refs.end(); ++it) {
         int page_num = (*it) >> page_offset_bits;
-        
         vm2.access_page(page_num, 0);
     }
     
+    
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    
     vm2.print_statistics();
+    
+    elapsed = std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() / 1000000000.0;
+    std::cout << "Elapsed time = " << elapsed << " seconds" << std::endl;
 
     std::cout << "****************Simulate LIFO replacement****************************" << std::endl;
-    // TODO: Add your code to calculate number of page faults using LIFO replacement algorithm
-    // TODO: print the statistics and run-time
+    
+     begin = std::chrono::steady_clock::now();
+    
+    LIFOReplacement vm3(num_pages, num_frames);
+    for (std::vector<int>::const_iterator it = large_refs.begin(); it != large_refs.end(); ++it) {
+        int page_num = (*it) >> page_offset_bits;
+        vm3.access_page(page_num, 0);
+    }
+    
+    end = std::chrono::steady_clock::now();
+    
+    elapsed = std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() / 1000000000.0;
+    
+    vm3.print_statistics();
+    
+    
+    std::cout << "Elapsed time = " << elapsed << " seconds" << std::endl;
 
     std::cout << "****************Simulate LRU replacement****************************" << std::endl;
     // TODO: Add your code to calculate number of page faults using LRU replacement algorithm
     // TODO: print the statistics and run-time
+    
+    
+    begin = std::chrono::steady_clock::now();
+    
     LRUReplacement vm4(num_pages, num_frames);
-    // for (std::vector<int>::const_iterator it = large_refs.begin(); it != large_refs.end(); ++it) {
-    //     int page_num = (*it) >> page_offset_bits;
-        
-    //     vm4.access_page(page_num, 0);
-    // }
-    for (size_t i = 0; i < large_refs.size(); ++i) {
-    int page_num = large_refs[i] >> page_offset_bits;
-    if (i % 1000 == 0) { // show progress of test
-        std::cout << "page reference num " << i << "/" << large_refs.size() << std::endl;
+    for (std::vector<int>::const_iterator it = large_refs.begin(); it != large_refs.end(); ++it) {
+        int page_num = (*it) >> page_offset_bits;
+        vm4.access_page(page_num, 0);
     }
-    vm4.access_page(page_num, 0);
-}
+    
+    end = std::chrono::steady_clock::now();
+    
+    elapsed = std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() / 1000000000.0;
+    
     vm4.print_statistics();
-
-}
+    
+    
+    std::cout << "Elapsed time = " << elapsed << " seconds" << std::endl;
+    
+} 

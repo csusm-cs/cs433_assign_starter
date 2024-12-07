@@ -58,9 +58,14 @@ public:
      */
     virtual int replace_page(int page_num);
 
+    int binarySearch(vector<int>&, int target);
+
+    void removeAtIndex(vector<int>& vec, int index);
+
     private:
     // A list to maintain LRU order of pages
-    std::list<int> lru_list;
+    std::vector<int> lru_list;
 
+    
 
 };
