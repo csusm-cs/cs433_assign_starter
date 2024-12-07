@@ -1,3 +1,10 @@
+/**
+* Assignment 5: Page replacement algorithms
+ * @file lru_replacement.h
+ * @author Zach Miller and Erin Bailey
+ * @brief A class implementing the LRU page replacement algorithms
+ * @version 0.1
+ */
 #include "lru_replacement.h"
 
 // Constructor
@@ -9,50 +16,50 @@ LRUReplacement::~LRUReplacement() {}
 
 // Access a page already in physical memory
 void LRUReplacement::touch_page(int page_num) {
-    // Remove the page from its current position in the list
+    // remove the page from its current position in the list
     lru_list.erase(page_map[page_num]);
-    // Move the page to the front of the list (most recently used)
+    // move page to the front of the list (most recently used)
     lru_list.push_front(page_num);
-    // Update its iterator in the map
+    // update its iterator in the map
     page_map[page_num] = lru_list.begin();
 }
 
 // Access an invalid page, but free frames are available
 void LRUReplacement::load_page(int page_num) {
-    num_fault++; // Increment page fault count
+    num_fault++; // increment page fault count
     page_table[page_num].valid = true;
-    page_table[page_num].frame_num = used_frames; // Assign a frame to the page
-    page_table[page_num].last_access = counter;  // Update access time
+    page_table[page_num].frame_num = used_frames; // assign a frame to the page
+    page_table[page_num].last_access = counter;  // update access time
 
-    // Add the new page to the front of the list
+    // add the new page to the front of the list
     lru_list.push_front(page_num);
-    // Store its iterator in the map
+    // store its iterator in the map
     page_map[page_num] = lru_list.begin();
 }
 
-// Access an invalid page and no free frames are available
+// access an invalid page and no free frames are available
 int LRUReplacement::replace_page(int page_num) {
-    num_fault++;  // Increment page fault count
-    num_replace++; // Increment replacement count
+    num_fault++;  // increment page fault count
+    num_replace++; // increment replacement count
 
-    // The least recently used page is at the back of the list
+    // the least recently used page is at the back of the list
     int lru_page = lru_list.back();
-    lru_list.pop_back(); // Remove it from the list
+    lru_list.pop_back(); // remove it from the list
 
-    // Invalidate the evicted page in the page table
+    // invalidate the evicted page in the page table
     page_table[lru_page].valid = false;
     int lru_frame = page_table[lru_page].frame_num;
 
-    // Replace the evicted page with the new page
+    // replace the removed page with the new page
     frames[lru_frame] = page_num;
     page_table[page_num].valid = true;
     page_table[page_num].frame_num = lru_frame;
     page_table[page_num].last_access = counter;
 
-    // Add the new page to the front of the list
+    // add the new page to the front of the list
     lru_list.push_front(page_num);
-    // Update its iterator in the map
+    // update its iterator in the map
     page_map[page_num] = lru_list.begin();
 
-    return lru_page; // Return the evicted page
+    return lru_page; // return the removed page
 }

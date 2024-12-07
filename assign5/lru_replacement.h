@@ -1,7 +1,7 @@
 /**
 * Assignment 5: Page replacement algorithms
  * @file lru_replacement.h
- * @author ??? (TODO: your name)
+ * @author Zach Miller and Erin Bailey
  * @brief A class implementing the LRU page replacement algorithms
  * @version 0.1
  */
